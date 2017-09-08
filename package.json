@@ -1,7 +1,7 @@
 {
   "name": "node-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "repository": "https://github.com/webtjw/node-server.git",
   "author": "kawi",
   "license": "MIT"
