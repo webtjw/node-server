@@ -1,9 +1,15 @@
 // node module
 let http = require('http'),
+  path = require('path'),
   fs = require('fs');
 
 // custom variable
 const port = 8000;
+
+global.RootPath = path.resolve('');
+
+let HtmlMaker = require('./tookits/htmlMaker.js');
+HtmlMaker();
 
 // simple server
 const simpleServer = http.createServer((request, response) => {
