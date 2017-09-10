@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="./style/jianli.css">
+  <link rel="stylesheet" type="text/css" href="./style/flex.css">
+</head>
+<body>
+  <div class="wrapper p-20">
+    <!-- 头部信息 -->
+    <header class="border-bottom">
+      <div flex="dir:left">
+        <!-- 头像 -->
+        <div class="avatar p-h-20" flex-box="0">
+          <img src="./images/avatar.png" alt="">
+        </div>
+        <div class="p-l-20" flex="dir:top" flex-box="1">
+          <!-- 姓名+职位 -->
+          <div class="" flex-box="0">
+            <h2 class="font-24">谭家威 <span class="font-13">中级前端开发工程师</span></h2>
+          </div>
+          <!-- 详细信息列表 -->
+          <ul class="detail-list font-13 p-v-20" flex-box="1">
+            <li flex="dir:left cross:center">
+              <img class="label-icon m-r-6" src="./images/birthday.png" alt="">
+              <div>出生年月 - <span>1993年10月</span></div>
+            </li>
+            <li flex="dir:left cross:center">
+              <img class="label-icon m-r-6" src="./images/mobile.png" alt="">
+              <div>手机号码 - <span>17620709976</span></div>
+            </li>
+            <li flex="dir:left cross:center">
+              <img class="label-icon m-r-6" src="./images/email.png" alt="">
+              <div>email - <span>webtjw@foxmail.com</span></div>
+            </li>
+            <li flex="dir:left cross:center">
+              <img class="label-icon m-r-6" src="./images/college.png" alt="">
+              <div>毕业院校 - <span>华南理工大学</span></div>
+            </li>
+            <li flex="dir:left cross:center">
+              <img class="label-icon m-r-6" src="./images/xueli.png" alt="">
+              <div>学历 - <span>本科学士</span></div>
+            </li>
+            <li flex="dir:left cross:center">
+              <img class="label-icon m-r-6" src="./images/zhuanye.png" alt="">
+              <div>专业 - <span>信息工程</span></div>
+            </li>
+            <li flex="dir:left cross:center">
+              <img class="label-icon m-r-6" src="./images/cet.png" alt="">
+              <div>英文水平 - <span>CET-4</span></div>
+            </li>
+            <li flex="dir:left cross:center">
+              <img class="label-icon m-r-6" src="./images/jiguan.png" alt="">
+              <div>籍贯 - <span>广东罗定</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- 职业技能 -->
+    <div class="m-wrapper p-t-40 p-b-20">
+      <h2 class="p-v-5 p-h-20 font-18">职业技能 <span class="font-13">/ Professional Skills</span></h2>
+      <ul class="number-list p-h-20 p-t-20 font-14">
+        <li class="p-v-5">1，熟悉 HTML5 页面开发，语义化，设计稿重构，熟悉常用 WebApi；熟悉 HTTP，页面加载和渲染过程；熟悉页面性能优化；</li>
+        <li class="p-v-5">2，熟悉 CSS3 编程，熟悉 Sass，Less 等预编译语言，熟悉 CSS 开发规范和性能优化，CSS3 动画，PC 和移动设备兼容性处理等；熟悉自适应页面开发，多屏适配等；</li>
+        <li class="p-v-5">3，熟悉 JavaScript 编程，熟悉 ES6，ES7 等常用语法，有基础算法经验和数据处理经验；</li>
+        <li class="p-v-5">4，熟悉 React 全家桶（react+redux）开发，熟悉单页应用开发，页面组件结构设计和开发，模块化开发；</li>
+        <li class="p-v-5">5，熟悉 Vue 全家桶开发，搭配各种社区开源 repo 开发项目；</li>
+        <li class="p-v-5">6，熟悉前后端交互，熟悉 Node.js，有 Node + mysql 的简单后端开发经验，了解后端一些基本概念；</li>
+        <li class="p-v-5">7，熟悉 Gulp，webpack 等构建打包工具，能够搭建配置项目生产与开发环境；</li>
+        <li class="p-v-5">8，了解前端项目结构配置，熟悉代码组织过程设计，代码解耦与维护，业务 UI 层级分离等；</li>
+        <li class="p-v-5">9，熟悉 Git；</li>
+        <li class="p-v-5">10，学习新知识足够快，有良好的编码习惯和风格，可以较好阅读英文文档。</li>
+      </ul>
+    </div>
+    <!-- 工作经验 -->
+    <div class="m-wrapper work p-t-40">
+      <h2 class="p-v-5 p-h-20 font-18 m-b-20">工作经验 <span class="font-13">/ Working Experience</span></h2>
+      <div class="job-list">
+        <!-- 单项工作经验 -->
+        <div class="work-item p-b-30 p-r-20 p-l-40 font-14">
+          <div flex="dir:left cross:center" class="p-b-20">
+            <div flex-box="1">2017.3 – 至今</div>
+            <div flex-box="1">北京恒拓高飞航空技术有限公司</div>
+            <div flex-box="0">移动开发事业部 / 中级H5开发</div>
+          </div>
+          <!-- <p>目前我主要负责海南航空订票APP混合开发中的H5部分业务代码，期间也有做过国航的SOC系统，川航的航班信息系统，无限极的移动OA系统，南航客舱系统，基本上前端技术栈都是围绕React和Vue2去展开的。工作内容和开发技术都是随着项目技术走的。</p> -->
+          <p>我主要负责公司外包的海南航空APP项目中 H5 SPA 的部分工作，包括业务模块，功能模块，复用组件的开发维护，实现 PM 和业务的需求；与原生同学协调和共同开发功能；设计实现了 APP 中部分业务功能需求的方案等等。主要用到的技术栈是 react + redux + immutable + flex.css 等。</p>
+          <p>除了海南航空 APP，我还参与了无限极公司的移动 OA 系统开发，川航的航班信息系统，国航的运控配载 SOC 系统，南航客舱服务信息系统等，以上的项目基本都是基于 vue 技术栈的敏捷开发类型项目。</p>
+        </div>
+        <!-- 单项工作经验 -->
+        <div class="work-item p-b-30 p-r-20 p-l-40 font-14">
+          <div flex="dir:left cross:center" class="p-b-20">
+            <div flex-box="1">2015.11 – 2017.1</div>
+            <div flex-box="1">广州市阿拉丁电子商务有限公司</div>
+            <div flex-box="0">技术部 / 前端开发工程师</div>
+          </div>
+          <p>我主要负责公司照明电商平台“阿拉丁商城” PC 端和移动端和照明门户网站“阿拉丁照明网”，主要工作内容还是根据设计给出的设计稿，进行页面重构，PC 端兼容 IE7+，移动端兼容主流设备；使用 jquery（zepto）开发各种页面交互功能，使用 ajax 进行前后端数据交互；同时我也负责网页性能优化工作，主要是 javascript 代码性能优化，jquery 插件开发，css 性能优化，缓存数据等。</p>
+          <p>此外，我还负责公司 EDM 的开发，并制作了一份 EDM 制作规范，其他开发者根据这份规范可以制作出兼容性良好的页面。</p>
+        </div>
+        <!-- 单项工作经验 -->
+        <div class="work-item p-b-30 p-r-20 p-l-40 font-14">
+          <div flex="dir:left cross:center" class="p-b-20">
+            <div flex-box="1">2015.07 — 2015.9</div>
+            <div flex-box="1">深圳市莫尚照明有限公司</div>
+            <div flex-box="0">技术支持部 / （实习）前端开发工程师</div>
+          </div>
+          <p>使用初学的 HTML，CSS 和 JavaScript 知识，搭建公司企业站，包括有企业首页，产品列表页，联系方式页等等，并使页面兼容当时主流浏览器。</p>
+        </div>
+      </div>
+    </div>
+    <!-- 项目经验 -->
+    <div class="m-wrapper p-t-40">
+      <h2 class="p-v-5 p-h-20 font-18 m-b-20">项目经验 <span class="font-13">/ Projects Experience</span></h2>
+      <!-- 单个项目 -->
+      <div class="project-item p-b-20">
+        <div flex="dir:left main:center cross:center">
+          <img class="m-r-6" src="./images/project.png" alt="">
+          <h3 class="bold">海南航空 APP</h3>
+        </div>
+        <div class="font-12 p-t-10 a-c">
+          <span>中级前端开发工程师</span> · <span>2017.05 - 至今</span>
+        </div>
+        <div class="p-20">
+          <div class="p-b-10 bold">项目简介：</div>
+          <p>这个是海南航空的官方 APP，是一个 Hybrid APP，APP 内许多页面是由 H5 这边提供的。H5 项目做了多个环境的配置，可以分别给 web，微信，Hybrid 环境打相应的包。H5 是基于 react 开发的单页应用。</p>
+          
+          <div class="p-t-20 p-b-10 bold">工作内容：</div>
+          <ul>
+            <li>1，负责 Hybrid APP 中的 H5 部分代码开发，联调安卓和 IOS，使用 dsbridge 作为原生桥，提供原生部分功能支持；</li>
+            <li>2，负责 APP 内乘机人模块，退票模块，金鹏卡会员模块，web 支付宝支付，预定模块部分等具体业务的开发和维护；</li>
+            <li>3，独立设计开发了会员安全性验证模块，该模块是一个通用的功能模块；</li>
+            <li>4，针对 APP 缓存机制的不合理情况，在缓存操作中加入了 proxy，自动过滤不合理的操作；</li>
+            <li>5，改造了弹窗组件的实现方式，提高它的组件层级，并配合原生支持，使物理后退键可以监测和关闭弹窗；</li>
+            <li>6，创建公共校验文件，根据业务需求，抽取 APP 内表单校验的条件，使得功能文件职责单一，提高表单校验的维护性；</li>
+            <li>7，负责 ajax 数据的业务拦截处理，ajax 和 loading 框的关系处理封装，ajax 在 SPA 中的体验优化；</li>
+            <li>8，使用折半选择排序和冒泡等算法优化 APP 内部分列表的排序结果等。</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 单个项目 -->
+      <div class="project-item p-t-20 p-b-10">
+        <div flex="dir:left main:center cross:center">
+          <img class="m-r-6" src="./images/project.png" alt="">
+          <h3 class="bold">南航客舱服务信息系统</h3>
+        </div>
+        <div class="font-12 p-t-10 a-c">
+          <span>中级前端开发工程师</span> · <span>2017.08 - 2017.09</span>
+        </div>
+        <div class="p-20">
+          <div class="p-b-10 bold">项目简介：</div>
+          <p>该系统主要提供给空务使用，内嵌在南航客舱移动 APP 内，记录了空务人员的任务航班和计划航班，提供航班信息，旅客详细信息，值机情况等，记录航班任务执行情况和完成进度等。H5 这边是用 vue 开发的 SPA。</p>
+          
+          <div class="p-t-20 p-b-20 bold">工作内容：</div>
+          <ul>
+            <li>1，使用 Vue2 和 MuseUI 开发页面组件和复用组件；</li>
+            <li>2，航班旅客信息数据处理，旅客排序算法实现，旅客信息输入过滤功能等；</li>
+            <li>3，公共复用部分开发，如 SVG 注入组件，页面组件 mixin 设计，封装 vuex 和 api 处理，暴露页面接口等等；</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

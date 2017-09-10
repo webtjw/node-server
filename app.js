@@ -9,7 +9,10 @@ const port = 8000;
 global.RootPath = path.resolve('');
 
 let HtmlMaker = require('./tookits/htmlMaker.js');
-HtmlMaker();
+HtmlMaker(function (data) {
+  console.log(data)
+})
+console.log('jiawei')
 
 // simple server
 const simpleServer = http.createServer((request, response) => {
