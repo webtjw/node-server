@@ -40,3 +40,4 @@ body { font: 14px/1.2 Consolas,'Microsoft Yahei',"宋体"; color: #7f7f7f;}
 .project-item p { text-indent: 2em;}
 .project-item img { width: 22px; height: 22px;}
 .project-item li { text-indent: 2em;}
+.se-list li { list-style-type: square; list-style-position: inside; line-height: 1.6;}
