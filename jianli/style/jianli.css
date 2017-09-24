@@ -13,16 +13,16 @@ ul, li { list-style-type: none;}
 .m-b-20 { margin-bottom: 20px;}
 .m-v-20 { margin-top: 20px; margin-bottom: 20px;}
 
-.font-12 { font-size: 12px;}.font-13 { font-size: 13px;}.font-14 { font-size: 14px;}.font-16 { font-size: 16px;}.font-18 { font-size: 18px;}.font-24 { font-size: 24px;}
+.font-12 { font-size: 12px;}.font-13 { font-size: 13px;}.font-14 { font-size: 14px;}.font-16 { font-size: 16px;}.font-18 { font-size: 18px;}.font-20 { font-size: 20px;}.font-30 { font-size: 30px;}
 .bold { font-weight: 700;}
 
 .a-c { text-align: center;}
 
 .border-bottom { border-bottom: 1px solid #bbb;}
 
-body { font: 14px/1.2 Consolas,'Microsoft Yahei',"宋体"; color: #7f7f7f;}
+body { font: 18px/1.2 Consolas,'Microsoft Yahei',"宋体"; color: #7f7f7f;}
 .wrapper { width: 1000px; margin: 0 auto; background: #fff;}
-.m-wrapper { width: 80%; margin: 0 auto;}
+.m-wrapper { width: 90%; margin: 0 auto;}
 .job-list { position: relative;}
 .job-list::before { content: ""; display: block; height: 100%; width: 1px; position: absolute; left: 15px; top: 0; background: #bbb;}
 .avatar img { width: 80px; height: 80px; border-radius: 50%;}
