@@ -4,5 +4,12 @@
   "main": "app.js",
   "repository": "https://github.com/webtjw/node-server.git",
   "author": "kawi",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-router": "^7.2.1"
+  }
 }
