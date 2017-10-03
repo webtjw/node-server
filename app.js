@@ -6,20 +6,17 @@ const Koa = require('koa');
 const Router = require('koa-router');
 
 const app = new Koa();
-const router = new Router({prefix: '/api'});
 
-router.all('/jiawei', (context, next) => {
-  console.log('jiawei');
-})
+// router list
+const apiRouter = require('./modules/api/router');
+app.use(apiRouter.routes());
 
-// custom variable
-const port = 8000;
-app.use(router.routes());
-
+// error handle
 app.on('error', err => {
   log.error('server error', err)
 });
 
+const port = 8000;
 app.listen(port);
 
 // log info
