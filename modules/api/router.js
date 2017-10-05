@@ -4,7 +4,8 @@ const apiRouter = new KoaRouter({prefix: '/api'});
 
 apiRouter.get('/article', (context, next) => {
   console.log('article');
-  context.response = 'hello';
+  context.request;
+  context.response;
 })
 
 module.exports = apiRouter;

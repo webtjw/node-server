@@ -13,7 +13,7 @@ app.use(apiRouter.routes());
 
 // error handle
 app.on('error', err => {
-  log.error('server error', err)
+  console.error('server error', err)
 });
 
 const port = 8000;
