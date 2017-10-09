@@ -7,7 +7,7 @@ const Router = require('koa-router');
 
 const app = new Koa();
 
-// router list
+// router article
 const apiRouter = require('./modules/api/router');
 app.use(apiRouter.routes());
 
@@ -15,6 +15,8 @@ app.use(apiRouter.routes());
 app.on('error', err => {
   console.error('server error', err)
 });
+
+const database = require('./database/db');
 
 const port = 8000;
 app.listen(port);
