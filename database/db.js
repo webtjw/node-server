@@ -7,6 +7,6 @@ var database = mysql.createPool({
   connectionLimit: 10
 });
 
-connection.connect(err => console.error(err));
+database.connect(err => console.error(err));
 
 module.exports = database;

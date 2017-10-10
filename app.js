@@ -8,7 +8,7 @@ const Router = require('koa-router');
 const app = new Koa();
 
 // router article
-const apiRouter = require('./modules/api/router');
+const apiRouter = require('./api/router');
 app.use(apiRouter.routes());
 
 // error handle
@@ -22,4 +22,4 @@ const port = 8000;
 app.listen(port);
 
 // log info
-console.log(`Server running at http://127.0.0.1:${port}/`); 
+console.log(`Server running at http://127.0.0.1:${port}/`);
