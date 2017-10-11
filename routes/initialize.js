@@ -8,7 +8,7 @@ const RouterKit = {
     this.app = server;
     // normal routes
     this.initNormalRouter();
-    // static resources
+    // statics resources
     this.initStatics();
     // 404 page
     this.init404();
@@ -29,7 +29,7 @@ const RouterKit = {
     })
   },
   initStatics () {
-    this.app.use(require('koa-static')(path.resolve(__dirname, '../static'), {
+    this.app.use(require('koa-static')(path.resolve(__dirname, '../statics'), {
       maxage: 1000 * 60 * 60 * 24 * 1 // 1 day
     }));
   },
@@ -37,4 +37,5 @@ const RouterKit = {
     console.error('server error ===> ', err);
   }
 };
+
 module.exports = RouterKit;
