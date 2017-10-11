@@ -1,10 +1,9 @@
-let path = require('path');
+const path = require('path'),
+  Koa = require('koa');
+
 global.RootPath = path.resolve('');
 
-// node lib
 const Koa = require('koa');
-const Router = require('koa-router');
-
 const app = new Koa();
 
 // routes
