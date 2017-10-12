@@ -1,0 +1,25 @@
+.w-1000 { width: 1000px; margin: 0 auto;}
+
+// 边距，以 2 为步进
+@for $i from 1 through 30 {
+  $dis: $i * 2;
+  $valiable: ($i * 2rem / 16);
+  .m-t-#{$dis} {margin-top: $valiable;}
+  .m-l-#{$dis} {margin-left: $valiable;}
+  .m-r-#{$dis} {margin-right: $valiable;}
+  .m-b-#{$dis} {margin-bottom: $valiable;}
+  .m-h-#{$dis} {margin-left: $valiable; margin-right: $valiable;}
+  .m-v-#{$dis} {margin-top: $valiable; margin-bottom: $valiable;}
+  .m-#{$dis} {margin-top: $valiable; margin-bottom: $valiable; margin-left: $valiable; margin-right: $valiable;}
+
+  .p-t-#{$dis} {padding-top: $valiable;}
+  .p-l-#{$dis} {padding-left: $valiable;}
+  .p-r-#{$dis} {padding-right: $valiable;}
+  .p-b-#{$dis} {padding-bottom: $valiable;}
+  .p-h-#{$dis} {padding-left: $valiable; padding-right: $valiable;}
+  .p-v-#{$dis} {padding-top: $valiable; padding-bottom: $valiable;}
+  .p-#{$dis} {padding-top: $valiable; padding-bottom: $valiable; padding-left: $valiable; padding-right: $valiable;}
+}
+
+// 文字对齐
+.ta-c { text-align: center;}.ta-r { text-align: right;}.ta-l { text-align: left;}
