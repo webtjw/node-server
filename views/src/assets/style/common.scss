@@ -3,7 +3,7 @@
 // 边距，以 2 为步进
 @for $i from 1 through 30 {
   $dis: $i * 2;
-  $valiable: ($i * 2rem / 16);
+  $valiable: ($dis * 1rem / 16);
   .m-t-#{$dis} {margin-top: $valiable;}
   .m-l-#{$dis} {margin-left: $valiable;}
   .m-r-#{$dis} {margin-right: $valiable;}
@@ -22,4 +22,9 @@
 }
 
 // 文字对齐
-.ta-c { text-align: center;}.ta-r { text-align: right;}.ta-l { text-align: left;}
+.a-c { text-align: center;}.a-r { text-align: right;}.a-l { text-align: left;}
+// 字体大小
+@for $i from 5 through 20 {
+  $size: ($i * 2rem / 16);
+  .font-#{$size} { font-size: $size;}
+}
