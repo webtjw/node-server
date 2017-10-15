@@ -9,7 +9,6 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "flex.css": "^1.1.7",
     "koa": "^2.3.0",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="c-normal">
     <top-bar></top-bar>
     <router-view />
   </div>
@@ -9,13 +9,15 @@
   import TopBar from './components/common/TopBar'
   
   export default {
-    name: 'app',
+    name: 'App',
     components: {
       TopBar
     }
   }
 </script>
 
-<style>
-
+<style lang="scss">
+  @import './assets/style/app-reset.scss';
+  @import './assets/style/common.scss';
+  @import '../node_modules/flex.css/dist/flex.css';
 </style>

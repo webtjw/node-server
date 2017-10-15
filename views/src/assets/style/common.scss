@@ -1,9 +1,9 @@
-.w-1000 { width: 1000px; margin: 0 auto;}
+.w-1000 { width: 900px; margin: 0 auto;}
 
 // 边距，以 2 为步进
 @for $i from 1 through 30 {
   $dis: $i * 2;
-  $valiable: ($dis * 1rem / 16);
+  $valiable: ($dis * 1px);
   .m-t-#{$dis} {margin-top: $valiable;}
   .m-l-#{$dis} {margin-left: $valiable;}
   .m-r-#{$dis} {margin-right: $valiable;}
@@ -23,8 +23,29 @@
 
 // 文字对齐
 .a-c { text-align: center;}.a-r { text-align: right;}.a-l { text-align: left;}
+
 // 字体大小
+.font-0 { font-size: 0;}
 @for $i from 5 through 20 {
-  $size: ($i * 2rem / 16);
-  .font-#{$size} { font-size: $size;}
+  $size: ($i * 2);
+  .font-#{$size} { font-size: $size * 1px;}
 }
+
+// 行距
+@for $i from 5 through 10 {
+  $size: ($i / 5);
+  .lh-#{$size * 10} { line-height: $size;}
+}
+
+// 颜色
+$normal_color: #ddd;
+.c-normal { color: $normal_color;}.c-gray { color: $normal_color * 2;}
+
+// display
+.block { display: block;}.iblock { display: inline-block;}.inline { display: inline;}.hide { display: none;}
+
+// 链接样式
+.hover-orange:hover { color: #EE7600;}
+
+// position
+.absolute { position: absolute;}.relative { position: relative;}.fixed { position: fixed;}
