@@ -38,8 +38,8 @@
 }
 
 // 颜色
-$normal_color: #ddd;
-.c-normal { color: $normal_color;}.c-gray { color: $normal_color * 2;}
+$normal_color: #444d54;
+.c-normal { color: $normal_color;}.c-gray { color: $normal_color * 1.5;}
 
 // display
 .block { display: block;}.iblock { display: inline-block;}.inline { display: inline;}.hide { display: none;}
@@ -49,3 +49,6 @@ $normal_color: #ddd;
 
 // position
 .absolute { position: absolute;}.relative { position: relative;}.fixed { position: fixed;}
+
+// 边框
+.border { border: 1px solid #ddd;}

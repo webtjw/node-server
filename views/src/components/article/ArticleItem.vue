@@ -1,11 +1,11 @@
 <template>
   <article>
-    <h2 class="a-c">{{article.title}}</h2>
-    <div class="a-c m-v-10 c-gray">
-      <span class="font-12 m-r-30">作者：{{article.author}}</span>
-      <span class="font-12">时间：{{article.date}}</span>
+    <h2 class="a-c font-24">{{article.title}}</h2>
+    <div class="a-c m-v-14 c-gray font-12">
+      <span class="m-r-30">作者：{{article.author}}</span>
+      <span>时间：{{article.date}}</span>
     </div>
-    <div v-html="article.content" class="font-14 lh-16 article-content m-t-30"></div>
+    <div v-html="article.content" class="font-16 lh-16 article-content m-t-30"></div>
   </article>
 </template>
 
