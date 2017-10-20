@@ -1,17 +1,17 @@
 <template>
-  <div id="app" class="c-normal">
-    <top-bar></top-bar>
-    <router-view />
+  <div id="app" class="w-1000" flex="dir:left">
+    <side-bar></side-bar>
+    <router-view flex-box="1" />
   </div>
 </template>
 
 <script>
-  import TopBar from './components/common/TopBar'
+  import SideBar from './components/common/SideBar'
   
   export default {
     name: 'App',
     components: {
-      TopBar
+      SideBar
     }
   }
 </script>
