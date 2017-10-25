@@ -7,7 +7,7 @@ import App from './App'
 import router from './router'
 
 // project initialize
-import Initialization from './kits/Initialization'
+import Initialization from './toolkits/Initialization'
 Initialization.init()
 
 Vue.config.productionTip = false
