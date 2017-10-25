@@ -41,13 +41,16 @@
 $color_normal: #444d54; // 字体普通颜色
 $color_fe: #fefefe; // 字体淡灰色
 $color_fff: #fff;
+$color_333: #333;
 $color_fe: #fefefe;
 $color_ed: #ededed;
 .c-normal { color: $color_normal;}
 .c-gray { color: $color_normal * 1.5;}
+.c-fff { color: $color_fff;}
 
 // 背景色
 .bg-fff { background-color: $color_fff;}
+.bg-333 { background-color: $color_333;}
 
 // display
 .block { display: block;}.iblock { display: inline-block;}.inline { display: inline;}.hide { display: none;}

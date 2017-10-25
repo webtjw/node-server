@@ -1,12 +1,13 @@
 <template>
   <div class="m-v-40">
-    <h2 class="font-26">归档<span class="font-14 m-l-8">/ archives</span></h2>
+    <page-header zh="归档" en="Archives"></page-header>
     <archive-month v-for="(month, key) of articleList" :key="key" :monthData="month"></archive-month>
   </div>
 </template>
 
 <script>
   import ArchiveMonth from './ArchiveMonth'
+  import PageHeader from '../common/PageHeader'
 
   export default {
     data () {
@@ -47,7 +48,8 @@
       ]
     },
     components: {
-      ArchiveMonth
+      ArchiveMonth,
+      PageHeader
     }
   }
 </script>
