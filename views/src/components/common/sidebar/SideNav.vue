@@ -1,5 +1,5 @@
 <template>
-  <div class="a-r p-20">
+  <div class="a-r p-v-30">
     <side-nav-item v-for="item of navList" :key="item.name" :item="item"></side-nav-item>
   </div>
 </template>

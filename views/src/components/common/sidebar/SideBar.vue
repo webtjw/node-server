@@ -1,7 +1,9 @@
 <template>
   <div class="side-bar" flex-box="0">
-    <side-introduction></side-introduction>
-    <side-nav></side-nav>
+    <div class="fixed">
+      <side-introduction></side-introduction>
+      <side-nav></side-nav>
+    </div>
   </div>
 </template>
 
@@ -18,6 +20,14 @@
   }
 </script>
 
-<style lang="sass" scoped>
-  .side-bar { width: 200px;}
+<style lang="scss" scoped>
+  .side-bar {
+    width: 280px;
+    padding-right: 60px;
+
+    .fixed {
+      top: 0;
+      width: 220px;
+    }
+  }
 </style>

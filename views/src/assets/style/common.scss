@@ -1,4 +1,4 @@
-.w-1000 { width: 1000px; margin: 0 auto;}
+.w-1100 { width: 1100px; margin: 0 auto;}
 
 // 边距，以 2 为步进
 @for $i from 1 through 30 {
@@ -38,8 +38,16 @@
 }
 
 // 颜色
-$normal_color: #444d54;
-.c-normal { color: $normal_color;}.c-gray { color: $normal_color * 1.5;}
+$color_normal: #444d54; // 字体普通颜色
+$color_fe: #fefefe; // 字体淡灰色
+$color_fff: #fff;
+$color_fe: #fefefe;
+$color_ed: #ededed;
+.c-normal { color: $color_normal;}
+.c-gray { color: $color_normal * 1.5;}
+
+// 背景色
+.bg-fff { background-color: $color_fff;}
 
 // display
 .block { display: block;}.iblock { display: inline-block;}.inline { display: inline;}.hide { display: none;}
@@ -51,4 +59,5 @@ $normal_color: #444d54;
 .absolute { position: absolute;}.relative { position: relative;}.fixed { position: fixed;}
 
 // 边框
-.border { border: 1px solid #ddd;}
+.border-ddd { border: 1px solid #ddd;}
+.border-fff { border: 1px solid #fff;}

@@ -1,7 +1,9 @@
 <template>
-  <router-link :to="item.path" class="iblock m-h-6 p-h-2 p-v-2 hover-orange c-normal nav-link relative">
-    {{item.name}}
-  </router-link>
+  <div class="a-c">
+    <router-link :to="item.path" class="iblock font-14 m-v-10 p-h-6 hover-orange c-normal nav-link relative">
+      {{item.name}}
+    </router-link>
+  </div>
 </template>
 
 <script>
