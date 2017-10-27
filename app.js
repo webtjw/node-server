@@ -5,6 +5,8 @@ global.RootPath = path.resolve('');
 
 const app = new Koa();
 
+app.use(require('koa-bodyparser')());
+
 // router init
 require('./routes/initialize').init(app);
 
