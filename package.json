@@ -15,8 +15,5 @@
     "koa-static": "^4.0.1",
     "mysql": "^2.15.0"
   },
-  "devDependencies": {
-    "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6"
-  }
+  "devDependencies": {}
 }
