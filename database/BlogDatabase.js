@@ -11,12 +11,13 @@ let pool2blog = mysql.createPool({
 
 let BlogDatabase = {
   queryLatestArticle (number) {
+    console.log(number)
     return new Promise((resolve, reject) => {
       pool2blog.query(`select * from article order by id desc limit ${number}`, DBUtils.orginizeResult(data => {
         if (data.success) resolve(data);
         else reject(data);
       }));
-    })
+    }).catch(e => console.log(e))
   },
   querySpecificArticle (id) {
     return new Promise((resolve, reject) => {

@@ -4,7 +4,7 @@ const BlogDatabase = require('../database/BlogDatabase');
 const apiRouter = new KoaRouter({prefix: '/api'});
 
 apiRouter.get('/article/latest', async (ctx, next) => {
-  let result = await BlogQuery.queryLatestArticle(ctx.query.length || 1);
+  let result = await BlogDatabase.queryLatestArticle(ctx.query.length || 1);
   ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
   ctx.response.type = 'application/json';
   ctx.response.body = result;
@@ -25,7 +25,7 @@ apiRouter.get('/article/latest', async (ctx, next) => {
   ctx.response.type = 'application/json';
   ctx.response.body = result;
 })
-.get('/article/:id', async (ctx, next) => {
+.get('/article/detail/:id', async (ctx, next) => {
   let id = ctx.params.id;
   let result = await BlogDatabase.querySpecificArticle(id);
 
