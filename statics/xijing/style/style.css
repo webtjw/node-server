@@ -1,0 +1,19 @@
+
+* { margin: 0; padding: 0;}
+img { max-width: 100%;}
+li { list-style-type: none;}
+.bg-fff { background-color: #fff;}
+.a-c { text-align: center;}
+
+
+
+html, body, .scroller { width: 100%; height: 100%; overflow: hidden;}
+.page { background-size: 100% 100%;}
+.height-50 { height: 50%;}
+.xiix-img { width: 300px; margin: 40px 0 0; border: 1px solid #999; border-radius: 4px;}
+.xiix-qs { margin: 20px 0 40px; font-size: 22px; padding: 0 5%;}
+.select-item { width: 80%; font-size: 15px; background-color: #f8cb43; margin: 20px auto; padding: 12px;}
+#number { color: rgb(239, 181, 3); font-size: 50px; transform: rotate(-10deg) translateY(-10px); margin-left: 20px;}
+#r-text { padding: 0 30px; line-height: 1.8;}
+.do-you-mean { background: url(../images/11.jpg) no-repeat bottom right; background-size: 110px 110px;}
+.yellow-bg { background-color: #f8cb43; padding: 30px 0 20px; margin: 10px 10px 0; border-radius: 10px;}
