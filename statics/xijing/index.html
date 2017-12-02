@@ -119,7 +119,6 @@
         sum += parseInt($(this).data('point') ,10);
 
         if ($(this).parent().parent().index() === last) {
-          sum = 22;
           $('#number').text(sum + 64);
           var text = resultText[Math.floor((((sum - 14) / 42) + 0.08) * 10)];
           $('#r-text').text(text);
