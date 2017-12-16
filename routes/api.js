@@ -10,7 +10,7 @@ apiRouter.get('/article/latest', async (ctx, next) => {
   ctx.response.body = result;
 })
 .options('/article/save', (ctx) => {
-  ctx.response.status = 204;
+  ctx.response.status = 200;
   ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
   ctx.set('Access-Control-Allow-Headers', 'content-type');
   ctx.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
