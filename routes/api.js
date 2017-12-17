@@ -9,7 +9,11 @@ apiRouter.get('/article/latest', async (ctx, next) => {
   ctx.response.type = 'application/json';
   ctx.response.body = result;
 })
+<<<<<<< HEAD
 .options('/article/save', (ctx) => {
+=======
+.options('/article/save', ctx => {
+>>>>>>> 1980ed9f7cc0eecc71519f6d50989c15610f03e7
   ctx.response.status = 200;
   ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
   ctx.set('Access-Control-Allow-Headers', 'content-type');
