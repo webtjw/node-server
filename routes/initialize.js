@@ -35,7 +35,7 @@ const RouterKit = {
       maxage: 1000 * 60 * 60 * 24 * 1 // 1 day
     }));
   },
-  errorDealing (error) {
+  errorDealing (err) {
     console.error('server error ===> ', err);
   }
 };
