@@ -47,7 +47,7 @@ let ioHandler = {
   },
   addArticle (article) {
     return new Promise((resolve, reject) => {
-      pool2blog.query(`insert into article (title,author,date,content) values ('${article.title}','${article.author || ''}','${article.time}','${article.content}')`, DBUtils.orginizeResult(result => {
+      pool2blog.query(`insert into article (title,author,category,tags,time,codeText) values ('${article.title}','${article.author}','${article.category}','${article.tags}','${article.time}','${article.content}')`, DBUtils.orginizeResult(result => {
         if (result.success) {
           resolve({
             success: true,
