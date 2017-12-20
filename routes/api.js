@@ -24,8 +24,7 @@ apiRouter.get('/article/latest', async (ctx, next) => {
   let result = null;
   
   if (title && tags && tags.length > 0 && codeText && category) {
-    // format data
-    article.time = moment().format('YYYY-MM-D');
+    article.time = moment().format('YYYY-MM-D'); // yyyy-mm-dd
 
     // when id is lacking, it means adding new article
     if (!id) {
@@ -35,6 +34,8 @@ apiRouter.get('/article/latest', async (ctx, next) => {
       result = await database.updateArticle(article);
     }
 
+
+  } else {
 
   }
 
