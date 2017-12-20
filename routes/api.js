@@ -1,5 +1,6 @@
 const KoaRouter = require('koa-router');
-const ioHandler = require('../database/ioHandler');
+const database = require('../database/database');
+const moment = require('moment');
 // prefix
 const apiRouter = new KoaRouter({prefix: '/api'});
 
@@ -12,7 +13,7 @@ apiRouter.options('*', ctx => {
 })
 
 apiRouter.get('/article/latest', async (ctx, next) => {
-  let result = await ioHandler.queryLatestArticle(ctx.query.length || 1);
+  let result = await database.queryLatestArticle(ctx.query.length || 1);
   ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
   ctx.response.type = 'application/json';
   ctx.response.body = result;
@@ -23,22 +24,31 @@ apiRouter.get('/article/latest', async (ctx, next) => {
   let result = null;
   
   if (title && tags && tags.length > 0 && codeText && category) {
+    // format data
+    article.time = moment().format('YYYY-MM-D');
+
     // when id is lacking, it means adding new article
     if (!id) {
-      result = await ioHandler.addArticle(article);
+      result = await database.addArticle(article);
     } else {
       // otherwise, it means editing exitsed article
+      result = await database.updateArticle(article);
     }
+
+
   }
 
   ctx.set('Access-Control-Allow-Origin', '*'); // cors
   ctx.set('Access-Control-Allow-Methods', 'POST');
   ctx.response.type = 'application/json';
-  ctx.response.body = result;
+  ctx.response.body = {
+    success: result.success,
+    data: result.success ? {id: result.data.insertId} : result.data
+  };
 })
 .post('/login', async (ctx, next) => {
   let data = ctx.request.body;
-  let result = await ioHandler.queryToken(data.token);
+  let result = await database.queryToken(data.token);
   
 
   ctx.set('Access-Control-Allow-Origin', '*'); // cors
@@ -63,7 +73,7 @@ apiRouter.get('/article/latest', async (ctx, next) => {
 })
 .get('/article/detail/:id', async (ctx, next) => {
   let id = ctx.params.id;
-  let result = await ioHandler.querySpecificArticle(id);
+  let result = await database.querySpecificArticle(id);
 
   ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
   ctx.response.type = 'application/json';
