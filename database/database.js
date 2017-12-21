@@ -67,6 +67,7 @@ let database = {
             if (updateResult.success && queryResult.data.length && Array.isArray(queryResult.data)) {
               updateResult.origin = queryResult.data[0];
               resolve(updateResult);
+              console.log(`[update article] [${article.title}] success`);
             } else reject(updateResult);
           });
         } else reject(queryResult);
@@ -84,7 +85,10 @@ let database = {
    */
   addArticle (article) {
     return new Promise((resolve, reject) => {
-      database.query(`insert into article (title,category,tags,time,codeText) values ('${article.title}','${article.category}','${article.tags}','${article.time}','${article.codeText}')`, result => resolve(result));
+      database.query(`insert into article (title,category,tags,time,codeText) values ('${article.title}','${article.category}','${article.tags}','${article.time}','${article.codeText}')`, result => {
+        resolve(result);
+        console.log(`[add article] [${article.title}] success`);
+      });
     });
   },
   // 查询 token
@@ -112,8 +116,8 @@ let database = {
           })
         } else {
           database.query(`insert into category (name, number) values ('${key}', 1)`, updateResult => {
-            if (updateResult.success) console.log(`[create category] [${key}] done.`)
-            else console.warn(`[create category] [${key}] failed.`)
+            if (updateResult.success) console.log(`[insert category] [${key}] done.`)
+            else console.warn(`[insert category] [${key}] failed.`)
           })
         }
       });
@@ -130,8 +134,8 @@ let database = {
             });
           } else {
             database.query(`insert into tags (name, number) values ('${key}', 1)`, updateResult => {
-              if (updateResult.success) console.log(`[create tags] [${key}] done.`);
-              else console.warn(`[create tags] [${key}] failed.`)
+              if (updateResult.success) console.log(`[insert tags] [${key}] done.`);
+              else console.warn(`[insert tags] [${key}] failed.`)
             });
           }
         } else console.error(`[update tags] [${key}] failed.`);

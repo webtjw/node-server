@@ -3,7 +3,6 @@ const database = require('../database/database');
 
 let saveArticle = async (ctx, next) => {
   ctx.set('Access-Control-Allow-Methods', 'POST');
-  ctx.set('Access-Control-Allow-Origin', '*');
   ctx.response.type = 'application/json';
 
   let result = await saveArticleHandler(ctx.request.body);
