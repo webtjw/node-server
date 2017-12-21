@@ -1,6 +1,7 @@
 const KoaRouter = require('koa-router');
 const database = require('../database/database');
 const moment = require('moment');
+const {saveArticle} = require('../modules/article');
 // prefix
 const apiRouter = new KoaRouter({prefix: '/api'});
 
@@ -53,46 +54,6 @@ apiRouter.get('/article/latest', async (ctx, next) => {
 })
 
 
-/**
- * @param article: Object
- * @param article.id: Number
- * @param article.title: required String
- * @param article.author: String
- * @param article.category: required String
- * @param article.tags: required Array
- * @param article.codeText: required String
- */
-apiRouter.post('/article/save', async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Methods', 'POST');
-  ctx.response.type = 'application/json';
-  
-  let article = ctx.request.body;
-  let {title, tags, codeText, category, id} = article;
-  let result = null;
-  
-  if (title && tags && tags.length > 0 && codeText && category) {
-    article.time = moment().format('YYYY-MM-D'); // yyyy-mm-dd
-
-    // If id exists, it means adding article.
-    // Otherwise it is editing article. The return result contains the previous article's category and tags, so I can use them to compare with new's to get the number.
-    if (!id) {
-      result = await database.addArticle(article);
-    }
-    else result = await database.updateArticle(article);
-
-
-
-
-  } else {
-    ctx.
-  }
-
-  
-  ctx.response.type = 'application/json';
-  ctx.response.body = {
-    success: result.success,
-    data: result.success ? {id: result.data.insertId} : result.data
-  };
-})
+apiRouter.post('/article/save', saveArticle);
 
 module.exports = apiRouter;

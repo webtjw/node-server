@@ -47,15 +47,29 @@ let database = {
       })
     })
   },
-  // 更新某篇文章
+  /**
+   * 更新文章
+   * @param article: Object
+   * @param article.id: required Number
+   * @param article.title: required String
+   * @param article.author: String 
+   * @param article.category: required String
+   * @param article.tags: required Array
+   * @param article.codeText: required String
+   */
   updateArticle (article) {
     return new Promise((resolve, reject) => {
-      let tags = article.tags;
-      article.tags = tags.toString();
+      let tags = article.tags.toString();
 
-      database.query(`update article set title='${article.title}',author='${article.author || ''}',category='${article.category}',tags='${article.tags}',time='${article.time}',codeText='${article.codeText}' where id=${article.id}`, result => {
-        if (result.success) resolve(result);
-        else reject(result);
+      database.query(`select * from article where id=${article.id}`, queryResult => {
+        if (queryResult.success) {
+          database.query(`update article set title='${article.title}',author='${article.author || ''}',category='${article.category}',tags='${tags}',time='${article.time}',codeText='${article.codeText}' where id=${article.id}`, updateResult => {
+            if (updateResult.success && queryResult.data.length && Array.isArray(queryResult.data)) {
+              updateResult.origin = queryResult.data[0];
+              resolve(updateResult);
+            } else reject(updateResult);
+          });
+        } else reject(queryResult);
       })
     })
   },
