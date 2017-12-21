@@ -59,7 +59,15 @@ let database = {
       })
     })
   },
-  // 新增文章
+  /**
+   * 新增文章
+   * @param article: Object
+   * @param article.title: required String
+   * @param article.author: String 
+   * @param article.category: required String
+   * @param article.tags: required Array
+   * @param article.codeText: required String
+   */
   addArticle (article) {
     return new Promise((resolve, reject) => {
       let tags = article.tags;
@@ -127,5 +135,7 @@ let database = {
     })
   }
 };
+
+database.
 
 module.exports = database;
