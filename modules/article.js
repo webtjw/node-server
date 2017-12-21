@@ -1,14 +1,16 @@
 const moment = require('moment');
+const database = require('../database/database');
 
 let saveArticle = async (ctx, next) => {
   ctx.set('Access-Control-Allow-Methods', 'POST');
+  ctx.set('Access-Control-Allow-Origin', '*');
   ctx.response.type = 'application/json';
 
   let result = await saveArticleHandler(ctx.request.body);
 
   ctx.response.body = {
     success: result.success,
-    data: result.success ? {id: result.data.insertId} : result.data
+    data: result.success ? {id: result.data.id} : result.data
   };
 }
 
@@ -28,7 +30,7 @@ let saveArticleHandler = async function (article) {
   let categoryChange = {};
   let tagsChange = {};
 
-  if (title && tags && tags.length > 0 && codeText && category) {
+  if (title && tags && tags.length > 0 && Array.isArray(tags) && codeText && category) {
     article.time = moment().format('YYYY-MM-D'); // yyyy-mm-dd
 
     // If id exists, it means adding article.
@@ -38,6 +40,7 @@ let saveArticleHandler = async function (article) {
 
       if (result.success) {
         categoryChange[category] = 1;
+        tags.forEach(item => tagsChange[item] = 1);
       }
     } else {
       result = await database.updateArticle(article);
@@ -47,21 +50,32 @@ let saveArticleHandler = async function (article) {
           categoryChange[category] = 1;
           categoryChange[result.origin.category] = -1;
         }
+
+        tags.forEach(item => tagsChange[item] = 1);
+        result.origin.tags.split(',').forEach(item => {
+          if (tagsChange[item]) delete tagsChange[item];
+          else tagsChange[item] = -1;
+        })
       }
     }
 
+    // meanwhile, update other 2 table
     if (result.success) {
-      await database.updateCategory({[category]: 1});
+      database.updateCategory(categoryChange);
+      database.updateTags(tagsChange);
     }
 
-
-
-
-  } else {
-    ctx.
+    return {
+      success: true,
+      data: {id: result.data.insertId},
+      message: '保存成功'
+    }
+  } else return {
+    success: false,
+    data: null,
+    message: 'wrong params'
   }
 }
-
 
 module.exports = {
   saveArticle

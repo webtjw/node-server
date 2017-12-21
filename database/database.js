@@ -84,20 +84,7 @@ let database = {
    */
   addArticle (article) {
     return new Promise((resolve, reject) => {
-      let tags = article.tags;
-      article.tags = tags.toString();
-
-      database.query(`insert into article (title,category,tags,time,codeText) values ('${article.title}','${article.category}','${article.tags}','${article.time}','${article.codeText}')`, result => {
-        resolve(result);
-
-        if (result.success) {
-          database.updateCategory(article.category, 1);
-          tags = tags.map(item => {
-            return {name: item, type: 1}
-          });
-          database.updateTags(tags);
-        }
-      })
+      database.query(`insert into article (title,category,tags,time,codeText) values ('${article.title}','${article.category}','${article.tags}','${article.time}','${article.codeText}')`, result => resolve(result));
     });
   },
   // 查询 token
@@ -109,47 +96,48 @@ let database = {
       })
     })
   },
-  // 更新 category
-  updateCategory (category, type) {
-    if (category) {
-      database.query(`select * from category where name='${category}'`, result => {
-        // same category has been counted in table
-        if (result.success && result.data.length && Array.isArray(result.data)) {
-          database.query(`update category set number=${result.data[0].number + type} where name='${category}'`, updateResult => {
-            if (updateResult.success) logger.log(`[update category] [${category}] done.`)
-            else logger.warn(`[update category] [${category}] failed.`)
+  /**
+   * 更新 category
+   * @param category: Object
+   */
+  updateCategory (category) {
+    for (let key of Object.keys(category)) {
+      database.query(`select * from category where name='${key}'`, queryResult => {
+        // If same category has been counted in table
+        // Otherwise, i should create one.
+        if (queryResult.success && queryResult.data.length && Array.isArray(queryResult.data)) {
+          database.query(`update category set number=${queryResult.data[0].number + category[key]} where name='${key}'`, updateResult => {
+            if (updateResult.success) console.log(`[update category] [${key}] done.`)
+            else console.warn(`[update category] [${key}] failed.`)
           })
         } else {
-          // there's no same category so i should create one.
-          database.query(`insert into category (name, number) values ('${category}', 1)`, updateResult => {
-            if (updateResult.success) logger.log(`[create category] [${category}] done.`)
-            else logger.warn(`[create category] [${category}] failed.`)
+          database.query(`insert into category (name, number) values ('${key}', 1)`, updateResult => {
+            if (updateResult.success) console.log(`[create category] [${key}] done.`)
+            else console.warn(`[create category] [${key}] failed.`)
           })
         }
       });
-    } else logger.error(`[update category] failed for not passing params.`)
+    }
   },
   updateTags (tags) {
-    tags && tags.forEach((item, index) => {
-      database.query(`select * from tags where name='${item.name}'`, result => {
-        if (result.success) {
-          if (result.data && result.data.length && Array.isArray(result.data)) {
-            database.query(`update tags set number=${result.data[0].number + item.type}`, updateResult => {
-              if (updateResult.success) logger.log(`[update tags] [${item.name}] done.`);
-              else logger.warn(`[update tags] [${item.name}] failed.`)
+    for (let key of Object.keys(tags)) {
+      database.query(`select * from tags where name='${key}'`, queryResult => {
+        if (queryResult.success) {
+          if (queryResult.data && queryResult.data.length && Array.isArray(queryResult.data)) {
+            database.query(`update tags set number=${queryResult.data[0].number + tags[key]}`, updateResult => {
+              if (updateResult.success) console.log(`[update tags] [${key}] done.`);
+              else console.warn(`[update tags] [${key}] failed.`)
             });
           } else {
-            database.query(`insert into tags (name, number) values ('${item.name}', 1)`, updateResult => {
-              if (updateResult.success) logger.log(`[create tags] [${item.name}] done.`);
-              else logger.warn(`[create tags] [${item.name}] failed.`)
+            database.query(`insert into tags (name, number) values ('${key}', 1)`, updateResult => {
+              if (updateResult.success) console.log(`[create tags] [${key}] done.`);
+              else console.warn(`[create tags] [${key}] failed.`)
             });
           }
-        } else logger.error(`[update tags] [${item.name}] failed.`);
+        } else console.error(`[update tags] [${key}] failed.`);
       })
-    })
+    }
   }
 };
-
-database.
 
 module.exports = database;
