@@ -1,7 +1,7 @@
 const KoaRouter = require('koa-router');
 const database = require('../database/database');
-const moment = require('moment');
-const {saveArticle} = require('../modules/article');
+const moment = require('moment'); 
+const {saveArticle, queryTagsAndCategories} = require('../modules/article');
 
 // prefix
 const apiRouter = new KoaRouter({prefix: '/api'});
@@ -45,7 +45,7 @@ apiRouter.get('/article/latest', async (ctx, next) => {
   }
   
 })
-.get('/article/detail/:id', async (ctx, next) => {
+.get('/articled/detail/:id', async (ctx, next) => {
   let id = ctx.params.id;
   let result = await database.querySpecificArticle(id);
 
@@ -56,5 +56,6 @@ apiRouter.get('/article/latest', async (ctx, next) => {
 
 
 apiRouter.post('/article/save', saveArticle);
+apiRouter.post('/article/tagsAndCategory', queryTagsAndCategories);
 
 module.exports = apiRouter;

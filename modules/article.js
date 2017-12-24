@@ -76,6 +76,35 @@ let saveArticleHandler = async function (article) {
   }
 }
 
+let queryTagsAndCategories = async (ctx, next) => {
+  ctx.set('Access-Control-Allow-Methods', 'POST');
+  ctx.response.type = 'application/json';
+
+  let {categories, tags} = await queryTagsAndCategoriesHandler(ctx.request.body);
+
+  ctx.response.body = {
+    success: categories && tags,
+    data: {categories, tags}
+  };
+}
+
+let queryTagsAndCategoriesHandler = async () => {
+  let categories = null;
+  let tags = null;
+
+  database.query(`select id,name from category`, queryResult => {
+    console.log(1)
+    if (queryResult.success) categories = queryResult.data;
+  })
+  console.log(2)
+  database.query(`select id,name from tags`, queryResult => {
+    if (queryResult.success) tags = queryResult.data;
+  })
+
+  return {categories, tags}
+}
+
 module.exports = {
-  saveArticle
+  saveArticle,
+  queryTagsAndCategories
 };
