@@ -1,11 +1,13 @@
 const moment = require('moment');
 const database = require('../database/database');
 
+
 let saveArticle = async (ctx, next) => {
+
   ctx.set('Access-Control-Allow-Methods', 'POST');
   ctx.response.type = 'application/json';
 
-  let result = await saveArticleHandler(ctx.request.body);
+  let result = saveArticleHandler(ctx.request.body);
 
   ctx.response.body = {
     success: result.success,
@@ -24,12 +26,14 @@ let saveArticle = async (ctx, next) => {
  * @param article.codeText: required String
  */
 let saveArticleHandler = async function (article) {
-  let {title, tags, codeText, category, id} = article;
-  let result = null;
-  let categoryChange = {};
-  let tagsChange = {};
+  
+  let {title, tags, codeText, category, id} = article,
+    data = null,
+    result = null,
+    categoryChange = {},
+    tagsChange = {};
 
-  if (title && tags && tags.length > 0 && Array.isArray(tags) && codeText && category) {
+  if (title && tags && Array.isArray(tags) && tags.length > 0 && codeText && category) {
     article.time = moment().format('YYYY-MM-D'); // yyyy-mm-dd
 
     // If id exists, it means adding article.
@@ -62,49 +66,51 @@ let saveArticleHandler = async function (article) {
     if (result.success) {
       database.updateCategory(categoryChange);
       database.updateTags(tagsChange);
-    }
 
-    return {
-      success: true,
-      data: {id: result.data.insertId},
-      message: '保存成功'
+      return {
+        success: true,
+        data: {id: result.data.insertId},
+        message: 'Save successfully'
+      }
+    } else {
+      return {
+        success: false,
+        data: null,
+        message: 'Save failed'
+      }
     }
-  } else return {
+  } else data = {
     success: false,
     data: null,
     message: 'wrong params'
   }
 }
 
-let queryTagsAndCategories = async (ctx, next) => {
+let queryAttributes = async (ctx, next) => {
   ctx.set('Access-Control-Allow-Methods', 'POST');
   ctx.response.type = 'application/json';
 
-  let {categories, tags} = await queryTagsAndCategoriesHandler(ctx.request.body);
+  let {categories, tags} = await queryAttributesHandler();
 
   ctx.response.body = {
-    success: categories && tags,
+    success: Boolean(categories && tags),
     data: {categories, tags}
   };
 }
 
-let queryTagsAndCategoriesHandler = async () => {
-  let categories = null;
-  let tags = null;
+let queryAttributesHandler = async () => {
+  let result1 = await database.queryCategories();
+  let result2 = await database.queryTags();
 
-  database.query(`select id,name from category`, queryResult => {
-    console.log(1)
-    if (queryResult.success) categories = queryResult.data;
-  })
-  console.log(2)
-  database.query(`select id,name from tags`, queryResult => {
-    if (queryResult.success) tags = queryResult.data;
-  })
-
-  return {categories, tags}
+  return {
+    categories: result1.success ? result1.data : null,
+    tags: result2.success ? result2.data : null
+  }
 }
+
+
 
 module.exports = {
   saveArticle,
-  queryTagsAndCategories
+  queryAttributes
 };

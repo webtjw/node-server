@@ -12,22 +12,21 @@ let pool2blog = mysql.createPool({
 });
 
 let database = {
-  // 封装好的执行 sql 语句操作
-  query (sql, callback) {
-    pool2blog.query(sql, (mysqlError, result, fields) => {
-      if (mysqlError) {
-        logger.error(mysqlError.toString());
-        callback({
+  async query (sql) {
+    return new Promise((resolve, reject) => {
+      pool2blog.query(sql, (mysqlError, result, fields) => {
+        if (mysqlError) resolve({
           success: false,
-          data: mysqlError.sqlMessage || '数据库查询操作失败'
+          data: null,
+          message: mysqlError.sqlMessage || '数据库查询操作失败'
         });
-      } else {
-        callback({
+        else resolve({
           success: true,
-          data: result
+          data: result,
+          message: ''
         });
-      }
-    })
+      })
+    });
   },
   // 查询最新的文章
   queryLatestArticle (number) {
@@ -39,13 +38,9 @@ let database = {
     })
   },
   // 查询某篇文章
-  querySpecificArticle (id) {
-    return new Promise((resolve, reject) => {
-      database.query(`select * from article where id=${id}`, result => {
-        if (result.success) resolve(result);
-        else reject(result);
-      })
-    })
+  queryArticle (id) {
+    let result = database.query(`select * from article where id=${id}`);
+    return result;
   },
   /**
    * 更新文章
@@ -57,22 +52,16 @@ let database = {
    * @param article.tags: required Array
    * @param article.codeText: required String
    */
-  updateArticle (article) {
-    return new Promise((resolve, reject) => {
-      let tags = article.tags.toString();
+  async updateArticle (article) {
+    let tags = article.tags.toString();
 
-      database.query(`select * from article where id=${article.id}`, queryResult => {
-        if (queryResult.success) {
-          database.query(`update article set title='${article.title}',author='${article.author || ''}',category='${article.category}',tags='${tags}',time='${article.time}',codeText='${article.codeText}' where id=${article.id}`, updateResult => {
-            if (updateResult.success && queryResult.data.length && Array.isArray(queryResult.data)) {
-              updateResult.origin = queryResult.data[0];
-              resolve(updateResult);
-              console.log(`[update article] [${article.title}] success`);
-            } else reject(updateResult);
-          });
-        } else reject(queryResult);
-      })
-    })
+    let queryResult = await database.queryArticle(article.id);
+
+    let updateResult = await database.query(`update article set title='${article.title}',author='${article.author || ''}',category='${article.category}',tags='${tags}',time='${article.time}',codeText='${article.codeText}' where id=${article.id}`);
+    
+    if (queryResult.success && queryResult.data) updateResult.origin = queryResult.data;
+
+    return updateResult;
   },
   /**
    * 新增文章
@@ -83,13 +72,9 @@ let database = {
    * @param article.tags: required Array
    * @param article.codeText: required String
    */
-  addArticle (article) {
-    return new Promise((resolve, reject) => {
-      database.query(`insert into article (title,category,tags,time,codeText) values ('${article.title}','${article.category}','${article.tags}','${article.time}','${article.codeText}')`, result => {
-        resolve(result);
-        console.log(`[add article] [${article.title}] success`);
-      });
-    });
+  async addArticle (article) {
+    let result = await database.query(`insert into article (title,category,tags,time,codeText) values ('${article.title}','${article.category}','${article.tags}','${article.time}','${article.codeText}')`);
+    return result;
   },
   // 查询 token
   queryToken (token) {
@@ -104,43 +89,33 @@ let database = {
    * 更新 category
    * @param category: Object
    */
-  updateCategory (category) {
+  async updateCategory (category) {
     for (let key of Object.keys(category)) {
-      database.query(`select * from category where name='${key}'`, queryResult => {
-        // If same category has been counted in table
-        // Otherwise, i should create one.
-        if (queryResult.success && queryResult.data.length && Array.isArray(queryResult.data)) {
-          database.query(`update category set number=${queryResult.data[0].number + category[key]} where name='${key}'`, updateResult => {
-            if (updateResult.success) console.log(`[update category] [${key}] done.`)
-            else console.warn(`[update category] [${key}] failed.`)
-          })
-        } else {
-          database.query(`insert into category (name, number) values ('${key}', 1)`, updateResult => {
-            if (updateResult.success) console.log(`[insert category] [${key}] done.`)
-            else console.warn(`[insert category] [${key}] failed.`)
-          })
-        }
-      });
+      let queryResult = await database.query(`select * from category where name="${key}"`);
+
+      if (queryResult.success) {
+        if (queryResult.data && Array.isArray(queryResult.data) && queryResult.data.length) database.query(`update category set number=${queryResult.data[0].number + category[key]} where name='${key}'`);
+        else database.query(`insert into category (name, number) values ('${key}', 1)`);
+      }
     }
   },
-  updateTags (tags) {
+  async updateTags (tags) {
     for (let key of Object.keys(tags)) {
-      database.query(`select * from tags where name='${key}'`, queryResult => {
-        if (queryResult.success) {
-          if (queryResult.data && queryResult.data.length && Array.isArray(queryResult.data)) {
-            database.query(`update tags set number=${queryResult.data[0].number + tags[key]}`, updateResult => {
-              if (updateResult.success) console.log(`[update tags] [${key}] done.`);
-              else console.warn(`[update tags] [${key}] failed.`)
-            });
-          } else {
-            database.query(`insert into tags (name, number) values ('${key}', 1)`, updateResult => {
-              if (updateResult.success) console.log(`[insert tags] [${key}] done.`);
-              else console.warn(`[insert tags] [${key}] failed.`)
-            });
-          }
-        } else console.error(`[update tags] [${key}] failed.`);
-      })
+      let queryResult = await database.query(`select * from tags where name='${key}'`);
+
+      if (queryResult.success) {
+        if (queryResult.data && queryResult.data.length && Array.isArray(queryResult.data)) database.query(`update tags set number=${queryResult.data[0].number + tags[key]}`);
+        else database.query(`insert into tags (name, number) values ('${key}', 1)`);
+      }
     }
+  },
+  async queryCategories () {
+    let result = await database.query(`select id,name from category`);
+    return result;
+  },
+  async queryTags () {
+    let result = await database.query(`select id,name from tags`);
+    return result;
   }
 };
 
