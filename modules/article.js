@@ -108,6 +108,10 @@ let queryAttributesHandler = async () => {
   }
 }
 
+let getIndex = async () => {
+  
+}
+
 
 
 module.exports = {
