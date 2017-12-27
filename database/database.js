@@ -1,7 +1,6 @@
 const mysql = require('mysql');
 const DBUtils  = require('./DBUtils');
 const config = require('./dbConfig');
-const logger = require('../tookits/logger');
 
 let pool2blog = mysql.createPool({
   host: config.host,
@@ -110,11 +109,19 @@ let database = {
     }
   },
   async queryCategories () {
-    let result = await database.query(`select id,name from category`);
+    let result = await database.query(`select id,name from category order by number desc`);
     return result;
   },
   async queryTags () {
     let result = await database.query(`select id,name from tags`);
+    return result;
+  },
+  async queryIndex () {
+
+  },
+  async queryArticleByCate (name) {
+    let result = await database.query(`select * from article where category='${name}' order by time desc`);
+
     return result;
   }
 };
