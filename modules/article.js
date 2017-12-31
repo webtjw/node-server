@@ -153,10 +153,34 @@ let getIndexHandler = async () => {
   }
 }
 
+let getArticleById = async (ctx, next) => {
+
+  ctx.set('Access-Control-Allow-Methods', 'POST')
+  ctx.response.type = 'application/json';
+
+  let result = await getArticleByIdHandler(ctx.request.body.id);
+
+  ctx.response.status = 200;
+  ctx.response.body = result;
+}
+
+let getArticleByIdHandler = async (id) => {
+  if (id !== undefined && typeof id === 'number' && id >= 0) {
+    let result = await database.query(`select * from article where id=${id}`)
+    if (result && result.success && Array.isArray(result.data)) {
+      result.data = result.data[0]
+      result.data.tags = result.data.tags.split(',')
+    }
+    
+    return result
+  }
+}
+
 
 
 module.exports = {
   saveArticle,
   queryAttributes,
-  getIndex
+  getIndex,
+  getArticleById
 };
