@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>放假通知</title>
+  <link rel="stylesheet" href="./style/flex.css">
+  <link rel="stylesheet" href="./style/style.css">
+  <script>
+    (function () {
+      var dEl = document.documentElement,
+        width = dEl.clientWidth;
+      dEl.style.fontSize = width / 375 * 16 + 'px';
+    })()
+  </script>
+</head>
+<body>
+  <div id="app" class="relative">
+    <!-- 全屏滚动外容器 -->
+    <div id="scroll-container">
+      <!-- 全屏滚动内容器 -->
+      <div class="scroll-inner">
+        <!-- 单屏项 -->
+        <div class="page page1 a-c relative o-h">
+          <div class="com-title">
+            <img src="./images/11_03.png" alt="">
+          </div>
+          <div class="animation-container a-l relative">
+            <img class="left" src="./images/1-3_03.png" alt="">
+            <img src="./images/1-2_03.png" alt="" class="right absolute">
+          </div>
+          <img class="bottom absolute" src="./images/12_03.png" alt="">
+        </div>
+        <div class="page page2 a-c font-0">
+          <div class="title-container">
+            <div class="title ilb">
+              <p>我司2018春节放假时间为</p>
+            </div>
+          </div>
+          <div class="date-container relative">
+            <div class="date ilb">
+              <div class="head">2月</div>
+              <div class="body">
+                <p class="new">15日</p>
+                <p class="old">十一</p>
+              </div>
+            </div>
+            <div class="date ilb">
+              <div class="head">2月</div>
+              <div class="body">
+                <p class="new">25日</p>
+                <p class="old">初八</p>
+              </div>
+            </div>
+            <img class="link absolute" src="./images/2-2_03.jpg" alt="">
+          </div>
+          <div class="text-container a-l">
+            <!-- 文字换行请添加 <br /> 标签 -->
+            <p class="text1">宁波市镇海华志高强度紧固件制造有限公司  </p>
+            <p class="text1">宁波市镇海华志高强度紧固件制造有限公司  </p>
+            <p class="text2">宁波市镇海华志高强度紧固件制造有限公司宁波市镇海华志高强度紧固件制造有限公司宁波市镇海华志高强度紧固件制造有限公司宁波市镇海华志高强度紧固件制造有限公司  </p>
+          </div>
+          <div class="contact-container a-l">
+            <div>
+              <div class="ilb v-m">联系电话： 13XXXXXXXXX</div><a class="ilb v-m" href="tel:123456789"><img class="icon-tel" src="./images/tel_03.png" alt=""></a>
+            </div>
+            <div>
+              <div class="ilb v-m">企业官网： www.cnhuazhi.com</div>
+            </div>
+          </div>
+          <div class="give-btn a-c">
+            <div class="ilb" id="give-btn">轻轻一点  送上祝福</div>
+          </div>
+        </div>
+        <div class="page page3">
+          <!-- 文字展播 -->
+          <div class="show-text-container">
+            <div class="show-wrapper relative">
+              <ul class="show-inner relative">
+                <li class="show-item a-c gone"><p class="name">微信名字</p><p class="content">祝狗年大旺！心想事成！！111</p></li>
+                <li class="show-item a-c"><p class="name">微信名字</p><p class="content">祝狗年大旺！心想事成！！222</p></li>
+                <li class="show-item a-c"><p class="name">微信名字</p><p class="content">祝狗年大旺！心想事成！！333</p></li>
+                <li class="show-item a-c gone"><p class="name">微信名字</p><p class="content">祝狗年大旺！心想事成！！444</p></li>
+                <li class="show-item a-c"><p class="name">微信名字</p><p class="content">祝狗年大旺！心想事成！！555</p></li>
+                <li class="show-item a-c"><p class="name">微信名字</p><p class="content">祝狗年大旺！心想事成！！666</p></li>
+                <li class="show-item a-c"><p class="name">微信名字</p><p class="content">祝狗年大旺！心想事成！！777</p></li>
+                <li class="show-item a-c"><p class="name">微信名字</p><p class="content">祝狗年大旺！心想事成！！888</p></li>
+              </ul>
+            </div>
+          </div>
+          <div class="total a-c">共收到 <span class="num">999</span> 条祝福</div>
+        </div>
+        <div class="page page4 a-c relative">
+          <img src="./images/21_02.png" alt="" class="absolute left lt">
+          <img src="./images/22_03.png" alt="" class="absolute right lt">
+          <div class="go-container">
+            <div class="ilb font-0 img-box relative working" id="go-btn">
+              <img src="./images/go_03.png" alt="">
+            </div>
+          </div>
+          <div class="text-do">
+            <img src="./images/4-1_03.png" alt="">
+          </div>
+          <p class="mount">目前共有 <span class="num">9999</span> 家企业发布</p>
+          <div class="btn">
+            <div class="ilb" id="look-more">查看更多名企通知</div>
+          </div>
+          <!-- 表单 -->
+          <div class="form-container hide absolute a-c" flex="dir:top">
+            <div flex-box="1" id="hide-form"></div>
+            <form id="my-form" flex-box="0">
+              <div class="form-inner">
+                <div class="form-title">请填写公司资料（ * 号为必填）</div>
+                <label class="form-item required" flex="dir:left cross:center">
+                  <div flex-box="0"><span class="star">*</span> 公司名称：</div>
+                  <input flex-box="1" type="text" placeholder="19字以上请填写简称" maxlength="19">
+                </label>
+                <label class="form-item required" flex="dir:left cross:center">
+                  <div flex-box="0"><span class="star">*</span> 联系电话：</div>
+                  <input flex-box="1" type="text" placeholder="">
+                </label>
+                <div class="form-item required label" flex="dir:left cross:center">
+                  <div flex-box="0"><span class="star">*</span> 放假时间：</div>
+                  <div flex-box="1" flex="dir:left cross:center">
+                    <input type="text" class="small">
+                    <span>月</span>
+                    <input type="text" class="small">
+                    <span>日</span>
+                    <span class="tip">至</span>
+                    <input type="text" class="small">
+                    <span>月</span>
+                    <input type="text" class="small">
+                    <span>日</span>
+                  </div>
+                </div>
+                <label class="form-item" flex="dir:left cross:center">
+                  <div flex-box="0"><span class="star">*</span> 核心产品：</div>
+                  <input flex-box="1" type="text" placeholder="请控制在22字以内" maxlength="22">
+                </label>
+                <label class="form-item" flex="dir:left cross:center">
+                  <div flex-box="0"><span class="star">*</span> 新年祝福：</div>
+                  <input flex-box="1" type="text" placeholder="请控制在22字以内" maxlength="22">
+                </label>
+                <label class="form-item" flex="dir:left cross:center">
+                  <div flex-box="0"><span class="star">*</span> 公司网址：</div>
+                  <input flex-box="1" type="text" placeholder="">
+                </label>
+              </div>
+              <div class="submit-box">
+                <input type="submit" value="确 定">
+              </div>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div id="music" class="absolute a-c font-0" flex="dir:left main:center cross:center"><img src="./images/music.png" alt=""></div>
+    <audio class="hide" id="music-btn" autoplay loop>
+      <source src="./music/caishendao.mp3" type="audio/mpeg"></source>
+    </audio>
+    
+    
+    <div class="search-ppp absolute hide">
+      <!-- 头部 -->
+      <div class="head relative a-c">
+        2018春节放假通知
+        <span class="absolute" id="resume">返回</span>
+      </div>
+      <!-- 搜索 -->
+      <div class="search-container a-c">
+        <div class="search-inner ilb o-h">
+          <div flex="dir:left cross:center" style="max-height: 100%;" class="o-h">
+            <input flex-box="1" type="text" />
+            <img flex-box="0" src="./images/search.png" alt="">
+          </div>
+        </div>
+      </div>
+      <!-- 列表 -->
+      <div class="list">
+        <ul>
+          <!-- 列表项 -->
+          <li class="list-item">
+              <div flex="dir:left cross:center">
+                <div flex-box="1">
+                  <p class="com-name"><a href="javascript:void(0)">宁波市镇海华志高强度紧固件制造有限公司</a></p>
+                  <p>联系电话：18XXXXXXXXX</p>
+                  <p>放假时间：X月X日 （农历）— X月X日 （农历）</p>
+                </div>
+                <a flex-box="0" href="tel:123456" class="tel">
+                  <img class="icon-tel" src="./images/tel_03.png" alt="">
+                </a>
+              </div>
+            </li>
+            <li class="list-item">
+              <div flex="dir:left cross:center">
+                <div flex-box="1">
+                  <p class="com-name"><a href="javascript:void(0)">宁波市镇海华志高强度紧固件制造有限公司</a></p>
+                  <p>联系电话：18XXXXXXXXX</p>
+                  <p>放假时间：X月X日 （农历）— X月X日 （农历）</p>
+                </div>
+                <a flex-box="0" href="tel:123456" class="tel">
+                  <img class="icon-tel" src="./images/tel_03.png" alt="">
+                </a>
+              </div>
+            </li>
+        </ul>
+        <!-- 没有更多了 -->
+        <div class="a-c no-more">没有更多了</div>
+      </div>
+      <!-- 底部信息 -->
+      <div class="absolute bottom-info">
+        <div flex="dirt:left cross:center">
+          <img flex-box="0" src="./images/5-1_03.png" alt="">
+          <div flex-box="1">
+            <p>中国国际紧固件工业博览会</p>
+            <p class="small">International Fastener Show China 2018</p>
+            <p class="small">2018.10.21-23 上海世博展览馆</p>
+          </div>
+          <div flex-box="0" class="small">
+            <p>客服电话</p>
+            <p>020-8985 7959</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./javascript/zepto.js"></script>
+  <script src="./javascript/zepto.fullpage.js"></script>
+  <script>
+    $(document).ready(function () {
+      //  hash 检查
+      var hash = window.location.hash
+      if (hash) {
+        hash = window.parseInt(hash.replace('#', ''), 10);
+        window.location.hash = ''
+      }
+      if (!hash) hash = 0; // 假如 hash 存的不是有效数字
+
+      // 全屏滚动
+      var $page = $('.page');
+      $('.scroll-inner').fullpage({
+        duration: 500,
+        drag: true,
+        start: 0,
+        change: function (obj) {
+          $page.eq(obj.cur).addClass('active');
+          $page.eq(obj.prev).removeClass('active');
+        }
+      });
+
+      // 轻轻一点，送上祝福 ==== 利用 url 的 hash 记录是否需要跳转到第三屏
+      $('#give-btn').click(function () {
+        window.location.hash = 2 // hash 更改后，在此 url 下刷新页面会调到第三屏
+      });
+
+      // 第三屏的滚动
+      var $scrollTextBox = $('.show-inner'),
+        $stItem = $scrollTextBox.children(),
+        scrollTextLength = $stItem.length,
+        stIndex = 0,
+        duration = 1200,
+        maxShowNum = 4;
+      if (scrollTextLength > maxShowNum) setTimeout(scrollText, duration);
+
+      function scrollText () {
+        if (stIndex == (scrollTextLength - maxShowNum)) {
+          $scrollTextBox.css('top', 0);
+          stIndex = 0;
+          setTimeout(scrollText, duration);
+        } else {
+          stIndex++;
+          $stItem.eq(stIndex).addClass('gone');
+          $stItem.eq(stIndex + 3).addClass('gone');
+          
+          $stItem.eq(stIndex + 1).removeClass('gone');
+          $stItem.eq(stIndex + 2).removeClass('gone');
+          $scrollTextBox.animate({
+            top: -6 * stIndex + 'rem'
+          }, 600, 'ease-out', function () {setTimeout(scrollText, duration)});
+        }
+      }
+
+      // 第四屏
+      $('#look-more').click(function () {
+        $('.search-ppp').removeClass('hide');
+      });
+      var $formBox = $('.form-container'),
+        $goBtn = $('#go-btn');
+      $goBtn.click(function () {
+        $goBtn.removeClass('working');
+        $formBox.removeClass('hide');
+        $.fn.fullpage.stop();
+      })
+      $('#hide-form').click(function () {
+        $goBtn.addClass('working');
+        $formBox.addClass('hide');
+        $.fn.fullpage.start();
+      })
+
+      // 第五屏
+      $('#resume').click(function () {
+        $('.search-ppp').addClass('hide');
+      })
+
+      // 音乐
+      if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
+        $(document).one('touchstart', function () {
+          var music = document.getElementById('music-btn');
+          music.play();
+          $('#music').addClass('move');
+        })
+      } else {
+        $('#music').addClass('move');
+      }
+    })
+  </script>
+</body>
+</html>
