@@ -1,54 +1,22 @@
 const KoaRouter = require('koa-router');
-const ioHandler = require('../database/ioHandler');
+const database = require('../database/database');
+const moment = require('moment'); 
+const {saveArticle, queryAttributes, getIndex, getArticleById} = require('../modules/article');
+
 // prefix
 const apiRouter = new KoaRouter({prefix: '/api'});
 
+// cors pre-check
 apiRouter.options('*', ctx => {
   ctx.response.status = 204;
-  ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+  ctx.set('Access-Control-Allow-Origin', '*');
   ctx.set('Access-Control-Allow-Headers', 'content-type');
   ctx.set('Access-Control-Allow-Methods', 'OPTIONS');
 })
 
-apiRouter.get('/article/latest', async (ctx, next) => {
-  let result = await ioHandler.queryLatestArticle(ctx.query.length || 1);
-  ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
-  ctx.response.type = 'application/json';
-  ctx.response.body = result;
-})
-.post('/article/save', async (ctx, next) => {
-  let article = ctx.request.body;
-  let result = await ioHandler.addArticle(article);
-
-  ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
-  ctx.set('Access-Control-Allow-Methods', 'POST');
-  ctx.response.type = 'application/json';
-  ctx.response.body = result;
-})
-.post('/login', async (ctx, next) => {
-  let data = ctx.request.body;
-  let result = await ioHandler.queryToken(data.token);
-
-  if (result.data.length != 0) {
-    ctx.cookies.set('name', 'jiawei', {
-      maxAge: 10E3 * 60 * 60 * 24,
-      signed: true
-    });
-  }
-
-  ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
-  ctx.set('Access-Control-Allow-Methods', 'POST');
-  ctx.set('Access-Control-Allow-Credentials', true);
-  ctx.response.type = 'application/json';
-  ctx.response.body = {success: true};
-})
-.get('/article/detail/:id', async (ctx, next) => {
-  let id = ctx.params.id;
-  let result = await ioHandler.querySpecificArticle(id);
-
-  ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080'); // cors
-  ctx.response.type = 'application/json';
-  ctx.response.body = result;
-})
+apiRouter.post('/article/save', saveArticle);
+apiRouter.post('/article/attributes', queryAttributes);
+apiRouter.post('/article/index', getIndex);
+apiRouter.post('/article/detail', getArticleById);
 
 module.exports = apiRouter;
