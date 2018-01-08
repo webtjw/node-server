@@ -15,12 +15,15 @@ body { -webkit-text-size-adjust: none;}
 
 /* business */
 .page1 { background: url(../images/13_02.jpg) no-repeat top center;}
+.page1 .com-title p { padding-bottom: 1.2rem; font-size: 1.125rem; color: #000;}
 .page1 .com-title { padding: 6.25rem 0 3rem; transform: translateY(-20rem) scale(4); transition: all 1.2s ease-out .4s;}
-.page1 .com-title img { width: 21.65625rem;}
+.page1 .com-title img { width: 13.34375rem;}
 .page1 .animation-container { padding-left: 2.125rem; margin-right: 2rem; padding-bottom: 1.125rem;}
 .page1 .animation-container .left { width: 6.125rem; transform: translateX(-8rem) rotateX(360deg); transition: all 1.2s ease-out 1.6s;}
 .page1 .animation-container .right { width: 15.5625rem; right: 0; bottom: 0; transition: all 2s ease-in-out 2.4s; transform: scale(.001); transform-origin: right bottom;}
-.page1 .bottom { bottom: 1rem; left: 50%; width: 18.4rem; margin-left: -9.2rem; transform: translateY(8rem) scale(.1); transition: all 1s ease-out 4.4s;}
+.page1 .bottom { bottom: 1.5rem; left: 0; width: 100%; transform: translateY(8rem) scale(.1); transition: all 1s ease-out 4.4s;}
+.page1 .bottom img { width: 14.3125rem;}
+.page1 .bottom p { padding-top: 1.5rem; font-size: .8125rem; color: #eee; text-shadow: 2px 2px 2px #666;}
 .page1 .animation-container .right.animated { transform: scale(1);}
 /* animation */
 .page1.active .com-title { transform: translateY(0) scale(1);}

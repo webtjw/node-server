@@ -24,13 +24,17 @@
         <!-- 单屏项 -->
         <div class="page page1 a-c relative o-h">
           <div class="com-title">
-            <img src="./images/11_03.png" alt="">
+            <p>宁波市镇海华志高强度紧固件制造有限公司</p>
+            <img src="./images/laji_03.png" alt="">
           </div>
           <div class="animation-container a-l relative">
             <img class="left" src="./images/1-3_03.png" alt="">
             <img src="./images/1-2_03.png" alt="" class="right absolute">
           </div>
-          <img class="bottom absolute" src="./images/12_03.png" alt="">
+          <div class="bottom absolute a-c">
+            <img src="./images/56_03.png" alt="">
+            <p>2018 10月中国国际紧固件工业博览会 组委会制作</p>
+          </div>
         </div>
         <div class="page page2 a-c font-0">
           <div class="title-container">
@@ -306,15 +310,25 @@
       })
 
       // 音乐
+      var music = document.getElementById('music-btn');
       if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
         $(document).one('touchstart', function () {
-          var music = document.getElementById('music-btn');
           music.play();
           $('#music').addClass('move');
         })
       } else {
         $('#music').addClass('move');
       }
+      // click control
+      document.getElementById('music').addEventListener('click', function () {
+        if ($(this).hasClass('move')) {
+          music.pause();
+          $(this).removeClass('move')
+        } else {
+          music.play();
+          $(this).addClass('move')
+        }
+      })
     })
   </script>
 </body>
