@@ -1,0 +1,8 @@
+* { margin: 0; padding: 0; box-sizing: border-box;}
+html, body, #app { width: 100%; height: 100%; overflow: hidden;}
+#app { background: url(../images/background.jpg) repeat-y; background-size: 100%; position: relative;}
+.absolute { position: absolute;}
+
+.canvas-container { padding-top: 2.6785rem; width: 19.4196rem; height: 19.4196rem; margin: 0 auto; box-sizing: content-box;}
+#canvas { width: 100%; height: 100%; transform: scale(1); transition: all 1s ease-out;}
+#canvas.active { transform: scale(1);}
