@@ -2,11 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-sscale=1.0, minimum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>幸运转转转</title>
+  <link rel="stylesheet" href="./style/index.css">
+  <script>
+    (function () {
+      var dEl = document.documentElement,
+        dWidth = dEl.clientWidth;
+      
+      window.scale = dWidth / 375;
+      dEl.style.fontSize = window.scale * 16 + 'px';
+    })()
+  </script>
 </head>
 <body>
-  
+  <div id="app">
+    <div class="canvas-container">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div class="big-logo absolute"></div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function () {
+      //扇形
+      CanvasRenderingContext2D.prototype.sector = function (x, y, radius, sDeg, eDeg) {
+        // 初始保存
+        this.save();
+        // 位移到目标点
+        this.translate(x, y);
+        this.beginPath();
+        // 画出圆弧
+        this.arc(0,0,radius,sDeg, eDeg);
+        // 再次保存以备旋转
+        this.save();
+        // 旋转至起始角度
+        this.rotate(eDeg);
+        // 移动到终点，准备连接终点与圆心
+        this.moveTo(radius,0);
+        // 连接到圆心
+        this.lineTo(0,0);
+        // 还原
+        this.restore();
+        // 旋转至起点角度
+        this.rotate(sDeg);
+        // 从圆心连接到起点
+        this.lineTo(radius,0);
+        this.closePath();
+        // 还原到最初保存的状态
+        this.restore();
+        return this;
+      }
+
+      var canvas = document.getElementById('canvas'),
+        ctx = canvas.getContext('2d'),
+        scaleSize = 2,
+        contentWidth = parseFloat(getComputedStyle(canvas).width) * 2,
+        contentHeight = contentWidth,
+        middleX = contentWidth / 2,
+        middleY = middleX;
+      
+      canvas.setAttribute('width', contentWidth);
+      canvas.setAttribute('height', contentHeight);
+
+      var oneSingel = Math.PI / 180 * 60;
+      ctx.save();
+      ctx.fillStyle= 'rgba(255, 255, 255, 1)';
+      ctx.sector(middleX, middleY, contentWidth / 2, 0, oneSingel).fill();
+      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * 2, oneSingel * 3).fill();
+      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * 4, oneSingel * 5).fill();
+      ctx.fillStyle= 'rgba(255, 246, 219, 1)';
+      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel, oneSingel * 2).fill();
+      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * 3, oneSingel * 4).fill();
+      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * 5, oneSingel * 6).fill();
+
+      // 中心点
+      var imagePointer = new Image(),
+        width = 93 * window.scale;
+
+      imagePointer.src = './images/playbtn.png';
+      imagePointer.addEventListener('load', function () {
+        ctx.save();
+        ctx.translate(middleX, middleY);
+        ctx.rotate(Math.PI / 6);
+        ctx.drawImage(imagePointer, -width * scaleSize / 2, -width * scaleSize / 2, width * scaleSize, width * scaleSize);
+        ctx.restore();
+      })
+    })
+  </script>
 </body>
 </html>
