@@ -66,16 +66,38 @@
       canvas.setAttribute('width', contentWidth);
       canvas.setAttribute('height', contentHeight);
 
-      var oneSingel = Math.PI / 180 * 60;
-      ctx.save();
-      ctx.fillStyle= 'rgba(255, 255, 255, 1)';
-      ctx.sector(middleX, middleY, contentWidth / 2, 0, oneSingel).fill();
-      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * 2, oneSingel * 3).fill();
-      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * 4, oneSingel * 5).fill();
-      ctx.fillStyle= 'rgba(255, 246, 219, 1)';
-      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel, oneSingel * 2).fill();
-      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * 3, oneSingel * 4).fill();
-      ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * 5, oneSingel * 6).fill();
+      var data = [
+        {text: '5元代金券', image: './images/4.png'},
+        {text: '5元代金券', image: './images/4.png'},
+        {text: '5元代金券', image: './images/4.png'},
+        {text: '5元代金券', image: './images/4.png'},
+        {text: '5元代金券', image: './images/4.png'},
+        {text: '5元代金券', image: './images/4.png'},
+      ];
+      var itemSize = 120;
+
+
+      var oneSingel = Math.PI / data.length * 2,
+        rotateX = (middleX - itemSize) * Math.cos(oneSingel / 2) * 0.6,
+        rotateY = rotateX * Math.tan(oneSingel / 2);
+      
+      for (let i = 0; i < data.length; i++) {
+        if (i % 2 === 0) ctx.fillStyle= 'rgba(255, 255, 255, 1)';
+        else ctx.fillStyle= 'rgba(255, 246, 219, 1)';
+
+        
+        ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * i, oneSingel * (i + 1)).fill();
+        
+        var img = new Image();
+        img.src = data[i].image;
+        img.addEventListener('load', function () {
+          ctx.save();
+          ctx.translate(middleX, middleY);
+          ctx.rotate(oneSingel * i);
+          ctx.drawImage(this, rotateX, rotateY, itemSize, itemSize);
+          ctx.restore();
+        })
+      }
 
       // 中心点
       var imagePointer = new Image(),
