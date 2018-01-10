@@ -97,7 +97,10 @@
           ctx.rotate(oneSingel * i);
           ctx.translate(maxRadius * middleX * Math.cos(oneSingel / 2) + itemSize / 2 * Math.sin(oneSingel / 2), maxRadius * middleX * Math.sin(oneSingel / 2) - itemSize / 2 * Math.cos(oneSingel / 2));
           ctx.rotate((Math.PI + oneSingel) / 2);
+          ctx.font = "24px serif";
           ctx.drawImage(this, 0, 0, itemSize, itemSize);
+          ctx.fillStyle = '#e62d2d';
+          ctx.fillText(data[i].text, 0, itemSize * 1.1);
           ctx.restore();
         })
       }
