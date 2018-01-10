@@ -3,6 +3,7 @@ html, body, #app { width: 100%; height: 100%; overflow: hidden;}
 #app { background: url(../images/background.jpg) repeat-y; background-size: 100%; position: relative;}
 .absolute { position: absolute;}
 
-.canvas-container { padding-top: 2.6785rem; width: 19.4196rem; height: 19.4196rem; margin: 0 auto; box-sizing: content-box;}
+.canvas-container { padding-top: 2.6785rem; width: 19.4196rem; height: 19.4196rem; margin: 0 auto; box-sizing: content-box; position: relative; z-index: 99;}
 #canvas { width: 100%; height: 100%; transform: scale(.0001); transition: all 1s ease-out;}
-#canvas.active { transform: scale(1);}
+#app.active #canvas { transform: scale(1);}
+.animation-container { left: 0; top: 0; width: 100%; height: 100%; z-index: 9;}
