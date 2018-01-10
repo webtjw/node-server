@@ -18,6 +18,7 @@
   };
 
   Lottery.prototype = {
+    running: false,
     settings: {},
     canvas: null, // element
     context: null, // context in 2d
@@ -173,11 +174,15 @@
     start: function () {
       var context = this.context,
         maxRadius = this.maxRadius,
+        running = this.running,
         oneDegree = 2 * Math.PI / this.settings.data.length,
         finalAngle = 10 * Math.PI + oneDegree * this.settings.selectedIndex + (Math.random() * 0.5 + 0.3) * oneDegree + Math.PI / 2;
       var maxSpeed = Math.PI / 9;
 
-      this.animate(0, finalAngle, maxSpeed)
+      if (!running) {
+        this.running = true;
+        this.animate(0, finalAngle, maxSpeed)
+      }
     },
 
     animate: function (number, sum ,speed) {
@@ -187,7 +192,10 @@
         angle = this.toFixed(Math.PI * (0.5 - percentage / 2)),
         delta = this.toFixed(speed * Math.sin(angle));
 
-      if (percentage >= 1) settings.callback && settings.callback();
+      if (percentage >= 1) {
+        this.running = false;
+        settings.callback && settings.callback();
+      }
       else {
         number += delta;
         this.draw(number);
