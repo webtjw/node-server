@@ -24,98 +24,24 @@
     <div class="big-logo absolute"></div>
   </div>
 
+  <script src="./javascript/lottery.js"></script>
   <script>
     window.addEventListener('load', function () {
-      //扇形
-      CanvasRenderingContext2D.prototype.sector = function (x, y, radius, sDeg, eDeg) {
-        // 初始保存
-        this.save();
-        // 位移到目标点
-        this.translate(x, y);
-        this.beginPath();
-        // 画出圆弧
-        this.arc(0,0,radius,sDeg, eDeg);
-        // 再次保存以备旋转
-        this.save();
-        // 旋转至起始角度
-        this.rotate(eDeg);
-        // 移动到终点，准备连接终点与圆心
-        this.moveTo(radius,0);
-        // 连接到圆心
-        this.lineTo(0,0);
-        // 还原
-        this.restore();
-        // 旋转至起点角度
-        this.rotate(sDeg);
-        // 从圆心连接到起点
-        this.lineTo(radius,0);
-        this.closePath();
-        // 还原到最初保存的状态
-        this.restore();
-        return this;
-      }
-
-      var canvas = document.getElementById('canvas'),
-        ctx = canvas.getContext('2d'),
-        scaleSize = 2,
-        contentWidth = parseFloat(getComputedStyle(canvas).width) * 2,
-        contentHeight = contentWidth,
-        middleX = contentWidth / 2,
-        middleY = middleX;
-      
-      canvas.setAttribute('width', contentWidth);
-      canvas.setAttribute('height', contentHeight);
-
-      var data = [
-        {text: '5元代金券', image: './images/playbtn.png'},
-        {text: '5元代金券', image: './images/playbtn.png'},
-        {text: '5元代金券', image: './images/playbtn.png'},
-        {text: '5元代金券', image: './images/playbtn.png'},
-        {text: '5元代金券', image: './images/playbtn.png'},
-        {text: '5元代金券', image: './images/playbtn.png'},
-      ];
-      var itemSize = 120;
-      var maxRadius = 0.95;
-
-
-      var oneSingel = Math.PI / data.length * 2,
-        rotateX = (middleX - itemSize) * Math.cos(oneSingel / 2) * 0.6,
-        rotateY = rotateX * Math.tan(oneSingel / 2);
-      
-      for (let i = 0; i < data.length; i++) {
-        if (i % 2 === 0) ctx.fillStyle= 'rgba(255, 255, 255, 1)';
-        else ctx.fillStyle= 'rgba(255, 246, 219, 1)';
-
-        
-        ctx.sector(middleX, middleY, contentWidth / 2, oneSingel * i, oneSingel * (i + 1)).fill();
-        
-        var img = new Image();
-        img.src = data[i].image;
-        img.addEventListener('load', function () {
-          ctx.save();
-          ctx.translate(middleX, middleY);
-          ctx.rotate(oneSingel * i);
-          ctx.translate(maxRadius * middleX * Math.cos(oneSingel / 2) + itemSize / 2 * Math.sin(oneSingel / 2), maxRadius * middleX * Math.sin(oneSingel / 2) - itemSize / 2 * Math.cos(oneSingel / 2));
-          ctx.rotate((Math.PI + oneSingel) / 2);
-          ctx.font = "24px serif";
-          ctx.drawImage(this, 0, 0, itemSize, itemSize);
-          ctx.fillStyle = '#e62d2d';
-          ctx.fillText(data[i].text, 0, itemSize * 1.1);
-          ctx.restore();
-        })
-      }
-
-      // 中心点
-      var imagePointer = new Image(),
-        width = 93 * window.scale;
-
-      imagePointer.src = './images/playbtn.png';
-      imagePointer.addEventListener('load', function () {
-        ctx.save();
-        ctx.translate(middleX, middleY);
-        // ctx.rotate(Math.PI / 6);
-        ctx.drawImage(imagePointer, -width * scaleSize / 2, -width * scaleSize / 2, width * scaleSize, width * scaleSize);
-        ctx.restore();
+      var lottery = new Lottery({
+        canvas: 'canvas',
+        outLine: {width: 14, color: '#febf02'},
+        itemSize: 120,
+        distance: 0.95,
+        duration: 8000,
+        data: [
+          {text: '1元代金券', image: './images/playbtn.png'},
+          {text: '2元代金券', image: './images/playbtn.png'},
+          {text: '3元代金券', image: './images/playbtn.png'},
+          {text: '4元代金券', image: './images/playbtn.png'},
+          {text: '5元代金券', image: './images/playbtn.png'},
+          {text: '6元代金券', image: './images/playbtn.png'}
+        ],
+        selectedIndex: 1
       })
     })
   </script>

@@ -248,7 +248,7 @@
       $('.scroll-inner').fullpage({
         duration: 500,
         drag: true,
-        start: 0,
+        start: hash,
         change: function (obj) {
           $page.eq(obj.cur).addClass('active');
           $page.eq(obj.prev).removeClass('active');
@@ -258,6 +258,8 @@
       // 轻轻一点，送上祝福 ==== 利用 url 的 hash 记录是否需要跳转到第三屏
       $('#give-btn').click(function () {
         window.location.hash = 2 // hash 更改后，在此 url 下刷新页面会调到第三屏
+
+        window.location.reload(true);
       });
 
       // 第三屏的滚动
