@@ -67,14 +67,15 @@
       canvas.setAttribute('height', contentHeight);
 
       var data = [
-        {text: '5元代金券', image: './images/4.png'},
-        {text: '5元代金券', image: './images/4.png'},
-        {text: '5元代金券', image: './images/4.png'},
-        {text: '5元代金券', image: './images/4.png'},
-        {text: '5元代金券', image: './images/4.png'},
-        {text: '5元代金券', image: './images/4.png'},
+        {text: '5元代金券', image: './images/playbtn.png'},
+        {text: '5元代金券', image: './images/playbtn.png'},
+        {text: '5元代金券', image: './images/playbtn.png'},
+        {text: '5元代金券', image: './images/playbtn.png'},
+        {text: '5元代金券', image: './images/playbtn.png'},
+        {text: '5元代金券', image: './images/playbtn.png'},
       ];
       var itemSize = 120;
+      var maxRadius = 0.95;
 
 
       var oneSingel = Math.PI / data.length * 2,
@@ -94,7 +95,9 @@
           ctx.save();
           ctx.translate(middleX, middleY);
           ctx.rotate(oneSingel * i);
-          ctx.drawImage(this, rotateX, rotateY, itemSize, itemSize);
+          ctx.translate(maxRadius * middleX * Math.cos(oneSingel / 2) + itemSize / 2 * Math.sin(oneSingel / 2), maxRadius * middleX * Math.sin(oneSingel / 2) - itemSize / 2 * Math.cos(oneSingel / 2));
+          ctx.rotate((Math.PI + oneSingel) / 2);
+          ctx.drawImage(this, 0, 0, itemSize, itemSize);
           ctx.restore();
         })
       }
@@ -107,7 +110,7 @@
       imagePointer.addEventListener('load', function () {
         ctx.save();
         ctx.translate(middleX, middleY);
-        ctx.rotate(Math.PI / 6);
+        // ctx.rotate(Math.PI / 6);
         ctx.drawImage(imagePointer, -width * scaleSize / 2, -width * scaleSize / 2, width * scaleSize, width * scaleSize);
         ctx.restore();
       })
