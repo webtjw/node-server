@@ -4,5 +4,5 @@ html, body, #app { width: 100%; height: 100%; overflow: hidden;}
 .absolute { position: absolute;}
 
 .canvas-container { padding-top: 2.6785rem; width: 19.4196rem; height: 19.4196rem; margin: 0 auto; box-sizing: content-box;}
-#canvas { width: 100%; height: 100%; transform: scale(1); transition: all 1s ease-out;}
+#canvas { width: 100%; height: 100%; transform: scale(.0001); transition: all 1s ease-out;}
 #canvas.active { transform: scale(1);}

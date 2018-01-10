@@ -33,6 +33,7 @@
         itemSize: 120,
         distance: 0.95,
         duration: 8000,
+        selectedIndex: 1,
         data: [
           {text: '1元代金券', image: './images/playbtn.png'},
           {text: '2元代金券', image: './images/playbtn.png'},
@@ -41,8 +42,12 @@
           {text: '5元代金券', image: './images/playbtn.png'},
           {text: '6元代金券', image: './images/playbtn.png'}
         ],
-        selectedIndex: 1
+        callback: function () {
+          console.log(123)
+        }
       })
+
+      document.getElementById('canvas').classList.add('active')
     })
   </script>
 </body>
