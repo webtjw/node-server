@@ -25,6 +25,7 @@
     data: [], // datas
     maxRadius: 0, // max radius which may including outside circle
     radius: 0, // the real size of lottery circle
+    dpr: 1,
 
     // initialize func & element
     init: function () {
@@ -34,6 +35,7 @@
         this.context = this.canvas.getContext('2d');
 
         this.sizeCanvas();
+        this.settings.itemSize = this.settings.itemSize * this.dpr;
         this.draw(0);
 
         this.canvas.addEventListener('click', this.start.bind(this));
@@ -56,6 +58,7 @@
         physicalWidth = window.parseFloat(window.getComputedStyle(this.canvas).width),
         drawWidth = physicalWidth * dpr;
       
+      this.dpr = dpr;
       this.maxRadius = drawWidth / 2;
       this.canvas.setAttribute('width', drawWidth);
       this.canvas.setAttribute('height', drawWidth);
@@ -144,16 +147,17 @@
       context.rotate(sdeg);
       context.translate(distance * radius * Math.cos(oneDegree / 2) + itemSize / 2 * Math.sin(oneDegree / 2), distance * radius * Math.sin(oneDegree / 2) - itemSize / 2 * Math.cos(oneDegree / 2));
       context.rotate((Math.PI + oneDegree) / 2);
-      context.font = "24px 'Microsoft Yahei'";
+      context.font = 12 * this.dpr + 'px "Microsoft Yahei"';
       context.drawImage(img, 0, 0, itemSize, itemSize);
       context.fillStyle = '#e62d2d';
-      context.fillText(text, 0, itemSize * 1.1);
+      context.textAlign = 'center';
+      context.fillText(text, itemSize / 2, itemSize * 1.1);
       context.restore();
     },
 
     drawPointer: function () {
       var img = new Image(),
-        width = 93 * window.devicePixelRatio,
+        width = 93 * this.dpr,
         maxRadius = this.maxRadius,
         context = this.context;
 
