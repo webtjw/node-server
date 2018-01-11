@@ -120,8 +120,7 @@ body { -webkit-text-size-adjust: none;}
 .search-ppp .search-inner { width: 20rem; height: 2.0625rem; border: 1px solid #898989; border-radius: 1rem; background-color: #fff;}
 .search-ppp .search-inner input { border: 0; padding-left: .6rem; font-size: .875rem; outline: 0;}
 .search-ppp .search-inner img { width: 2rem; margin: 0 .4rem 0 .2rem;}
-.search-ppp .list { padding: 0 1.3125rem; font-size: .78125rem; color: #464646; overflow-y: scroll; overflow-x: hidden; -webkit-overflow-scrolling : touch;}
-.search-ppp .list .tel { padding: 0 .8rem 0 0;}
+.search-ppp .list { padding: 0 1rem; font-size: .78125rem; color: #464646; overflow-y: scroll; overflow-x: hidden; -webkit-overflow-scrolling : touch;}
 .search-ppp .list-item { padding: .4rem 0; border-bottom: 1px solid #e5e5e5;}
 .search-ppp .list .com-name { font-size: .875rem;}
 .search-ppp .list .com-name a { text-decoration: none; color: #0159a4;}
@@ -153,3 +152,5 @@ body { -webkit-text-size-adjust: none;}
   50% { transform: translateY(-1.5rem); opacity: 1;}
   100% { transform: translateY(0); opacity: .2;}
 }
+
+.lll-box { width: 70px; font-size: 10px; color: #919191; white-space: nowrap;}
