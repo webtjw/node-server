@@ -177,7 +177,7 @@
     </audio>
     
     
-    <div class="search-ppp absolute" flex="dir:top">
+    <div class="search-ppp absolute hide" flex="dir:top">
       <!-- 头部 -->
       <div class="head relative a-c" flex-box="0">
         2018春节放假通知
@@ -401,6 +401,12 @@
           $(this).addClass('move')
         }
       })
+
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+      if (isAndroid) {
+        $formBox.css('position', 'fixed');
+      }
     })
   </script>
 </body>
