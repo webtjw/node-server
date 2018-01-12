@@ -118,52 +118,6 @@
           <div class="btn">
             <div class="ilb" id="look-more">查看更多名企通知</div>
           </div>
-          <!-- 表单 -->
-          <div class="form-container hide absolute a-c" flex="dir:top">
-            <div flex-box="1" id="hide-form"></div>
-            <form id="my-form" flex-box="0">
-              <div class="form-inner">
-                <div class="form-title">请填写公司资料（ * 号为必填）</div>
-                <label class="form-item required" flex="dir:left cross:center">
-                  <div flex-box="0"><span class="star">*</span> 公司名称：</div>
-                  <input flex-box="1" type="text" placeholder="19字以上请填写简称" maxlength="19">
-                </label>
-                <label class="form-item required" flex="dir:left cross:center">
-                  <div flex-box="0"><span class="star">*</span> 联系电话：</div>
-                  <input flex-box="1" type="text" placeholder="">
-                </label>
-                <div class="form-item required label" flex="dir:left cross:center">
-                  <div flex-box="0"><span class="star">*</span> 放假时间：</div>
-                  <div flex-box="1" flex="dir:left cross:center">
-                    <input type="text" class="small">
-                    <span>月</span>
-                    <input type="text" class="small">
-                    <span>日</span>
-                    <span class="tip">至</span>
-                    <input type="text" class="small">
-                    <span>月</span>
-                    <input type="text" class="small">
-                    <span>日</span>
-                  </div>
-                </div>
-                <label class="form-item" flex="dir:left cross:center">
-                  <div flex-box="0"><span class="star">*</span> 核心产品：</div>
-                  <input flex-box="1" type="text" placeholder="请控制在22字以内" maxlength="22">
-                </label>
-                <label class="form-item" flex="dir:left cross:center">
-                  <div flex-box="0"><span class="star">*</span> 新年祝福：</div>
-                  <input flex-box="1" type="text" placeholder="请控制在22字以内" maxlength="22">
-                </label>
-                <label class="form-item" flex="dir:left cross:center">
-                  <div flex-box="0"><span class="star">*</span> 公司网址：</div>
-                  <input flex-box="1" type="text" placeholder="">
-                </label>
-              </div>
-              <div class="submit-box">
-                <input type="submit" value="确 定">
-              </div>
-            </form>
-          </div>
           <div class="bottom-info a-c absolute">
             <p>2018 10月中国国际紧固件工业博览会 组委会制作</p>
             <p>www.Afastener.com</p>
@@ -295,6 +249,54 @@
     </div>
   </div>
 
+  
+  <!-- 表单 -->
+  <div class="form-container hide absolute a-c" flex="dir:top">
+    <div flex-box="1" id="hide-form"></div>
+    <form id="my-form" flex-box="0">
+      <div class="form-inner">
+        <div class="form-title">请填写公司资料（ * 号为必填）</div>
+        <label class="form-item required" flex="dir:left cross:center">
+          <div flex-box="0"><span class="star">*</span> 公司名称：</div>
+          <input flex-box="1" type="text" placeholder="19字以上请填写简称" maxlength="19">
+        </label>
+        <label class="form-item required" flex="dir:left cross:center">
+          <div flex-box="0"><span class="star">*</span> 联系电话：</div>
+          <input flex-box="1" type="text" placeholder="">
+        </label>
+        <div class="form-item required label" flex="dir:left cross:center">
+          <div flex-box="0"><span class="star">*</span> 放假时间：</div>
+          <div flex-box="1" flex="dir:left cross:center">
+            <input type="text" class="small">
+            <span>月</span>
+            <input type="text" class="small">
+            <span>日</span>
+            <span class="tip">至</span>
+            <input type="text" class="small">
+            <span>月</span>
+            <input type="text" class="small">
+            <span>日</span>
+          </div>
+        </div>
+        <label class="form-item" flex="dir:left cross:center">
+          <div flex-box="0"><span class="star">*</span> 核心产品：</div>
+          <input flex-box="1" type="text" placeholder="请控制在22字以内" maxlength="22">
+        </label>
+        <label class="form-item" flex="dir:left cross:center">
+          <div flex-box="0"><span class="star">*</span> 新年祝福：</div>
+          <input flex-box="1" type="text" placeholder="请控制在22字以内" maxlength="22">
+        </label>
+        <label class="form-item" flex="dir:left cross:center">
+          <div flex-box="0"><span class="star">*</span> 公司网址：</div>
+          <input flex-box="1" type="text" placeholder="">
+        </label>
+      </div>
+      <div class="submit-box">
+        <input type="submit" value="确 定">
+      </div>
+    </form>
+  </div>
+
   <script src="./javascript/zepto.js"></script>
   <script src="./javascript/zepto.fullpage.js"></script>
   <script>
@@ -401,12 +403,6 @@
           $(this).addClass('move')
         }
       })
-
-      var u = navigator.userAgent;
-      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
-      if (isAndroid) {
-        $formBox.css('position', 'fixed');
-      }
     })
   </script>
 </body>
