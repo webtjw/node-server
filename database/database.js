@@ -113,7 +113,7 @@ let database = {
     return result;
   },
   async queryTags () {
-    let result = await database.query(`select id,name from tags`);
+    let result = await database.query(`select * from tags`);
     return result;
   },
   async queryIndex () {

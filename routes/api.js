@@ -1,7 +1,7 @@
 const KoaRouter = require('koa-router');
 const database = require('../database/database');
 const moment = require('moment'); 
-const {saveArticle, queryAttributes, getIndex, getArticleById, getAllCategories} = require('../modules/article');
+const {saveArticle, queryAttributes, getIndex, getArticleById, getAllCategories, getAllTags} = require('../modules/article');
 
 // prefix
 const apiRouter = new KoaRouter({prefix: '/api'});
@@ -19,5 +19,6 @@ apiRouter.post('/article/attributes', queryAttributes);
 apiRouter.post('/article/index', getIndex);
 apiRouter.post('/article/detail', getArticleById);
 apiRouter.post('/article/categories', getAllCategories);
+apiRouter.post('/article/tags', getAllTags);
 
 module.exports = apiRouter;

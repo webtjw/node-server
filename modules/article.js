@@ -190,11 +190,26 @@ let getAllCategoriesHandler = async () => {
   return result1
 }
 
+let getAllTags = async (ctx, next) => {
+  ctx.set('Access-Control-Allow-Methods', 'POST');
+  ctx.response.type = 'application/json';
+
+  let result = await getAllTagsHandler();
+
+  ctx.response.body = result;
+}
+
+let getAllTagsHandler = async () => {
+  let result1 = await database.queryTags();
+  return result1
+}
+
 
 module.exports = {
   saveArticle,
   queryAttributes,
   getIndex,
   getArticleById,
-  getAllCategories
+  getAllCategories,
+  getAllTags
 };
