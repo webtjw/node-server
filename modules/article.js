@@ -204,6 +204,27 @@ let getAllTagsHandler = async () => {
   return result1
 }
 
+let queryByIndex = async (ctx, next) => {
+  ctx.set('Access-Control-Allow-Methods', 'POST');
+  ctx.response.type = 'application/json';
+
+  let result = await queryByIndexHandler(ctx.request.body);
+
+  ctx.response.body = result;
+}
+
+let queryByIndexHandler = async (params) => {
+  const {queryType, value, number, index} = params;
+  let columnName = '';
+
+  if (queryType === 'category') columnName = 'category';
+  else if (type === 'tags') columnName = 'tags';
+  else return {success: false, message: 'wrong type of query'}
+
+  let result = await database.queryByIndex(columnName, value, number, index);
+  return result;
+}
+
 
 module.exports = {
   saveArticle,
@@ -211,5 +232,6 @@ module.exports = {
   getIndex,
   getArticleById,
   getAllCategories,
-  getAllTags
+  getAllTags,
+  queryByIndex
 };

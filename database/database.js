@@ -108,6 +108,10 @@ let database = {
       }
     }
   },
+  async queryArticleByCate (name) {
+    let result = await database.query(`select * from article where category='${name}' order by time desc`);
+    return result;
+  },
   async queryCategories () {
     let result = await database.query(`select * from category order by number desc`);
     return result;
@@ -116,11 +120,8 @@ let database = {
     let result = await database.query(`select * from tags`);
     return result;
   },
-  async queryIndex () {
-
-  },
-  async queryArticleByCate (name) {
-    let result = await database.query(`select * from article where category='${name}' order by time desc`);
+  async queryByIndex (columnName, value, number, index) {
+    let result = await database.query(`select title,category,tags,time from article where ${columnName}='${value}' order by time desc`);
 
     return result;
   }
