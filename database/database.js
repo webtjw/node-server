@@ -109,7 +109,7 @@ let database = {
     }
   },
   async queryCategories () {
-    let result = await database.query(`select id,name from category order by number desc`);
+    let result = await database.query(`select * from category order by number desc`);
     return result;
   },
   async queryTags () {
