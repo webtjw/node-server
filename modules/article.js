@@ -225,6 +225,13 @@ let queryByIndexHandler = async (params) => {
   return result;
 }
 
+queryByIndexHandler({
+  queryType: 'category',
+  value: 'javascript',
+  number: 5,
+  index: 1
+});
+
 
 module.exports = {
   saveArticle,

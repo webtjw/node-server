@@ -121,7 +121,7 @@ let database = {
     return result;
   },
   async queryByIndex (columnName, value, number, index) {
-    let result = await database.query(`select title,category,tags,time from article where ${columnName}='${value}' order by time desc`);
+    let result = await database.query(`select id,title,category,tags,time from article where ${columnName}='${value}' order by time desc limit ${number * index},${number * (index + 1)}`);
 
     return result;
   }
