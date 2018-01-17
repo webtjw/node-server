@@ -121,12 +121,12 @@ let database = {
     return result;
   },
   async queryByIndex (columnName, value, number, index) {
-    let result = await database.query(`select id,title,category,tags,time from article where ${columnName}='${value}' order by time desc limit ${number * index},${number * (index + 1)}`);
+    let result = await database.query(`select id,title,category,tags,time from article where ${columnName} like '%${value}%' order by time desc limit ${number * index},${number * (index + 1)}`);
 
     return result;
   },
   async querySumOfTable (tableName, columnName, value) {
-    let result = await database.query(`select count(${columnName}='${value}') from ${tableName}`);
+    let result = await database.query(`select count(*) from ${tableName} where ${columnName} like '%${value}%'`);
 
     if (result.success) {
       result.data = Object.values(result.data[0])[0];
