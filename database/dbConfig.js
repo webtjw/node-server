@@ -7,7 +7,9 @@ const config = {
   databaseName: 'techsite',
   articleTableName: 'article',
   tagsTableName: 'tags',
-  categoryTableName: 'category'
+  categoryTableName: 'category',
+  TABLE_NAME_CATE: 'category',
+  TABLE_NAME_ARTICLE: 'article'
 }
 
 module.exports = config;

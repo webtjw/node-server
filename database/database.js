@@ -124,6 +124,15 @@ let database = {
     let result = await database.query(`select id,title,category,tags,time from article where ${columnName}='${value}' order by time desc limit ${number * index},${number * (index + 1)}`);
 
     return result;
+  },
+  async querySumOfTable (tableName, columnName, value) {
+    let result = await database.query(`select count(${columnName}='${value}') from ${tableName}`);
+
+    if (result.success) {
+      result.data = Object.values(result.data[0])[0];
+    }
+
+    return result;
   }
 };
 

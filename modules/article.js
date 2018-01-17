@@ -1,5 +1,6 @@
 const moment = require('moment');
 const database = require('../database/database');
+const {TABLE_NAME_ARTICLE, TABLE_NAME_CATE} = require('../database/dbConfig');
 
 
 let saveArticle = async (ctx, next) => {
@@ -217,20 +218,20 @@ let queryByIndexHandler = async (params) => {
   const {queryType, value, number, index} = params;
   let columnName = '';
 
-  if (queryType === 'category') columnName = 'category';
+  if (queryType === TABLE_NAME_CATE) columnName = TABLE_NAME_CATE;
   else if (type === 'tags') columnName = 'tags';
   else return {success: false, message: 'wrong type of query'}
 
   let result = await database.queryByIndex(columnName, value, number, index);
+  let sum = await database.querySumOfTable(TABLE_NAME_ARTICLE, 'category', value);
+  let data = {
+    sum: sum.data,
+    list: result.data
+  }
+  result.data = data;
+
   return result;
 }
-
-queryByIndexHandler({
-  queryType: 'category',
-  value: 'javascript',
-  number: 5,
-  index: 1
-});
 
 
 module.exports = {
