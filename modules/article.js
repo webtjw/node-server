@@ -235,6 +235,21 @@ let queryByIndexHandler = async (params) => {
   return result;
 }
 
+let getHistoryArticleByPage = async (ctx, next) => {
+  let {index, size} = ctx.request.body;
+  let result = null;
+
+  if (index && size && index > 0 && size > 1) {
+    let qrs = await database.queryHistoryArticle(index, size);
+    result = qrs;
+  } else {
+    result = {success: false, data: null, message: 'wrong params'}
+  }
+
+  ctx.set('Access-Control-Allow-Methods', 'POST');
+  ctx.response.type = 'application/json';
+  ctx.response.body = result;
+}
 
 module.exports = {
   saveArticle,
@@ -243,5 +258,6 @@ module.exports = {
   getArticleById,
   getAllCategories,
   getAllTags,
-  queryByIndex
+  queryByIndex,
+  getHistoryArticleByPage
 };

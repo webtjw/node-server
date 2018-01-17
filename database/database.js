@@ -133,6 +133,10 @@ let database = {
     }
 
     return result;
+  },
+  async queryHistoryArticle (index, size) {
+    let result = await database.query(`select id,title,category,tags,time from article order by time desc limit ${index * size - size},${index * size}`);
+    return result;
   }
 };
 
