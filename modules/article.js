@@ -257,6 +257,16 @@ let login = async (ctx, next) => {
 
   const {token} = ctx.request.body;
   let result = await database.queryDeveloper(token);
+
+  if (result.success && Array.isArray(result.data) && result.data.length === 0) {
+    result.success = false;
+    result.message = 'your token is not valid';
+    ctx.cookies.set('developer', false);
+  } else {
+    ctx.cookies.set('developer', true, {
+      maxAge: 1000 * 60 * 60 * 24
+    })
+  }
   
   ctx.response.body = result;
 }
