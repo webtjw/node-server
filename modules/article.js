@@ -251,6 +251,16 @@ let getHistoryArticleByPage = async (ctx, next) => {
   ctx.response.body = result;
 }
 
+let login = async (ctx, next) => {
+  ctx.response.type = 'application/json';
+  ctx.response.status = 200;
+
+  const {token} = ctx.request.body;
+  let result = await database.queryDeveloper(token);
+  
+  ctx.response.body = result;
+}
+
 module.exports = {
   saveArticle,
   queryAttributes,
@@ -259,5 +269,6 @@ module.exports = {
   getAllCategories,
   getAllTags,
   queryByIndex,
-  getHistoryArticleByPage
+  getHistoryArticleByPage,
+  login
 };

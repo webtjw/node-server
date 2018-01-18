@@ -140,4 +140,11 @@ let database = {
   }
 };
 
+// 登录查询开发者 token
+database.queryDeveloper = async (token) => {
+  let result = await database.query(`select name from developer where token='${token}'`);
+
+  return result;
+}
+
 module.exports = database;

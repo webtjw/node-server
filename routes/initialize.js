@@ -27,7 +27,14 @@ const RouterKit = {
   init404 () {
     this.app.use(async (ctx, next) => {
       ctx.response.status = 404;
-      ctx.redirect('/404.html');
+      
+      let path = ctx.request.path;
+      if (path.split('/')[1] === 'api') {
+        ctx.response.type = 'application/json';
+        ctx.response.body = {success: false, data: null, message: 'interface does not exist'}
+      } else {
+        ctx.redirect('/404.html');
+      }
     })
   },
   initStatics () {
