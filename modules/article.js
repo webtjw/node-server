@@ -264,7 +264,8 @@ let login = async (ctx, next) => {
     ctx.cookies.set('developer', false);
   } else {
     ctx.cookies.set('developer', true, {
-      maxAge: 1000 * 60 * 60 * 24
+      maxAge: 1000 * 60 * 60 * 24,
+      httpOnly: false
     })
   }
   
