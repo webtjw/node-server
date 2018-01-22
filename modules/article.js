@@ -2,13 +2,27 @@ const moment = require('moment');
 const database = require('../database/database');
 const {TABLE_NAME_ARTICLE, TABLE_NAME_CATE} = require('../database/dbConfig');
 
+const showdown = require('showdown'),
+  converter = new showdown.Converter({
+    omitExtraWLInCodeBlocks: true, // 省略代码块的新尾行
+    strikethrough: true // 支持语法 ~~删除内容~~
+  });
+
+
+let article = {};
+
+const queryIndex = require('./article/queryIndex'); // 首页三个类型的文章概要集合
+article.queryIndex = queryIndex;
+
+
+
 
 let saveArticle = async (ctx, next) => {
 
   ctx.set('Access-Control-Allow-Methods', 'POST');
   ctx.response.type = 'application/json';
 
-  let result = saveArticleHandler(ctx.request.body);
+  let result = await saveArticleHandler(ctx.request.body);
 
   ctx.response.body = {
     success: result.success,
@@ -109,53 +123,9 @@ let queryAttributesHandler = async () => {
   }
 }
 
-let getIndex = async (ctx, next) => {
 
-  ctx.set('Access-Control-Allow-Methods', 'POST')
-  ctx.response.type = 'application/json';
-
-  let result = await getIndexHandler();
-
-  ctx.response.status = 200;
-  ctx.response.body = result;
-}
-
-let getIndexHandler = async () => {
-
-  let array = [];
-  let categories = await database.queryCategories();
-
-  if (categories.success && Array.isArray(categories.data) && categories.data.length > 0) {
-    for (let len = categories.data.length, maxSize = 3, i = 0; (i < maxSize && i < len); i++) {
-      let name = categories.data[i].name;
-      let result = await database.queryArticleByCate(name);
-
-      if (result.success && Array.isArray(result.data) && result.data.length > 0) {
-        array.push({
-          title: name,
-          list: result.data.map(item => {
-            item.tags = item.tags.split(',');
-            return item;
-          })
-        })
-      }
-    }
-
-    return {
-      success: true,
-      data: array
-    };
-  }
-
-  return {
-    success: false,
-    data: null,
-    message: 'fail to query'
-  }
-}
 
 let getArticleById = async (ctx, next) => {
-
   ctx.set('Access-Control-Allow-Methods', 'POST')
   ctx.response.type = 'application/json';
 
@@ -171,6 +141,8 @@ let getArticleByIdHandler = async (id) => {
     if (result && result.success && Array.isArray(result.data)) {
       result.data = result.data[0]
       result.data.tags = result.data.tags.split(',')
+      
+      result.data.codeText = converter.makeHtml(result.data.codeText)
     }
     
     return result
@@ -272,14 +244,4 @@ let login = async (ctx, next) => {
   ctx.response.body = result;
 }
 
-module.exports = {
-  saveArticle,
-  queryAttributes,
-  getIndex,
-  getArticleById,
-  getAllCategories,
-  getAllTags,
-  queryByIndex,
-  getHistoryArticleByPage,
-  login
-};
+module.exports = article;

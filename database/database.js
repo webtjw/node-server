@@ -108,8 +108,8 @@ let database = {
       }
     }
   },
-  async queryArticleByCate (name) {
-    let result = await database.query(`select * from article where category='${name}' order by time desc`);
+  async queryArticleByCateId (id, max) {
+    let result = await database.query(`select id,title,category,tags,time from article where category='${id}' order by time desc limit ${max}`);
     return result;
   },
   async queryCategories () {
@@ -144,6 +144,12 @@ let database = {
 database.queryDeveloper = async (token) => {
   let result = await database.query(`select name from developer where token='${token}'`);
 
+  return result;
+}
+
+// 根据 id 查询 cate 的 name
+database.queryCateById = async (id) => {
+  let result = await database.query(`select * from ${config.TABLE_NAME_CATE} where id=${id}`);
   return result;
 }
 
