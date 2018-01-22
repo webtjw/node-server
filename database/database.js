@@ -58,7 +58,7 @@ let database = {
 
     let updateResult = await database.query(`update article set title='${article.title}',author='${article.author || ''}',category='${article.category}',tags='${tags}',time='${article.time}',codeText='${article.codeText}' where id=${article.id}`);
     
-    if (queryResult.success && queryResult.data) updateResult.origin = queryResult.data;
+    if (queryResult.success && queryResult.data) updateResult.data = queryResult.data;
 
     return updateResult;
   },
@@ -112,8 +112,8 @@ let database = {
     let result = await database.query(`select id,title,category,tags,time from article where category='${id}' order by time desc limit ${max}`);
     return result;
   },
-  async queryCategories () {
-    let result = await database.query(`select * from category order by number desc`);
+  async queryCategories (column) {
+    let result = await database.query(`select ${column || '*'} from category order by number desc`);
     return result;
   },
   async queryTags () {

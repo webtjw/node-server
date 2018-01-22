@@ -14,9 +14,9 @@ apiRouter.options('*', ctx => {
   ctx.set('Access-Control-Allow-Methods', 'OPTIONS');
 })
 
-// apiRouter.post('/article/save', saveArticle);
+apiRouter.post('/article/save', article.saveArticle);
 // apiRouter.post('/login', login);
-// apiRouter.post('/article/attributes', queryAttributes);
+apiRouter.post('/article/attributes', article.queryAttributes);
 apiRouter.post('/article/getIndex', article.queryIndex);
 // apiRouter.post('/article/detail', getArticleById);
 // apiRouter.post('/article/categories', getAllCategories);

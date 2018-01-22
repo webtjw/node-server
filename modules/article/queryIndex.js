@@ -1,6 +1,5 @@
 const HTTP_CONSTANT = require('../../http/http-constant');
 const database = require('../../database/database');
-const category = require('./category');
 
 
 let queryIndex = async (ctx, next) => {
