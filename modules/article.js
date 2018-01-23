@@ -23,6 +23,10 @@ article.queryAttributes = queryAttributes;
 
 const login = require('./article/login'); // 保存文章：查询所有的分类和标签
 article.login = login;
+article.queryAttributes = queryAttributes;
+
+const queryCategories = require('./article/queryCategories'); // 分类首页：查询所有分类
+article.queryCategories = queryCategories;
 
 
 
@@ -53,19 +57,7 @@ let getArticleByIdHandler = async (id) => {
   }
 }
 
-let getAllCategories = async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Methods', 'POST');
-  ctx.response.type = 'application/json';
 
-  let result = await getAllCategoriesHandler();
-
-  ctx.response.body = result;
-}
-
-let getAllCategoriesHandler = async () => {
-  let result1 = await database.queryCategories();
-  return result1
-}
 
 let getAllTags = async (ctx, next) => {
   ctx.set('Access-Control-Allow-Methods', 'POST');
