@@ -21,7 +21,7 @@ apiRouter.post('/article/getIndex', article.queryIndex);
 apiRouter.post('/article/detail', article.getArticleById);
 apiRouter.post('/article/categories', article.queryCategories);
 apiRouter.post('/article/tags', article.queryAllTags);
-// apiRouter.post('/article/queryByIndex', queryByIndex);
-// apiRouter.post('/article/getHistory', getHistoryArticleByPage);
+apiRouter.post('/article/queryByIndex', article.queryByIndex);
+apiRouter.post('/article/getHistory', article.getHistory);
 
 module.exports = apiRouter;
