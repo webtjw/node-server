@@ -15,7 +15,7 @@ apiRouter.options('*', ctx => {
 })
 
 apiRouter.post('/article/save', article.saveArticle);
-// apiRouter.post('/login', login);
+apiRouter.post('/login', article.login);
 apiRouter.post('/article/attributes', article.queryAttributes);
 apiRouter.post('/article/getIndex', article.queryIndex);
 // apiRouter.post('/article/detail', getArticleById);

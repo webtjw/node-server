@@ -21,6 +21,9 @@ article.queryIndex = queryIndex;
 const queryAttributes = require('./article/queryAttributes'); // 保存文章：查询所有的分类和标签
 article.queryAttributes = queryAttributes;
 
+const login = require('./article/login'); // 保存文章：查询所有的分类和标签
+article.login = login;
+
 
 
 
@@ -121,27 +124,6 @@ let getHistoryArticleByPage = async (ctx, next) => {
 
   ctx.set('Access-Control-Allow-Methods', 'POST');
   ctx.response.type = 'application/json';
-  ctx.response.body = result;
-}
-
-let login = async (ctx, next) => {
-  ctx.response.type = 'application/json';
-  ctx.response.status = 200;
-
-  const {token} = ctx.request.body;
-  let result = await database.queryDeveloper(token);
-
-  if (result.success && Array.isArray(result.data) && result.data.length === 0) {
-    result.success = false;
-    result.message = 'your token is not valid';
-    ctx.cookies.set('developer', false);
-  } else {
-    ctx.cookies.set('developer', true, {
-      maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: false
-    })
-  }
-  
   ctx.response.body = result;
 }
 
