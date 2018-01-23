@@ -20,7 +20,7 @@ apiRouter.post('/article/attributes', article.queryAttributes);
 apiRouter.post('/article/getIndex', article.queryIndex);
 // apiRouter.post('/article/detail', getArticleById);
 apiRouter.post('/article/categories', article.queryCategories);
-// apiRouter.post('/article/tags', getAllTags);
+apiRouter.post('/article/tags', article.queryAllTags);
 // apiRouter.post('/article/queryByIndex', queryByIndex);
 // apiRouter.post('/article/getHistory', getHistoryArticleByPage);
 
