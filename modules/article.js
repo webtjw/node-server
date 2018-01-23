@@ -2,11 +2,7 @@ const moment = require('moment');
 const database = require('../database/database');
 const {TABLE_NAME_ARTICLE, TABLE_NAME_CATE} = require('../database/dbConfig');
 
-const showdown = require('showdown'),
-  converter = new showdown.Converter({
-    omitExtraWLInCodeBlocks: true, // 省略代码块的新尾行
-    strikethrough: true // 支持语法 ~~删除内容~~
-  });
+
 
 
 let article = {};
@@ -26,39 +22,20 @@ article.login = login;
 
 const queryCategories = require('./article/queryCategories'); // 分类首页：查询所有分类
 article.queryCategories = queryCategories;
-article.login = login;
 
 const queryAllTags = require('./article/queryAllTags'); // 标签首页：查询所有标签
 article.queryAllTags = queryAllTags;
+article.queryCategories = queryCategories;
+
+const getArticleById = require('./article/getArticleById'); // 文章详情
+article.getArticleById = getArticleById;
 
 
 
 
 
 
-let getArticleById = async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Methods', 'POST')
-  ctx.response.type = 'application/json';
 
-  let result = await getArticleByIdHandler(ctx.request.body.id);
-
-  ctx.response.status = 200;
-  ctx.response.body = result;
-}
-
-let getArticleByIdHandler = async (id) => {
-  if (id !== undefined && typeof id === 'number' && id >= 0) {
-    let result = await database.query(`select * from article where id=${id}`)
-    if (result && result.success && Array.isArray(result.data)) {
-      result.data = result.data[0]
-      result.data.tags = result.data.tags.split(',')
-      
-      result.data.codeText = converter.makeHtml(result.data.codeText)
-    }
-    
-    return result
-  }
-}
 
 
 
