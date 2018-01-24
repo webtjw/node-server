@@ -15,7 +15,8 @@
     "koa-static": "^4.0.1",
     "moment": "^2.20.1",
     "mysql": "^2.15.0",
-    "showdown": "^1.8.6"
+    "showdown": "^1.8.6",
+    "showdown-highlight": "^1.0.2"
   },
   "devDependencies": {}
 }

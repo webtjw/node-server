@@ -3,7 +3,6 @@ const database = require('../database/database');
 
 
 
-
 let article = {};
 
 const queryIndex = require('./article/queryIndex'); // 首页三个类型的文章概要集合
@@ -33,19 +32,6 @@ article.queryByIndex = queryByIndex;
 
 const getHistory = require('./article/getHistory'); // 归档数据接口
 article.getHistory = getHistory;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 module.exports = article;
