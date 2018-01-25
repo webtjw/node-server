@@ -12,8 +12,9 @@ require('./routes/initialize').init(app);
 
 
 const cmdArgs = process.argv.splice(2);
-if (cmdArgs.length === 1 && cmdArgs[0] === 'dev') app.listen(3000);
-else app.listen(80);
+let port = 80;
+if (cmdArgs.length === 1 && cmdArgs[0] === 'dev') port = 3000;
+app.listen(port);
 
 // log info
 console.log(`Server running at http://127.0.0.1:${port}/`);
