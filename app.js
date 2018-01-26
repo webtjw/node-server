@@ -13,7 +13,7 @@ require('./routes/initialize').init(app);
 
 const cmdArgs = process.argv.splice(2);
 let port = 80;
-if (cmdArgs.length === 1 && cmdArgs[0] === 'dev') port = 3000;
+if (cmdArgs.length === 1 && cmdArgs[0] === '-dev') port = 3000;
 app.listen(port);
 
 // log info
