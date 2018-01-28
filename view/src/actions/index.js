@@ -22,7 +22,7 @@ export async function saveArticle (article) {
 // 作为开发者登录
 export async function login (token) {
   let params = {
-    url: `/api/login`,
+    url: `/api/article/login`,
     method: 'POST',
     data: {token}
   }

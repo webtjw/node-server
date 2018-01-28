@@ -16,7 +16,7 @@ const RouterKit = {
     this.app.on('error', this.errorDealing);
   },
   initNormalRouter () {
-    let apiRouter = require('./api');
+    let apiRouter = require('./article');
     
     const normalRoutesList = [
       require('./index'),
