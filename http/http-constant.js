@@ -9,7 +9,9 @@ HTTP_CONSTANT.MIME = {
 };
 
 HTTP_CONSTANT.HEADERS = {
-  METHODS: 'Access-Control-Allow-Methods'
+  METHODS: 'Access-Control-Allow-Methods',
+  HEADERS: 'Access-Control-Allow-HEADERS',
+  ORIGIN: 'Access-Control-Allow-Origin'
 }
 
 module.exports = HTTP_CONSTANT;

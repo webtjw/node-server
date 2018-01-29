@@ -1,4 +1,6 @@
 const path = require('path');
+const route_article = require('./article');
+const route_universal = require('./universal');
 
 const RouterKit = {
   app: null,
@@ -7,7 +9,7 @@ const RouterKit = {
 
     this.app = server;
     // normal routes
-    this.initNormalRouter();
+    this.initRoutes();
     // statics resources
     this.initStatics();
     // 404 page
@@ -15,13 +17,11 @@ const RouterKit = {
     // error
     this.app.on('error', this.errorDealing);
   },
-  initNormalRouter () {
-    let apiRouter = require('./article');
-    
+  initRoutes () {
     const normalRoutesList = [
-      require('./index'),
-      apiRouter
+      route_article
     ];
+
     normalRoutesList.map(item => this.app.use(item.routes()))
   },
   init404 () {
