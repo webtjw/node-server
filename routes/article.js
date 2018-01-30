@@ -1,8 +1,9 @@
 const KoaRouter = require('koa-router');
 const article = require('../modules/article');
+let router = require('./router');
 
 // prefix
-const routerArticle = new KoaRouter({prefix: '/api'});
+const prefix = '/api';
 
 routerArticle.post('/article/save', article.saveArticle);
 routerArticle.post('/article/login', article.login);

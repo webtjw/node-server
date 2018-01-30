@@ -1,23 +1,23 @@
 const path = require('path');
 const Koa = require('koa');
 const koaBody = require('koa-body');
+const siteConfig = require('./config/siteConfig');
+const dispatchRoute = require('./routes/dispatch');
 
-global.RootPath = path.resolve('');
+global.globalConfig = siteConfig; // 全局的设置属性
 
+// app 实例
 const app = new Koa();
 
-app.use(koaBody({multipart: true})); // 文件上传，注意书写的位置很重要，否则无法上传
+// TODO：埋点+日志处理
 
+/* 封闭的请求解析中间件 */
+app.use(koaBody({multipart: true})); // formdata 文件上传
 app.use(require('koa-bodyparser')()); // 解析请求体
 
-// router init
-require('./routes/initialize').init(app);
+/* 具名路由分发处理 */
+dispatchRoute(app);
 
-
-const cmdArgs = process.argv.splice(2);
-let port = 80;
-if (cmdArgs.length === 1 && cmdArgs[0] === '-dev') port = 3000;
-app.listen(port);
-
-// log info
+/* 启动监听 */
+app.listen(global.globalConfig.port);
 console.log(`Server running at http://127.0.0.1:${port}/`);
