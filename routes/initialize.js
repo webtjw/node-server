@@ -1,6 +1,6 @@
 const path = require('path');
-const route_article = require('./article');
-const route_universal = require('./universal');
+const routerArticle = require('./article');
+const routerCommon = require('./common');
 
 const RouterKit = {
   app: null,
@@ -19,7 +19,8 @@ const RouterKit = {
   },
   initRoutes () {
     const normalRoutesList = [
-      route_article
+      routerArticle,
+      routerCommon
     ];
 
     normalRoutesList.map(item => this.app.use(item.routes()))

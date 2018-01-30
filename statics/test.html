@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/common/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" id="file">
+    <input id="file2" type="file" name="file1" id="file1">
+    <input type="text">
+    <input id="ooo" type="submit" value="submit">
+  </form>
+
+  <script>
+    document.querySelector('#ooo').addEventListener('click', function (e) {
+      e.preventDefault();
+
+      var formData = new FormData();
+      formData.append('name', 'jiawei');
+      formData.append('file1', document.querySelector('input[type="file"]').files[0]);
+      formData.append('file', document.querySelector('#file2').files[0]);
+
+      var request = new XMLHttpRequest();
+      request.open("POST", "/common/upload");
+      request.send(formData);
+    })
+  </script>
+</body>
+</html>

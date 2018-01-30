@@ -52,7 +52,7 @@ cliui@^4.0.0:
     strip-ansi "^4.0.0"
     wrap-ansi "^2.0.0"
 
-co-body@^5.1.0:
+co-body@^5.1.0, co-body@^5.1.1:
   version "5.1.1"
   resolved "http://registry.npm.taobao.org/co-body/download/co-body-5.1.1.tgz#d97781d1e3344ba4a820fd1806bddf8341505236"
   dependencies:
@@ -177,6 +177,10 @@ find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
+formidable@^1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/formidable/download/formidable-1.1.1.tgz#96b8886f7c3c3508b932d6bd70c4d3a88f35f1a9"
+
 fresh@^0.5.2:
   version "0.5.2"
   resolved "http://registry.npm.taobao.org/fresh/download/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
@@ -282,6 +286,13 @@ iterate-object@^1.3.2:
 keygrip@~1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/keygrip/download/keygrip-1.0.2.tgz#ad3297c557069dea8bcfe7a4fa491b75c5ddeb91"
+
+koa-body@^2.5.0:
+  version "2.5.0"
+  resolved "http://registry.npm.taobao.org/koa-body/download/koa-body-2.5.0.tgz#84e8fcd8d5229a8cc1cb98a926e939069e716915"
+  dependencies:
+    co-body "^5.1.1"
+    formidable "^1.1.1"
 
 koa-bodyparser@^4.2.0:
   version "4.2.0"
