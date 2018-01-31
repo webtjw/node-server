@@ -2,12 +2,11 @@ const path = require('path');
 const Koa = require('koa');
 const koaBody = require('koa-body');
 const siteConfig = require('./config/siteConfig');
-const dispatchRoute = require('./routes/dispatch');
+const dispatchRoute = require('./app/routes/dispatchRoute');
 
 global.globalConfig = siteConfig; // 全局的设置属性
 
-// app 实例
-const app = new Koa();
+const app = new Koa(); // app 实例
 
 // TODO：埋点+日志处理
 
@@ -20,4 +19,4 @@ dispatchRoute(app);
 
 /* 启动监听 */
 app.listen(global.globalConfig.port);
-console.log(`Server running at http://127.0.0.1:${port}/`);
+console.log(`Server running at port ${global.globalConfig.port}.`);

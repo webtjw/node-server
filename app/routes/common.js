@@ -1,6 +1,6 @@
 const KoaRouter = require('koa-router');
 const HTTP_CONSTANT = require('../http/http-constant');
-const 2 = require('../modules/common/uploadAsync');
+const uploadAsync = require('../modules/common/uploadAsync');
 const allowCORS = require('../modules/common/allowCORS');
 
 
