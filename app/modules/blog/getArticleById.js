@@ -1,4 +1,4 @@
-const ctxKit = require('../../../toolkits/ctxKit');
+const httpKit = require('../../toolkits/httpKit');
 const database = require('../../database/database');
 const showdown = require('showdown');
 const showdownHighlight = require("showdown-highlight")
@@ -11,7 +11,7 @@ const converter = new showdown.Converter({
 });
 
 let getArticleById = async (ctx, next) => {
-  ctxKit.setAllowMethod(ctx, 'POST').setResponseType(ctx, 'json').setResponseCode(ctx, 200);
+  httpKit.setAllowMethod(ctx, 'POST').setResponseType(ctx, 'json').setResponseCode(ctx, 200);
 
   const {id, useMarkdown} = ctx.request.body;
   let result = await getArticleByIdHandler(id, useMarkdown);

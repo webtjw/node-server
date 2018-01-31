@@ -1,11 +1,11 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const ctxKit = require('../../../toolkits/ctxKit');
+const httpKit = require('../../toolkits/httpKit');
 
 
 const uploadAsync = async (ctx, next) => {
-  ctxKit.setAllowMethod(ctx, 'POST').setResponseType(ctx, 'json');
+  httpKit.setAllowMethod(ctx, 'POST').setResponseType(ctx, 'json');
   
   // While uploading synchronously, file in the form feild will be storaged in the temporary folder(os.tmpdir()).
   // To get the file, you have to use file stream api: createReadStream, createWriteStream.

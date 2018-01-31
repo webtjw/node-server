@@ -1,4 +1,4 @@
-const ctxKit = require('../../../toolkits/ctxKit');
+const httpKit = require('../../toolkits/httpKit');
 const database = require('../../database/database');
 const {TABLE_NAME_ARTICLE, TABLE_NAME_CATE} = require('../../database/dbConfig');
 
@@ -6,7 +6,7 @@ const {TABLE_NAME_ARTICLE, TABLE_NAME_CATE} = require('../../database/dbConfig')
 let queryByIndex = async (ctx, next) => {
   let result = await queryByIndexHandler(ctx.request.body);
 
-  ctxKit.setResponseType('json').setAllowMethod(ctx, 'POST').setResponseCode(200);
+  httpKit.setResponseType(ctx, 'json').setAllowMethod(ctx, 'POST').setResponseCode(ctx, 200);
   ctx.response.body = result;
 }
 

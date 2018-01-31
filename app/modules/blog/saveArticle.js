@@ -1,12 +1,12 @@
 const moment = require('moment');
-const ctxKit = require('../../../toolkits/ctxKit');
+const httpKit = require('../../toolkits/httpKit');
 const database = require('../../database/database');
 
 
 let saveArticle = async (ctx, next) => {
   let result = await saveArticleHandler(ctx.request.body);
 
-  ctxKit.setResponseType('json').setAllowMethod(ctx, 'POST').setResponseCode(200);
+  httpKit.setResponseType(ctx, 'json').setAllowMethod(ctx, 'POST').setResponseCode(ctx, 200);
   ctx.response.body = {
     success: result.success,
     data: result.success ? {id: result.data.id} : result.data

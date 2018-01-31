@@ -1,4 +1,4 @@
-const ctxKit = require('../../../toolkits/ctxKit');
+const httpKit = require('../../toolkits/httpKit');
 const database = require('../../database/database');
 
 
@@ -6,7 +6,7 @@ const database = require('../../database/database');
 let queryAttributes = async (ctx, next) => {
   let {categories, tags} = await queryAttributesHandler();
 
-  ctxKit.setResponseType('json').setAllowMethod(ctx, 'POST').setResponseCode(200);
+  httpKit.setResponseType(ctx, 'json').setAllowMethod(ctx, 'POST').setResponseCode(ctx, 200);
   ctx.response.body = {
     success: Boolean(categories && tags),
     data: {categories, tags}

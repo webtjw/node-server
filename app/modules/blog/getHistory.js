@@ -1,4 +1,4 @@
-const ctxKit = require('../../../toolkits/ctxKit');
+const httpKit = require('../../toolkits/httpKit');
 const database = require('../../database/database');
 
 
@@ -13,7 +13,7 @@ let getHistory = async (ctx, next) => {
     result = {success: false, data: null, message: 'wrong params'}
   }
   
-  ctxKit.setResponseType('json').setAllowMethod(ctx, 'POST').setResponseCode(200);
+  httpKit.setResponseType(ctx, 'json').setAllowMethod(ctx, 'POST').setResponseCode(ctx, 200);
   ctx.response.body = result;
 }
 
