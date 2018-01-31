@@ -2,22 +2,42 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const httpKit = require('../../toolkits/httpKit');
+const utils = require('../../toolkits/utils');
+const moment = require('moment');
 
 
 const uploadAsync = async (ctx, next) => {
-  httpKit.setAllowMethod(ctx, 'POST').setResponseType(ctx, 'json');
-  
   // While uploading synchronously, file in the form feild will be storaged in the temporary folder(os.tmpdir()).
-  // To get the file, you have to use file stream api: createReadStream, createWriteStream.
+  // To get the file, you should use file stream api: createReadStream, createWriteStream.
   // example:
   // let readStream = fs.createReadStream(ctx.request.body.files.file.path);
   // let writeStream = fs.createWriteStream(path.join(__dirname, `../../uploads/${ctx.request.body.files.file.name}`));
   // readStream.pipe(writeStream);
-  let result = await handleUpload();
+  const {files} = ctx.request.body;
+  let result = null;
+
+  if (files && files.file && files.file.path) result = await handleUpload(files.file.path, files.file.name);
+  else result = utils.getReturn(false, null, 'upload file not found.');
+  
+  httpKit.setAllowMethod(ctx, 'POST').setResponseType(ctx, 'json');
+  ctx.response.body = result;
 }
 
-const handleUpload = async () => {
-  return true;
+// handler
+const handleUpload = async (pathName, name) => {
+  const extension = name.match(/\.[A-z0-9]+$/)[0]; // get the filename extension
+  const fileName = name.replace(extension, `_${moment().format('YYYYMMDHHmmss')}_${extension}`);
+  try {
+    let readStream = fs.createReadStream(pathName);
+    var writeStream = fs.createWriteStream(path.join(__dirname, `../../../statics/uploads/${fileName}`));
+    readStream.pipe(writeStream);
+    readStream.on('end', () => writeStream.end());
+  } catch (e) {
+    console.error(e);
+    writeStream.end();
+  }
+
+  return utils.getReturn(true, `${global.globalConfig.origin}/statics/uploads/${fileName}`, 'upload succeed!');
 }
 
 module.exports = uploadAsync;

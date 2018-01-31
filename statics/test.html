@@ -24,7 +24,7 @@
       formData.append('file', document.querySelector('#file2').files[0]);
 
       var request = new XMLHttpRequest();
-      request.open("POST", "/common/upload");
+      request.open("POST", "/common/upload_async");
       request.send(formData);
     })
   </script>
