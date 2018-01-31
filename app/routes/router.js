@@ -1,5 +1,4 @@
 const KoaRouter = require('koa-router');
-
 // blog
 const queryIndex = require('../modules/blog/queryIndex');
 const saveArticle = require('../modules/blog/saveArticle');
@@ -14,8 +13,8 @@ const getHistory = require('../modules/blog/getHistory');
 const allowCORS = require('../modules/common/allowCORS');
 const uploadAsync = require('../modules/common/uploadAsync');
 
-let router = new KoaRouter();
 
+let router = new KoaRouter();
 /* blog */
 const prefixApiRoute = path => `/api${path}`; // api routes
 router.post(prefixApiRoute('/article/save'), saveArticle);
