@@ -1,8 +1,10 @@
 <template>
   <div class="m-v-20">
     <mavon-editor
+      ref="editor"
       @change="changeHandle"
       @save="saveHandle"
+      @imgAdd="uploadImage"
       v-model="article.codeText"
       :style="{height: editorHeight + 'px'}"
       :toolbars="{
@@ -70,7 +72,7 @@
 <script>
   import {mavonEditor} from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
-  import {saveArticle, getRemoteTagsCate, getArticleById} from '@/actions'
+  import {saveArticle, getRemoteTagsCate, getArticleById, uploadFile} from '@/actions'
   import Utils from '@/toolkits/Utils'
   import Toast from '@/toolkits/Toast'
   import VueDialog from '@/components/common/VueDialog'
@@ -162,6 +164,11 @@
           if (typeof category === 'string') this.article.category = {name: category, id: -1}
           else if (Utils.object.isObject(category)) this.article.category = category
         }
+      },
+      async uploadImage (pos, file) {
+        const result = await uploadFile(file)
+
+        if (result) this.$refs.editor.$img2Url(pos, result)
       },
       async fillRemoteData () {
         const {id} = this.$route.params

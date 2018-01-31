@@ -28,6 +28,6 @@ router.post(prefixApiRoute('/article/queryByIndex'), queryByIndex);
 router.post(prefixApiRoute('/article/getHistory'), getHistory);
 /* common */
 router.options('*', allowCORS); // cors
-router.post('/common/upload_async', uploadAsync); // upload async
+router.post(prefixApiRoute('/common/upload_async'), uploadAsync); // upload async
 
 module.exports = router;

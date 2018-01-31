@@ -88,3 +88,16 @@ export async function getHistoryArticle (obj) {
   }
   return connect(params)
 }
+
+// upload single file synchronously
+export async function uploadFile (file) {
+  var formdata = new FormData()
+  formdata.append('file', file)
+
+  return connect({
+    url: '/api/common/upload_async',
+    method: 'POST',
+    data: formdata,
+    headers: {'Content-Type': 'multipart/form-data'}
+  })
+}

@@ -26,7 +26,7 @@ const uploadAsync = async (ctx, next) => {
 // handler
 const handleUpload = async (pathName, name) => {
   const extension = name.match(/\.[A-z0-9]+$/)[0]; // get the filename extension
-  const fileName = name.replace(extension, `_${moment().format('YYYYMMDHHmmss')}_${extension}`);
+  const fileName = name.replace(extension, `_${moment().format('YYYYMMDHHmmss') + extension}`);
   try {
     let readStream = fs.createReadStream(pathName);
     var writeStream = fs.createWriteStream(path.join(__dirname, `../../../statics/uploads/${fileName}`));
@@ -37,7 +37,7 @@ const handleUpload = async (pathName, name) => {
     writeStream.end();
   }
 
-  return utils.getReturn(true, `${global.globalConfig.origin}/statics/uploads/${fileName}`, 'upload succeed!');
+  return utils.getReturn(true, `${global.globalConfig.origin}/uploads/${fileName}`, 'upload succeed!');
 }
 
 module.exports = uploadAsync;
