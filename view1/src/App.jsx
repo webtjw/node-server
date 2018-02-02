@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Topbar from './components/common/Topbar';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="App">
-          App
+          <Topbar></Topbar>
         </div>
       </Router>
     );
