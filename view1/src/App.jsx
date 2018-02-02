@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        App
-      </div>
+      <Router>
+        <div className="App">
+          App
+        </div>
+      </Router>
     );
   }
 }
