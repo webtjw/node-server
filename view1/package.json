@@ -13,19 +13,20 @@
   "scripts": {
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm-run-all build-css build-js transfer-build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-app-rewired eject",
     "transfer-build": "node build-extra/buildTransfer",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "build-js": "react-scripts build"
+    "start-js": "react-app-rewired start",
+    "build-js": "react-app-rewired build"
   },
   "devDependencies": {
     "chalk": "^2.3.0",
     "dotenv": "^5.0.0",
     "fs-extra": "^5.0.0",
     "node-sass-chokidar": "^0.0.3",
-    "npm-run-all": "^4.1.2"
+    "npm-run-all": "^4.1.2",
+    "react-app-rewired": "^1.4.1"
   }
 }
