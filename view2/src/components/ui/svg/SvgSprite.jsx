@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import './SvgSprite.scss';
 
 class CatSvg extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class CatSvg extends Component {
   render () {
     const {name, className} = this.props;
     
-    return <svg className={`svg-fill-color ${className}`}>
+    return <svg className={`svg svg-fill-color ${className}`}>
       <use xlinkHref={`#${name}`}></use>
     </svg>
   }

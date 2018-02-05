@@ -7,6 +7,7 @@ import '../../../assets/images/svg/index.svg';
 import '../../../assets/images/svg/category.svg';
 import '../../../assets/images/svg/tag.svg';
 import '../../../assets/images/svg/about.svg';
+import '../../../assets/images/svg/archive.svg';
 
 class NavItem extends Component {
   constructor(props) {
@@ -16,9 +17,9 @@ class NavItem extends Component {
   render () {
     const {name, icon} = this.props;
 
-    return <div className="nav-item p-v-8 m-v-10 p-h-20 a-c">
-      <SvgSprite name={icon} className="svg-16"></SvgSprite>
-      <div className="p-l-6">{name}</div>
+    return <div className="nav-item p-v-8 m-v-10" data-flex="dir:left main:center cross:center">
+      <SvgSprite name={icon} className="svg-14"></SvgSprite>
+      <div style={{lineHeight: 1}} className="" data-flex-box="0">{name}</div>
     </div>
   }
 }
