@@ -5,27 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+    * { margin: 0; padding: 0; font-size: 14px; box-sizing: border-box; list-style-type: none;}
+    .search-container { margin: 40px 20px; min-height: 28px; outline: 0; border-bottom: 1px solid #666; color: #999; position: relative;}
+    .search-container .drop-down { display: none; position: absolute; left: 0; top: 100%; width: 100%; margin-top: 1px;}
+    .search-container .drop-down li { padding: 8px 4px;}
+    .search-container .drop-down li:nth-child(2n-1) { background-color: #efefef;}
+  </style>
 </head>
 <body>
-  <form action="/common/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" id="file">
-    <input id="file2" type="file" name="file1" id="file1">
-    <input type="text">
-    <input id="ooo" type="submit" value="submit">
-  </form>
+  <div class="search1 search-container">
+    <div class="tag-array" title="你最满意的护士">你最满意的护士</div>
+    <div class="drop-down">
+      <ul></ul>
+    </div>
+  </div>
 
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script>
-    document.querySelector('#ooo').addEventListener('click', function (e) {
-      e.preventDefault();
+    
 
-      var formData = new FormData();
-      formData.append('name', 'jiawei');
-      formData.append('file1', document.querySelector('input[type="file"]').files[0]);
-      formData.append('file', document.querySelector('#file2').files[0]);
+    // 获取后端数据 + 拼接 html
+    function showRemoteData () {
+      var $ul = $(this).find('ul');
 
-      var request = new XMLHttpRequest();
-      request.open("POST", "/common/upload_async");
-      request.send(formData);
+      $ul.children().length === 0 && ajaxRemote(function (data) {
+        // 判断接口数据有效性：必须是数组且长度大于零
+        if (Array.isArray(data) && !!data.length) {
+          data.forEach(function (item) {
+            $ul.append($('<li data-id="' + item.id + '">' + item.name + '</li>'));
+          })
+        }
+
+        $ul.parent().show();
+      })
+    }
+    // ajax
+    function ajaxRemote (callback) {
+      // 模拟的远程数据
+      var mockData = [
+        {id: 0, name: '1111'},
+        {id: 1, name: '2222'},
+        {id: 2, name: '3333'},
+        {id: 3, name: '4444'},
+        {id: 4, name: '5555'},
+        {id: 5, name: '6666'},
+        {id: 6, name: '7777'},
+        {id: 7, name: '8888'}
+      ];
+      callback && callback(mockData);
+    }
+    $('.search-container').click(showRemoteData).on('click', 'li', function () {
+      console.log($(this))
     })
   </script>
 </body>
