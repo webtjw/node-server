@@ -11,11 +11,11 @@ class Index extends Component {
     }
   }
   
-  async fetchData (data) {
-    
+  async fetchData () {
+    // Add redux or mobx
   }
   componentDidMount () {
-    // TODO: load the index data
+    this.fetchData();
   }
   makeIndexListJsx (list) {
     if (Array.isArray(list) && list.length > 0) {
