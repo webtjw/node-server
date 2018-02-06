@@ -4,21 +4,23 @@ import PropTypes from 'prop-types';
 class LoadingBox extends Component {
   constructor(props) {
     super(props);
-  }
-  componentDidMount() {
-    const {load} = this.props;
     
-    load()
+    this.state = {
+      showType: 1 // 0-none / 1-loading / 2-no data / 3-fail
+    }
   }
+  
   render () {
-    return <div>
-      
+    const {children} = this.props;
+
+    return <div className="loading-box">
+      {children}
     </div>
   }
 }
 
 LoadingBox.propTypes = {
-  load: PropTypes.func.isRequired
+  className: PropTypes.string
 }
 
 export default LoadingBox;
