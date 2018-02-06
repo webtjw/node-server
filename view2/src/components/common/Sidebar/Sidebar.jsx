@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './Sidebar.scss';
 import avatar from '../../../assets/images/avatar.png';
 import NavItem from './NavItem';

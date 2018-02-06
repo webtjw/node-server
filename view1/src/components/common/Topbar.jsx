@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { Layout, Menu } from 'antd';
 
 const { Header } = Layout;

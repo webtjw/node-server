@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "global": "^4.3.2",
     "object-assign": "4.1.1",
     "promise": "8.0.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
+    "serve": "^6.4.9",
     "svg-sprite-loader": "^3.6.2"
   },
   "devDependencies": {
