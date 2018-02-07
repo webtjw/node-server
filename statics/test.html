@@ -8,55 +8,162 @@
   <style>
     * { margin: 0; padding: 0; font-size: 14px; box-sizing: border-box; list-style-type: none;}
     .search-container { margin: 40px 20px; min-height: 28px; outline: 0; border-bottom: 1px solid #666; color: #999; position: relative;}
-    .search-container .drop-down { display: none; position: absolute; left: 0; top: 100%; width: 100%; margin-top: 1px;}
+    .search-container .drop-down { position: absolute; left: 0; top: 100%; width: 100%; margin-top: 4px; border: 1px solid #ddd; box-shadow: 2px 2px 10px 2px #999; z-index: 99; background: #fff;}
+    .search-container .drop-down.hide { display: none;}
     .search-container .drop-down li { padding: 8px 4px;}
     .search-container .drop-down li:nth-child(2n-1) { background-color: #efefef;}
+    .search-container input { border: 0; outline: 0; height: 24px; padding-left: 4px; margin: 8px 0; width: 100%;}
+    .search-container input:focus + .drop-down { display: block!important;}
+    .tag-array {font-size: 0;}
+    .tag-item { padding: 1px 8px; margin: 4px 8px 4px 0; border: 1px solid #999; border-radius: 4px; display: inline-block;}
   </style>
 </head>
 <body>
-  <div class="search1 search-container">
-    <div class="tag-array" title="你最满意的护士">你最满意的护士</div>
-    <div class="drop-down">
-      <ul></ul>
-    </div>
-  </div>
+  <div class="search1 search-container"></div>
+  <div class="search2 search-container"></div>
 
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script>
-    
 
-    // 获取后端数据 + 拼接 html
-    function showRemoteData () {
-      var $ul = $(this).find('ul');
+    ;(function ($) {
+      // 获取后端数据 + 拼接 html
+      function showRemoteData (ajaxRemote) {
+        var $dropdown = $(this).find('.drop-down');
+        var $ul = $dropdown.children();
 
-      $ul.children().length === 0 && ajaxRemote(function (data) {
-        // 判断接口数据有效性：必须是数组且长度大于零
-        if (Array.isArray(data) && !!data.length) {
-          data.forEach(function (item) {
-            $ul.append($('<li data-id="' + item.id + '">' + item.name + '</li>'));
+        $dropdown.find('li').length === 0 && ajaxRemote(function (data) {
+          // 判断接口数据有效性：必须是数组且长度大于零
+          if (Array.isArray(data) && !!data.length) {
+            data.forEach(function (item) {
+              $ul.append('<li data-id="' + item.id + '">' + item.name + '</li>');
+            })
+          }
+
+          $dropdown.removeClass('hide');
+        })
+      }
+      // 选中填充
+      function selectItem () {
+        var $this = $(this);
+        var id = $this.data('id');
+        var name = $this.text();
+        var $container = $this.parents('.search-container');
+        var selected = $container.data('selected');
+
+        var isExisted = selected.some(function (item) {return +item.id === +id}); // 判断数组中是否已存在该 id
+
+        if (isExisted) console.log('id ' + id + ' 已存在');
+        else selected.push({id: id, name: name});
+
+        $container.attr('data-selected', JSON.stringify(selected));
+        fillSelected(selected, $container);
+        hideDropdown();
+      }
+      // 点击删除
+      function removeItem () {
+        var $this = $(this);
+        var id = $this.data('id');
+        var $container = $this.parents('.search-container');
+        var array = $container.data('selected');
+        var array1 = [];
+
+        for (var i = 0, len = array.length; i < len; i++) {
+          var item = array[i];
+          +item.id !== +id && array1.push({id: item.id, name: item.name});
+        }
+        $container.attr('data-selected', JSON.stringify(array1));
+        fillSelected(array1, $container);
+      }
+      // 填充选中项
+      function fillSelected (selected, $container) {
+        if (Array.isArray(selected)) {
+          var $box = $('.tag-array', $container);
+          var $input = $box.next();
+
+          $box.html('');
+
+          selected.forEach(function (item) {
+            $box.append($('<div class="tag-item" data-id="' + item.id + '">' + item.name + '</div>'))
           })
         }
+      }
+      // hide dropdown
+      function hideDropdown () {
+        $('.drop-down').addClass('hide');
+      }
+      // config
+      $.fn.tagMe = function (config) {
+        var $container = $(this);
 
-        $ul.parent().show();
-      })
-    }
-    // ajax
-    function ajaxRemote (callback) {
-      // 模拟的远程数据
-      var mockData = [
-        {id: 0, name: '1111'},
-        {id: 1, name: '2222'},
-        {id: 2, name: '3333'},
-        {id: 3, name: '4444'},
-        {id: 4, name: '5555'},
-        {id: 5, name: '6666'},
-        {id: 6, name: '7777'},
-        {id: 7, name: '8888'}
-      ];
-      callback && callback(mockData);
-    }
-    $('.search-container').click(showRemoteData).on('click', 'li', function () {
-      console.log($(this))
+        $container.attr('data-selected', JSON.stringify([]));
+        $container.append('<div class="tag-array"></div>');
+        $container.append('<input type="text" placeholder="' + (config.placeholder || '') + '">');
+        $container.append('<div class="drop-down hide"><ul></ul></div>');
+
+        $container.click(function () {showRemoteData.call(this, config.ajaxRemote)}) // 点击展示
+        $container.on('click', 'li', selectItem) // 选中下拉项
+        $container.on('click', '.tag-item', removeItem) // 删除选中项
+        $container.find('input').blur(function () {setTimeout(hideDropdown, 100)}) // 删除选中项
+        .focus(function () {$('.drop-down', $container).removeClass('hide')}) // 聚焦类名控制
+
+        return {
+          getResult: function () {
+            return $container.data('selected');
+          }
+        }
+      }
+    })(window.$)
+
+    var tagMe1 = $('.search1').tagMe({
+      // 输入框 placeholder
+      placeholder: '你最满意的护士',
+      // 请求远程数据，并把数据处理成下面的 mock 形式
+      ajaxRemote: function (callback) {
+        var mockData = [
+          {id: 0, name: '1111'},
+          {id: 1, name: '2222'},
+          {id: 2, name: '3333'},
+          {id: 3, name: '4444'},
+          {id: 4, name: '5555'},
+          {id: 5, name: '6666'},
+          {id: 6, name: '7777'},
+          {id: 7, name: '8888'}
+        ];
+        callback && callback(mockData);
+      }
+    })
+
+    var tagMe2 = $('.search2').tagMe({
+      // 输入框 placeholder
+      placeholder: '你最满意的护士',
+      // 请求远程数据，并把数据处理成下面的 mock 形式
+      ajaxRemote: function (callback) {
+        var mockData = [
+          {id: 0, name: '1111'},
+          {id: 1, name: '2222'},
+          {id: 2, name: '3333'},
+          {id: 3, name: '4444'},
+          {id: 4, name: '5555'},
+          {id: 5, name: '6666'},
+          {id: 6, name: '7777'},
+          {id: 7, name: '8888'}
+        ];
+
+        // 获取前面选中的，过滤
+        var result1 = tagMe1.getResult();
+        console.log(...result1)
+        var arrayFilter = [];
+        mockData.forEach(function (item) {
+          var checkId = +item.id;
+          var same = result1.some(function (selected) {
+            return +selected.id === checkId;
+          });
+
+          if (!same) arrayFilter.push(item);
+        })
+
+        callback && callback(arrayFilter);
+      }
     })
   </script>
 </body>
