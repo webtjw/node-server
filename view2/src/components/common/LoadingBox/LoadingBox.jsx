@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import Loading from './Loading';
 
 class LoadingBox extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   static defaultProps = {
     type: 'loading' // loading / empty / fail /  hide
