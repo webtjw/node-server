@@ -1,20 +1,27 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Loading from './Loading';
 
 class LoadingBox extends Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
-      showType: 1 // 0-none / 1-loading / 2-no data / 3-fail
-    }
+  }
+
+  static defaultProps = {
+    type: 'loading' // loading / empty / fail /  hide
   }
   
+  reflectStatus (children, type) {
+    if (children) return children;
+    else if (type === 'empty') return <div>empty</div>
+    else return <Loading></Loading>
+  }
   render () {
-    const {children} = this.props;
+    const {reflectStatus} = this;
+    const {children, type, className} = this.props;
 
-    return <div className="loading-box">
-      {children}
+    return <div className={`loading-box ${className}`}>
+      {reflectStatus(children, type)}
     </div>
   }
 }

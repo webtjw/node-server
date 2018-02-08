@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import LoadingBox from '../common/LoadingBox/LoadingBox';
 import IndexItem from './IndexItem';
+import './Index.scss';
 
 class Index extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class Index extends Component {
     const {data} = state;
 
     return <div className="index-container">
-      <LoadingBox className="">
+      <LoadingBox className="a-c">
         {makeIndexListJsx(data)}
       </LoadingBox>
     </div>

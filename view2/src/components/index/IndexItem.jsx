@@ -15,7 +15,6 @@ class IndexItem extends Component {
                 {
                   item.tags.map(tag => <Link to={`/tags/${tag}`} class="tag-item m-r-8 font-10 c-normal">{tag}</Link>)
                 }
-                
               </div>
               <div class="p-l-10 font-12" data-flex-box="0">{item.time}</div>
             </div>
