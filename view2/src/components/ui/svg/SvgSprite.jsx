@@ -2,12 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './SvgSprite.scss';
 
-class CatSvg extends Component {
-  constructor(props) {
-    super(props);
-    console.log(props)
-  }
-  
+class SvgSprite extends Component {
   render () {
     const {name, className} = this.props;
     
@@ -17,9 +12,9 @@ class CatSvg extends Component {
   }
 }
 
-CatSvg.propTypes = {
+SvgSprite.propTypes = {
   name: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired
 }
 
-export default CatSvg;
+export default SvgSprite;
