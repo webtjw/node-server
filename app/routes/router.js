@@ -12,6 +12,8 @@ const getHistory = require('../modules/blog/getHistory');
 // common
 const allowCORS = require('../modules/common/allowCORS');
 const uploadAsync = require('../modules/common/uploadAsync');
+// external
+const getMediaVersion = require('../modules/external/mediaVersion');
 
 
 let router = new KoaRouter();
@@ -29,5 +31,7 @@ router.post(prefixApiRoute('/article/getHistory'), getHistory);
 /* common */
 router.options('*', allowCORS); // cors
 router.post(prefixApiRoute('/common/upload_async'), uploadAsync); // upload async
+/* external function */
+router.get('/media/version', getMediaVersion)
 
 module.exports = router;
