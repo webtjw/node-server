@@ -1,23 +1,23 @@
 <template>
-  <div id="app" class="w-1000" flex="dir:left">
-    <side-bar flex-box="0"></side-bar>
-    <router-view flex-box="1" />
-    <toast></toast>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <router-view/>
   </div>
 </template>
 
 <script>
-  import SideBar from '@/components/common/sidebar/SideBar'
-  import Toast from '@/components/common/Toast'
-  
-  export default {
-    name: 'App',
-    components: {SideBar, Toast}
-  }
+export default {
+  name: 'App'
+}
 </script>
 
-<style lang="scss">
-  @import './assets/style/app-reset.scss';
-  @import './assets/style/common.scss';
-  @import '../node_modules/flex.css/dist/flex.css';
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>
