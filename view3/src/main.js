@@ -2,17 +2,17 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
 // lib
-import Vue from 'vue'
-import App from './App'
-import router from './router'
-import Toast from '@/toolkits/Toast'
+import Vue from 'vue';
+import App from './App';
+import router from './router';
+import Toast from '@/toolkits/Toast';
 
 // project initialize
-import Initialize from './toolkits/Initialize'
-Initialize.init()
+import Initialize from './toolkits/Initialize';
+Initialize.init();
 
-Vue.config.productionTip = false
-Vue.prototype.$toast = Toast
+Vue.config.productionTip = false;
+Vue.prototype.$toast = Toast;
 
 /* eslint-disable no-new */
 new Vue({
@@ -20,4 +20,4 @@ new Vue({
   router,
   template: '<App/>',
   components: {App}
-})
+});

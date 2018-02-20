@@ -7,8 +7,8 @@
 </template>
 
 <script>
-  import SideBar from '@/components/common/sidebar/SideBar'
-  import Toast from '@/components/common/Toast'
+  import SideBar from '@/components/common/sidebar/SideBar';
+  import Toast from '@/components/common/Toast';
   
   export default {
     name: 'App',
@@ -21,3 +21,4 @@
   @import './assets/style/common.scss';
   @import '../node_modules/flex.css/dist/flex.css';
 </style>
+  
