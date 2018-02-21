@@ -1,18 +1,18 @@
 <template>
-  <div id="app" class="w-1000" flex="dir:left">
-    <side-bar flex-box="0"></side-bar>
-    <router-view flex-box="1" />
+  <div id="app">
+    <topbar></topbar>
+    <router-view />
     <toast></toast>
   </div>
 </template>
 
 <script>
-  import SideBar from '@/components/common/sidebar/SideBar';
+  import Topbar from '@/components/common/topbar/Topbar';
   import Toast from '@/components/common/Toast';
   
   export default {
     name: 'App',
-    components: {SideBar, Toast}
+    components: {Topbar, Toast}
   }
 </script>
 
