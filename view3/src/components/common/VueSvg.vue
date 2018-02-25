@@ -15,6 +15,7 @@
 <style lang="scss" scoped>
   .svg-fill-color { fill: currentColor;}
 
+  .svg-13 { width: 13px; height: 13px;}
   .svg-14 { width: 14px; height: 14px;}
   .svg-16 { width: 16px; height: 16px;}
   .svg-18 { width: 18px; height: 18px;}
