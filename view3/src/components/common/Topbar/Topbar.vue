@@ -71,7 +71,7 @@
         }
       }
       .dev-entrance {
-        color: #ddd;
+        color: transparent;
       }
     }
   }

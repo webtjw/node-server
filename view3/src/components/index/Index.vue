@@ -3,10 +3,9 @@
     <template v-if="articleData && articleData.length">
       <index-item v-for="item of articleData" :data="item" :key="item.title"></index-item>
     </template>
-    <h3 v-else class="empty" flex="dir:left main:center cross:center">
-      <vue-svg name="cry" class="svg-40 m-r-20"></vue-svg>
-      <div>sorry，暂无数据</div>
-    </h3>
+    <div class="empty m-t-40 a-c">
+      <img src="../../assets/images/hint_no_data.jpg" alt="">
+    </div>
   </div>
 </template>
 
@@ -38,10 +37,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .empty {
-    height: 100%;
-    .svg-40 {
-      color: #333;
-    }
+  .empty img {
+    width: 140px;
   }
 </style>
