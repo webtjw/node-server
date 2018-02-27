@@ -1,9 +1,10 @@
 <template>
   <div id="topbar">
-    <div class="wrapper" flex="dir:left main:right cross:center">
-      <nav flex="dir:left">
-        <router-link class="nav-item m-l-12 p-h-8 p-v-8 font-14" v-for="nav in navList" :key="nav.name" :to="nav.path" flex="dir:left cross:center">
-          <vue-svg :name="nav.icon" class="svg-14 m-r-6"></vue-svg>
+    <div class="wrapper" flex="dir:left cross:center">
+      <router-link class="dev-entrance font-13" to="/login">cat's developer</router-link>
+      <nav flex="dir:left main:right " flex-box="1">
+        <router-link class="nav-item m-l-4 p-h-10 p-v-6 font-13" :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)" flex="dir:left cross:center">
+          <vue-svg :name="nav.icon" class="svg-13 m-r-6"></vue-svg>
           <span>{{nav.name}}</span>
         </router-link>
       </nav>
@@ -16,32 +17,61 @@
     data () {
       return {
         navList: [
-          {name: '首页', path: '/', icon: 'index'},
-          {name: '分类', path: '/category', icon: 'category'},
-          {name: '标签', path: '/tags', icon: 'tag'},
-          {name: '归档', path: '/archives', icon: 'archive'},
-          {name: '关于', path: '/about', icon: 'about'}
-        ]
+          {name: '首页', path: '/', prefix: '/', icon: 'index'},
+          {name: '分类', path: '/category', prefix: 'category', icon: 'category'},
+          {name: '标签', path: '/tags', prefix: 'tags', icon: 'tag'},
+          {name: '归档', path: '/archives', prefix: 'archives', icon: 'archive'},
+          {name: '关于', path: '/about', prefix: 'about', icon: 'about'}
+        ],
+        navIndex: 0
       }
+    },
+    methods: {
+      matchNavIndex (path) {
+        if (path !== '/') {
+          const pathArray = path.split('/');
+          const prefix = pathArray[1];
+          prefix && this.navList.forEach((item, index) => {
+            if (prefix === item.prefix) {
+              this.navIndex = index;
+            }
+          })
+        } else this.navIndex = 0;
+      }
+    },
+    watch: {
+      $route (obj) {
+        this.matchNavIndex(obj.path);
+      }
+    },
+    mounted () {
+      this.matchNavIndex(this.$route.path);
     }
   }
 </script>
 
 <style lang="scss">
   #topbar {
-    border-bottom: 1px solid #e9e9e9;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e6e6e6;
 
     .wrapper {
-      height: 64px;
+      height: 60px;
       
       .nav-item {
-        color: #333;
+        color: #555;
+        cursor: pointer;
         transition: all .3s ease-out;
-        background-color: #fff;
-        &:hover {
-          background-color: #333;
-          color: #fff;
+        &:hover, &.selected {
+          color: #333;
+          background-color: #e1e1e1;
         }
+        &:last-child span {
+            border: 0;
+        }
+      }
+      .dev-entrance {
+        color: transparent;
       }
     }
   }
