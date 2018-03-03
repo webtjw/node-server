@@ -3,9 +3,7 @@
     <template v-if="articleData && articleData.length">
       <index-item v-for="item of articleData" :data="item" :key="item.title"></index-item>
     </template>
-    <div class="empty m-t-40 a-c">
-      <img src="../../assets/images/hint_no_data.jpg" alt="">
-    </div>
+    <hinter v-else></hinter>
   </div>
 </template>
 
