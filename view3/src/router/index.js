@@ -11,7 +11,7 @@ import Index from '@/components/index/Index';
 // import Login from '@/components/about/Login'
 // import Utils from '../toolkits/Utils'
 
-const ArticleEdit = () => import(/* webpackChunkName: "article-edit" */ '@/components/article/ArticleEdit')
+const ArticleEdit = () => import(/* webpackChunkName: "ArticleEdit" */ '@/components/article/ArticleEdit')
 
 Vue.use(Router)
 
