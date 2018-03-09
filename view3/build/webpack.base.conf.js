@@ -48,30 +48,12 @@ module.exports = {
         include: [resolve('src'), resolve('test')]
       },
       {
-        test: /\.(png|jpe?g|gif)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
-      },
-      {
-        test: /\.(svg)$/i,
-        loader: 'url-loader',
-        exclude: [path.resolve(__dirname, '../src')],
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
-      },
-      {
-        test: /\.(svg)$/i,
-        exclude: [path.resolve(__dirname, '../node_modules')],
-        use: [
-          {
-            loader: 'svg-sprite-loader'
-          }
-        ]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
