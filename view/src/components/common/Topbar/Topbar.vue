@@ -19,8 +19,6 @@ import svgTag from '../../../assets/images/svg/tag.svg'
 import svgArchive from '../../../assets/images/svg/archive.svg'
 import svgAbout from '../../../assets/images/svg/about.svg'
 
-console.log(svgIndex)
-
 export default {
   data () {
     return {
