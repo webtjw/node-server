@@ -1,5 +1,5 @@
 <template>
-  <div class="article-edit m-v-20">
+  <div class="article-edit p-t-20">
     <vue-editor></vue-editor>
   </div>
 </template>
