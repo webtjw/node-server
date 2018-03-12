@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import svgIndex from '../../../assets/images/svg/index.svg'
-import svgCategory from '../../../assets/images/svg/category.svg'
-import svgTag from '../../../assets/images/svg/tag.svg'
-import svgArchive from '../../../assets/images/svg/archive.svg'
-import svgAbout from '../../../assets/images/svg/about.svg'
+import svgIndex from '../../../assets/images/svg/svg-index.svg'
+import svgCategory from '../../../assets/images/svg/svg-category.svg'
+import svgTag from '../../../assets/images/svg/svg-tag.svg'
+import svgArchive from '../../../assets/images/svg/svg-archive.svg'
+import svgAbout from '../../../assets/images/svg/svg-about.svg'
 
 export default {
   data () {
