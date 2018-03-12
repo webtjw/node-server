@@ -11,8 +11,8 @@
     </div>
     <!-- edit area -->
     <div class="edit-container" ref="edit" :style="{height: editHeight + 'px'}">
-      <textarea class="v-input-feild v-area-item" v-model="inputValue" ref="input" @scroll="sameScroll($event, 'right')"></textarea>
-      <pre class="preview v-area-item" ref="preview" v-html="inputValue" @scroll="sameScroll($event, 'left')">
+      <textarea class="v-input-feild v-area-item" v-model="inputValue" ref="input" @scroll="sameScroll($event, 'right')" @mouseover="mouseScrollType = 0"></textarea>
+      <pre class="preview v-area-item" ref="preview" v-html="inputValue" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1">
         <!-- 暂时为了实现同屏效果采用 pre，后面要改回 div -->
       </pre>
     </div>
@@ -51,12 +51,14 @@ export default {
   },
   methods: {
     sameScroll (event, type) {
-      console.log(event.isTrusted)
-      const {$refs: {input, preview}, changeScroll} = this
+      const {$refs: {input, preview}, changeScroll, mouseScrollType} = this
       const {target: {scrollTop, scrollHeight}} = event
       const element = type === 'right' ? preview : input
-      // element.scrollTop = element.scrollHeight * (+(scrollTop / scrollHeight).toFixed(2))
-      setTimeout(requestAnimationFrame(changeScroll.bind(null, element, element.scrollHeight * (+(scrollTop / scrollHeight).toFixed(2)))), 400)
+      if ((type === 'right' && mouseScrollType !== 1) || (type === 'left' && mouseScrollType !== 0)) {
+        this.$nextTick(() => {
+          setTimeout(requestAnimationFrame(changeScroll.bind(null, element, element.scrollHeight * (+(scrollTop / scrollHeight).toFixed(2)))), 200)
+        })
+      }
     },
     changeScroll (el, distance) {
       el.scrollTop = distance
