@@ -11,8 +11,8 @@
     </div>
     <!-- edit area -->
     <div class="edit-container" ref="edit" :style="{height: editHeight + 'px'}">
-      <textarea class="v-input-feild v-area-item" v-model="inputValue" ref="input" @scroll="sameScroll($event, 'right')" @mouseover="mouseScrollType = 0"></textarea>
-      <pre class="preview v-area-item" ref="preview" v-html="inputValue" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1">
+      <textarea class="v-input-feild v-area-item" v-model="inputValue" ref="input" @scroll="sameScroll($event, 'right')" @mouseover="mouseScrollType = 0" spellcheck="false"></textarea>
+      <pre class="preview v-area-item" ref="preview" v-html="compileHTML" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1">
         <!-- 暂时为了实现同屏效果采用 pre，后面要改回 div -->
       </pre>
     </div>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import markdown from './markdown'
 import './importSvg'
 
 export default {
@@ -47,6 +48,13 @@ export default {
       editHeight: 0,
       inputValue: '',
       mouseScrollType: -1
+    }
+  },
+  computed: {
+    compileHTML () {
+      const {inputValue} = this
+      const html = markdown(inputValue)
+      return html
     }
   },
   methods: {
