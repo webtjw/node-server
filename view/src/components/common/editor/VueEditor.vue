@@ -20,8 +20,10 @@
 </template>
 
 <script>
-import markdown from './markdown'
+import preProcess from './preProcess'
+import markdownIt from 'markdown-it'
 import './importSvg'
+const markdown = markdownIt()
 
 export default {
   data () {
@@ -53,8 +55,8 @@ export default {
   computed: {
     compileHTML () {
       const {inputValue} = this
-      const html = markdown(inputValue)
-      return html
+      const articleStructure = preProcess(inputValue)
+      return articleStructure
     }
   },
   methods: {

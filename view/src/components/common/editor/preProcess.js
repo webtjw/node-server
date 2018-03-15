@@ -7,6 +7,9 @@ export default function (markdown) {
   if (Array.isArray(regTitle) && regTitle[1]) {
     article.title = regTitle[1].replace(/\s*$/, '')
   }
-  console.log(article.title)
+  // get description before 'more' boundary
+  if (markdown.indexOf('<!-- more -->') > -1) {
+    console.log('more')
+  }
   return markdown
 }
