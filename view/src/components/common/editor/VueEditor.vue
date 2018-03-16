@@ -30,7 +30,7 @@ export default {
     return {
       editTools: [
         {icon: 'svg-title', title: '设置为标题', method: this.setTitle},
-        {icon: 'svg-bold', title: '粗体', method: this.setTitle},
+        {icon: 'svg-bold', title: '粗体', method: this.setBold},
         {icon: 'svg-underline', title: '下划线', method: this.setTitle},
         {icon: 'svg-center', title: '居中', method: this.setTitle},
         {icon: 'svg-quote', title: '引用', method: this.setTitle},
@@ -102,6 +102,15 @@ export default {
           input.focus()
         })
       }
+    },
+    setBold () {
+      const {inputSelection: {start, prev, selected, next}, $refs: {input}} = this
+      this.inputValue = prev + `**${selected || '粗体'}**` + next
+      this.$nextTick(() => {
+        input.selectionStart = start + 2
+        input.selectionEnd = start + (selected.length || 2) + 2
+        input.focus()
+      })
     }
   },
   watch: {
