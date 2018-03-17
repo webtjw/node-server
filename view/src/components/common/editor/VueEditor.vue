@@ -31,7 +31,6 @@ export default {
       editTools: [
         {icon: 'svg-title', title: '设置为标题', method: this.setTitle},
         {icon: 'svg-bold', title: '粗体', method: this.setBold},
-        {icon: 'svg-underline', title: '下划线', method: this.setTitle},
         {icon: 'svg-center', title: '居中', method: this.setTitle},
         {icon: 'svg-quote', title: '引用', method: this.setTitle},
         {icon: 'svg-list', title: '列表', method: this.setTitle},
