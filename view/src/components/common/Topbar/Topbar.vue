@@ -3,7 +3,7 @@
     <div class="wrapper" flex="dir:left">
       <router-link class="dev-entrance font-15" to="/login">cat's developer</router-link>
       <nav flex="dir:left main:right " flex-box="1">
-        <router-link class="nav-item m-h-4 p-h-18 p-v-6 font-15" :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)">
+        <router-link class="nav-item p-h-20 p-v-6 font-15" :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)">
           <!-- <vue-svg :icon="nav.icon" class="svg-14 m-r-6"></vue-svg> -->
           {{nav.name}}
         </router-link>
