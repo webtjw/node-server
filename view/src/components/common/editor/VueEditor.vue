@@ -165,6 +165,15 @@ export default {
       /deep/ code {
         font-family: consolas, "Miscrosoft Yahei";
       }
+      /deep/ blockquote {
+        display: inline-block;
+        padding: 20px 40px;
+        margin: 10px 0;
+        background: no-repeat left top url(../../../assets/images/quote-left.png);
+        background-size: 24px auto;
+      }
+      /deep/ ul, /deep/ ul li { list-style-type: disc; list-style-position: inside;}
+      /deep/ ol, /deep/ ol li { list-style-type: decimal; list-style-position: inside;}
     }
     .v-input-feild {
       width: 100%;
@@ -174,13 +183,6 @@ export default {
       border: 0;
       outline: 0;
       resize: none;
-    }
-    /deep/ blockquote {
-      display: inline-block;
-      padding: 20px 40px;
-      margin: 10px 0;
-      background: no-repeat left top url(../../../assets/images/quote-left.png);
-      background-size: 24px auto;
     }
   }
 </style>
