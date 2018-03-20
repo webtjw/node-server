@@ -1,11 +1,11 @@
 <template>
   <div id="topbar">
-    <div class="wrapper" flex="dir:left cross:center">
-      <router-link class="dev-entrance font-13" to="/login">cat's developer</router-link>
+    <div class="wrapper" flex="dir:left">
+      <router-link class="dev-entrance font-15" to="/login">cat's developer</router-link>
       <nav flex="dir:left main:right " flex-box="1">
-        <router-link class="nav-item m-l-4 p-h-10 p-v-6 font-14" :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)" flex="dir:left cross:center">
-          <vue-svg :icon="nav.icon" class="svg-14 m-r-6"></vue-svg>
-          <span>{{nav.name}}</span>
+        <router-link class="nav-item m-h-4 p-h-18 p-v-6 font-15" :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)">
+          <!-- <vue-svg :icon="nav.icon" class="svg-14 m-r-6"></vue-svg> -->
+          {{nav.name}}
         </router-link>
       </nav>
     </div>
@@ -58,18 +58,24 @@ export default {
 
 <style lang="scss">
   #topbar {
-    background-color: #f5f5f5;
+    background-color: rgba(255, 255, 255, .5);
     border-bottom: 1px solid #e6e6e6;
 
     .wrapper {
-      height: 60px;
+      height: 90px;
       .nav-item {
-        color: #555;
+        height: 100%;
+        line-height: 82px;
+        color: #666;
         cursor: pointer;
         transition: all .3s ease-out;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
         &:hover, &.selected {
-          color: #333;
-          background-color: #e1e1e1;
+          color: #000;
+        }
+        &.selected {
+          border-bottom-color: #666;
         }
         &:last-child span {
             border: 0;
