@@ -12,9 +12,9 @@
     <!-- edit area -->
     <div class="edit-container" ref="edit" :style="{height: editHeight + 'px'}">
       <textarea class="v-input-feild v-area-item" v-model="inputValue" ref="input" @scroll="sameScroll($event, 'right')" @mouseover="mouseScrollType = 0" spellcheck="false" @select="updateSelection" @click="updateSelection" @keydown="updateSelection"></textarea>
-      <pre class="preview v-area-item" ref="preview" v-html="compileHTML" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1">
+      <div class="preview v-area-item" ref="preview" v-html="compileHTML" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1">
         <!-- 暂时为了实现同屏效果采用 pre，后面要改回 div -->
-      </pre>
+      </div>
     </div>
   </div>
 </template>
@@ -144,8 +144,7 @@ export default {
     .edit-container {
       font-size: 0;
 
-        .v-area-item {
-        overflow: hidden;
+      .v-area-item {
         display: inline-block;
         height: 100%;
         width: 50%;
@@ -154,12 +153,17 @@ export default {
         background-color: #fff;
         overflow-y: auto;
         overflow-x: hidden;
-        font: 14px/1.6 consolas, "Miscrosoft Yahei";
+        white-space: normal;
+        word-break: break-all;
+        font: 300 14px/1.6 consolas, "Miscrosoft Yahei";
         &.preview { border-left: 1px solid #ededed;}
         &::-webkit-scrollbar { width: 8px;}
         &::-webkit-scrollbar-track { display: none;}
         &::-webkit-scrollbar-button { display: none;}
         &::-webkit-scrollbar-thumb { background-color: #aaa;}
+      }
+      /deep/ code {
+        font-family: consolas, "Miscrosoft Yahei";
       }
     }
     .v-input-feild {
@@ -170,6 +174,13 @@ export default {
       border: 0;
       outline: 0;
       resize: none;
+    }
+    /deep/ blockquote {
+      display: inline-block;
+      padding: 20px 40px;
+      margin: 10px 0;
+      background: no-repeat left top url(../../../assets/images/quote-left.png);
+      background-size: 24px auto;
     }
   }
 </style>
