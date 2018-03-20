@@ -1,20 +1,39 @@
 <template>
   <div class="v-editor">
     <!-- tools -->
-    <div class="tools p-h-20 p-v-10 relative" flex="dir:left main:justify cross:center">
-      <div class="edit-tools">
-        <vue-svg v-for="tool in editTools" :key="tool.icon" :icon="tool.icon" :title="tool.title" @click.native="tool.method" class="svg-18 pointer m-h-4 p-4"></vue-svg>
+    <div class="tools">
+      <!-- tools list -->
+      <div flex="dir:left main:justify cross:center">
+        <div class="edit-tools">
+          <vue-svg v-for="tool in editTools" :key="tool.icon" :icon="tool.icon" :title="tool.title" @click.native="tool.method" class="svg-18 pointer m-h-4 p-4"></vue-svg>
+        </div>
+        <div class="functional-tools">
+          <vue-svg v-for="tool in functionalTools" :key="tool.icon" :icon="tool.icon" class="svg-18 pointer m-h-4 p-2"></vue-svg>
+        </div>
       </div>
-      <div class="functional-tools">
-        <vue-svg v-for="tool in functionalTools" :key="tool.icon" :icon="tool.icon" class="svg-18 pointer m-h-4 p-2"></vue-svg>
+      <!-- additional dialog -->
+      <div class="additional-tool" v-show="additionalToolType !== -1">
+        <div class="additional-image" v-show="additionalToolType === 'image'">
+          <div flex="dir:left cross:center">
+            <label flex-box="0">网络图片：</label>
+            <input class="image-net" ref="imageFromNet" type="text" style="width: 300px;">
+          </div>
+          <div flex="dir:left cross:center">
+            <label flex-box="0">本地图片：</label>
+            <div class="btn upload-image">上传</div>
+            <input type="file">
+          </div>
+        </div>
+        <div class="controls" flex="dir:left main:center cross:center">
+          <div class="btn cancel" @click="additionalToolType = -1">取消</div>
+          <div class="btn" @click="confirmAdditionalTool">确认</div>
+        </div>
       </div>
     </div>
     <!-- edit area -->
     <div class="edit-container" ref="edit" :style="{height: editHeight + 'px'}">
       <textarea class="v-input-feild v-area-item" v-model="inputValue" ref="input" @scroll="sameScroll($event, 'right')" @mouseover="mouseScrollType = 0" spellcheck="false" @select="updateSelection" @click="updateSelection" @keydown="updateSelection"></textarea>
-      <div class="preview v-area-item" ref="preview" v-html="compileHTML" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1">
-        <!-- 暂时为了实现同屏效果采用 pre，后面要改回 div -->
-      </div>
+      <div class="preview v-area-item" ref="preview" v-html="compileHTML" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1"></div>
     </div>
   </div>
 </template>
@@ -36,8 +55,8 @@ export default {
         {icon: 'svg-center', title: '居中', method: this.setAlign},
         {icon: 'svg-quote', title: '引用', method: this.setQuote},
         {icon: 'svg-list', title: '列表', method: this.setList},
-        {icon: 'svg-link', title: '插入链接', method: this.setTitle},
-        {icon: 'svg-image', title: '插入图片', method: this.setTitle},
+        {icon: 'svg-link', title: '插入链接', method: this.setLink},
+        {icon: 'svg-image', title: '插入图片', method: () => { this.additionalToolType = 'image' }},
         {icon: 'svg-code', title: '插入代码段', method: this.setTitle},
         {icon: 'svg-codes', title: '插入代码块', method: this.setTitle},
         {icon: 'svg-table', title: '插入表格', method: this.setTitle}
@@ -57,7 +76,8 @@ export default {
         prev: '',
         selected: '',
         next: ''
-      }
+      },
+      additionalToolType: 'image'
     }
   },
   computed: {
@@ -102,14 +122,14 @@ export default {
       })
     },
     setTitle () {
-      const {inputSelection: {start, selected, next}, $refs: {input}} = this
+      const {inputSelection: {start, selected, next}} = this
       if (start === 0) {
         this.inputValue = `#t ${(selected || '标题') + (next.startsWith('\n') ? '' : '\n')}` + next
         this.focusSelection(3, 3 + (selected.length || 2))
       }
     },
     setBold () {
-      const {inputSelection: {start, prev, selected, next}, $refs: {input}} = this
+      const {inputSelection: {start, prev, selected, next}} = this
       this.inputValue = prev + `**${selected || '粗体'}**` + next
       this.focusSelection(start + 2, start + (selected.length || 2) + 2)
     },
@@ -130,6 +150,24 @@ export default {
       const isPrevWrap = prev.endsWith('\n')
       this.inputValue = (isPrevWrap ? prev : (prev + '\n')) + `* ${selected || '列表项1'}\n* 列表项2\n` + next
       this.focusSelection(start + 2 + Number(!isPrevWrap), start + (selected.length || 4) + 2 + Number(!isPrevWrap))
+    },
+    setLink () {
+      const {inputSelection: {start, prev, selected, next}} = this
+      this.inputValue = prev + `[${selected || 'link'}](http:// "title")` + next
+      this.focusSelection(start + 1, start + (selected.length || 4) + 1)
+    },
+    setImage (path) {
+      const {inputSelection: {start, prev, selected, next}} = this
+      const isPrevWrap = prev.endsWith('\n')
+      this.inputValue = (isPrevWrap ? prev : (prev + '\n')) + `![${selected || 'alt'}](${path} "title")\n` + next
+      this.focusSelection(start + 2 + Number(!isPrevWrap), start + (selected.length || 3) + 2 + Number(!isPrevWrap))
+    },
+    confirmAdditionalTool () {
+      const {inputSelection: {start, prev, selected, next}} = this
+      if (this.additionalToolType === 'image') {
+        const image = this.$refs.imageFromNet.value
+        if (image) this.setImage(image)
+      }
     }
   },
   watch: {
@@ -148,7 +186,26 @@ export default {
     box-shadow: 0 -1px 4px 1px #ddd;
     border-radius: 3px;
     .tools {
+      position: relative;
+      padding: 10px 20px;
       box-shadow: 0 1px 8px #ddd;
+    }
+    .additional-tool {
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, 1px);
+      padding: 10px 20px;
+      background-color: #fff;
+      box-shadow: 0 1px 8px #ddd;
+      .additional-image {
+        > div { padding: 10px 0;}
+        .image-net { outline: 0; border: 0; border-bottom: 1px solid #bbb; height: 30px;}
+        .upload-image + input { display: none;}
+      }
+      .controls { padding: 14px 0 8px;}
+      .btn { padding: 5px 18px; background-color: #666; color: #fff; border-radius: 3px; cursor: pointer; border: 1px solid #666;}
+      .btn.cancel { background-color: #fff; color: #666; border-color: #999; margin-right: 10px;}
     }
     .edit-container {
       font-size: 0;
