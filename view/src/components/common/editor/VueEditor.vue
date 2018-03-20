@@ -34,8 +34,8 @@ export default {
         {icon: 'svg-title', title: '设置为标题', method: this.setTitle},
         {icon: 'svg-bold', title: '粗体', method: this.setBold},
         {icon: 'svg-center', title: '居中', method: this.setAlign},
-        {icon: 'svg-quote', title: '引用', method: this.setTitle},
-        {icon: 'svg-list', title: '列表', method: this.setTitle},
+        {icon: 'svg-quote', title: '引用', method: this.setQuote},
+        {icon: 'svg-list', title: '列表', method: this.setList},
         {icon: 'svg-link', title: '插入链接', method: this.setTitle},
         {icon: 'svg-image', title: '插入图片', method: this.setTitle},
         {icon: 'svg-code', title: '插入代码段', method: this.setTitle},
@@ -93,34 +93,43 @@ export default {
       this.inputSelection.selected = inputValue.slice(start, end)
       this.inputSelection.next = inputValue.slice(end)
     },
+    focusSelection (start, end) {
+      const {$refs: {input}} = this
+      this.$nextTick(() => {
+        input.selectionStart = start
+        input.selectionEnd = end
+        input.focus()
+      })
+    },
     setTitle () {
       const {inputSelection: {start, selected, next}, $refs: {input}} = this
       if (start === 0) {
         this.inputValue = `#t ${(selected || '标题') + (next.startsWith('\n') ? '' : '\n')}` + next
-        this.$nextTick(() => {
-          input.selectionStart = 3
-          input.selectionEnd = 3 + (selected.length || 2)
-          input.focus()
-        })
+        this.focusSelection(3, 3 + (selected.length || 2))
       }
     },
     setBold () {
       const {inputSelection: {start, prev, selected, next}, $refs: {input}} = this
       this.inputValue = prev + `**${selected || '粗体'}**` + next
-      this.$nextTick(() => {
-        input.selectionStart = start + 2
-        input.selectionEnd = start + (selected.length || 2) + 2
-        input.focus()
-      })
+      this.focusSelection(start + 2, start + (selected.length || 2) + 2)
     },
     setAlign () {
-      const {inputSelection: {start, prev, selected, next}, $refs: {input}} = this
-      this.inputValue = prev + `**${selected || '居中'}**` + next
-      this.$nextTick(() => {
-        input.selectionStart = start + 2
-        input.selectionEnd = start + (selected.length || 2) + 2
-        input.focus()
-      })
+      const {inputSelection: {start, prev, selected, next}} = this
+      const isPrevWrap = prev.endsWith('\n')
+      this.inputValue = (isPrevWrap ? prev : prev + '\n') + `**center\n${selected || '居中'}\n**\n` + next
+      this.focusSelection(start + 9 + Number(!isPrevWrap), start + (selected.length || 2) + 9 + Number(!isPrevWrap))
+    },
+    setQuote () {
+      const {inputSelection: {start, prev, selected, next}} = this
+      const isPrevWrap = prev.endsWith('\n')
+      this.inputValue = (isPrevWrap ? prev : (prev + '\n')) + `> ${selected || '块级引用'}\n` + next
+      this.focusSelection(start + 2 + Number(!isPrevWrap), start + (selected.length || 4) + 2 + Number(!isPrevWrap))
+    },
+    setList () {
+      const {inputSelection: {start, prev, selected, next}} = this
+      const isPrevWrap = prev.endsWith('\n')
+      this.inputValue = (isPrevWrap ? prev : (prev + '\n')) + `* ${selected || '列表项1'}\n* 列表项2\n` + next
+      this.focusSelection(start + 2 + Number(!isPrevWrap), start + (selected.length || 4) + 2 + Number(!isPrevWrap))
     }
   },
   watch: {
