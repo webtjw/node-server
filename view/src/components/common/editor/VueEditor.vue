@@ -13,6 +13,7 @@
       </div>
       <!-- additional dialog -->
       <div class="additional-tool" v-show="additionalToolType !== -1">
+        <!-- upload image -->
         <div class="additional-image" v-show="additionalToolType === 'image'">
           <div flex="dir:left cross:center">
             <label flex-box="0">网络图片：</label>
@@ -22,6 +23,13 @@
             <label flex-box="0">本地图片：</label>
             <div class="btn upload-image" @click="triggerSelectImage">上传</div>
             <input type="file" ref="uploadImageInput" @change="onFileUpload">
+          </div>
+        </div>
+        <!-- add table -->
+        <div class="additional-table" v-show="additionalToolType === 'table'">
+          <div flex="dir:left cross:center">
+            <label flex-box="0">表格行数：</label><input type="text" ref="tableRowNumber">
+            <label flex-box="0" style="margin-left: 30px;">列数：</label><input type="text" ref="tableColumnNumber">
           </div>
         </div>
         <div class="controls" flex="dir:left main:center cross:center">
@@ -60,9 +68,9 @@ export default {
         {icon: 'svg-list', title: '列表', method: this.setList},
         {icon: 'svg-link', title: '插入链接', method: this.setLink},
         {icon: 'svg-image', title: '插入图片', method: () => { this.additionalToolType = 'image' }},
-        {icon: 'svg-code', title: '插入代码段', method: this.setTitle},
-        {icon: 'svg-codes', title: '插入代码块', method: this.setTitle},
-        {icon: 'svg-table', title: '插入表格', method: this.setTitle}
+        {icon: 'svg-code', title: '插入代码段', method: this.setCode},
+        {icon: 'svg-codes', title: '插入代码块', method: this.setCodeBlock},
+        {icon: 'svg-table', title: '插入表格', method: () => { this.additionalToolType = 'table' }}
       ],
       functionalTools: [
         {icon: 'svg-undo', title: '撤销改动', method: null},
@@ -80,7 +88,7 @@ export default {
         selected: '',
         next: ''
       },
-      additionalToolType: 'image'
+      additionalToolType: -1
     }
   },
   computed: {
@@ -179,12 +187,38 @@ export default {
       this.additionalToolType = -1
     },
     confirmAdditionalTool () {
-      if (this.additionalToolType === 'image') {
+      const {additionalToolType} = this
+      if (additionalToolType === 'image') {
         const image = this.$refs.imageFromNet.value
         if (image && image.match(/http(s)*:\/\/[\s\S]+\.(jpg|png|jpeg|gif)/)) this.setImage(image)
+      } else if (additionalToolType === 'table') {
+        const {$refs: {tableColumnNumber, tableRowNumber}} = this
+        const row = parseInt(Number(tableRowNumber.value), 10)
+        const column = parseInt(Number(tableColumnNumber.value), 10)
+        this.setTable(row, column)
       }
       // hide
       this.additionalToolType = -1
+    },
+    setCode () {
+      const {inputSelection: {start, prev, selected, next}} = this
+      this.inputValue = prev + '` ' + (selected || 'code') + ' `' + next
+      this.focusSelection(start + 2, start + (selected.length || 4) + 2)
+    },
+    setCodeBlock () {
+      const {inputSelection: {start, prev, selected, next}} = this
+      const isPrevWrap = prev.endsWith('\n')
+      this.inputValue = prev + (isPrevWrap ? '' : '\n') + '``` javascript\n' + (selected || 'code') + '\n```\n' + next
+      this.focusSelection(start + 15 + Number(!isPrevWrap), start + (selected.length || 4) + 15 + Number(!isPrevWrap))
+    },
+    setTable (row, column) {
+      row = row || 3
+      column = column || 3
+      const {inputSelection: {end, prev, selected, next}} = this
+      const isPrevWrap = prev.endsWith('\n')
+      this.inputValue = prev + (isPrevWrap ? '' : '\n') + `|${' column |'.repeat(row)}\n|${' :- |'.repeat(row)}\n`
+      + `|${' x |'.repeat(row)}\n`.repeat(column) + next
+      this.focusSelection(end + 2 + Number(!isPrevWrap), end + 8 + Number(!isPrevWrap))
     }
   },
   watch: {
@@ -219,6 +253,10 @@ export default {
         > div { padding: 10px 0;}
         .image-net { outline: 0; border: 0; border-bottom: 1px solid #bbb; height: 30px;}
         .upload-image + input { display: none;}
+      }
+      .additional-table {
+        padding: 10px 20px;
+        input { outline: 0; border: 0; border-bottom: 1px solid #bbb; width: 60px; height: 30px; padding: 0 4px;}
       }
       .controls { padding: 14px 0 8px;}
       .btn { padding: 5px 18px; background-color: #666; color: #fff; border-radius: 3px; cursor: pointer; border: 1px solid #666;}
