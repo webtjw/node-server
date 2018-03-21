@@ -214,10 +214,9 @@ export default {
     setTable (row, column) {
       row = row || 3
       column = column || 3
-      const {inputSelection: {end, prev, selected, next}} = this
+      const {inputSelection: {end, prev, next}} = this
       const isPrevWrap = prev.endsWith('\n')
-      this.inputValue = prev + (isPrevWrap ? '' : '\n') + `|${' column |'.repeat(row)}\n|${' :- |'.repeat(row)}\n`
-      + `|${' x |'.repeat(row)}\n`.repeat(column) + next
+      this.inputValue = prev + (isPrevWrap ? '' : '\n') + `|${' column |'.repeat(row)}\n|${' :- |'.repeat(row)}\n` + `|${' x |'.repeat(row)}\n`.repeat(column) + next
       this.focusSelection(end + 2 + Number(!isPrevWrap), end + 8 + Number(!isPrevWrap))
     }
   },
