@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {uploadFile} from '../../actions'
+import {uploadFile, saveArticle} from '../../actions'
 import VueEditor from '../common/editor/VueEditor'
 
 export default {
@@ -17,8 +17,9 @@ export default {
       const data = await uploadFile(file)
       cb && cb(data)
     },
-    async saveArticle (article) {
-
+    async saveArticle (code, html) {
+      const result = await saveArticle(code)
+      debugger
     }
   },
   components: {VueEditor}

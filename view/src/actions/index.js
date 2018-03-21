@@ -12,7 +12,7 @@ export async function getIndexArticle (number) {
 // 文章编辑页的保存 function，只传 markdown 即可
 export async function saveArticle (article) {
   let params = {
-    url: `/api/article/save`,
+    url: `/article/save`,
     method: 'POST',
     data: article
   }

@@ -75,7 +75,7 @@ export default {
       functionalTools: [
         {icon: 'svg-undo', title: '撤销改动', method: null},
         {icon: 'svg-redo', title: '恢复改动', method: null},
-        {icon: 'svg-save', title: '保存', method: null},
+        {icon: 'svg-save', title: '保存', method: this.save},
         {icon: 'svg-fullscreen', title: '全屏编辑', method: null}
       ],
       editHeight: 0,
