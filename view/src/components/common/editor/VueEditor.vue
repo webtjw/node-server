@@ -8,7 +8,7 @@
           <vue-svg v-for="tool in editTools" :key="tool.icon" :icon="tool.icon" :title="tool.title" @click.native="tool.method" class="svg-18 pointer m-h-4 p-4"></vue-svg>
         </div>
         <div class="functional-tools">
-          <vue-svg v-for="tool in functionalTools" :key="tool.icon" :icon="tool.icon" class="svg-18 pointer m-h-4 p-2"></vue-svg>
+          <vue-svg v-for="tool in functionalTools" :key="tool.icon" :icon="tool.icon" :title="tool.title" @click.native="tool.method" class="svg-18 pointer m-h-4 p-2"></vue-svg>
         </div>
       </div>
       <!-- additional dialog -->
@@ -218,6 +218,9 @@ export default {
       const isPrevWrap = prev.endsWith('\n')
       this.inputValue = prev + (isPrevWrap ? '' : '\n') + `|${' column |'.repeat(row)}\n|${' :- |'.repeat(row)}\n` + `|${' x |'.repeat(row)}\n`.repeat(column) + next
       this.focusSelection(end + 2 + Number(!isPrevWrap), end + 8 + Number(!isPrevWrap))
+    },
+    save () {
+      this.$emit('save', this.inputValue, this.compileHTML)
     }
   },
   watch: {

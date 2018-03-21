@@ -1,6 +1,6 @@
 <template>
   <div class="article-edit p-t-20">
-    <vue-editor @imageUpload="uploadImage"></vue-editor>
+    <vue-editor @imageUpload="uploadImage" @save="saveArticle"></vue-editor>
   </div>
 </template>
 
@@ -16,6 +16,9 @@ export default {
     async uploadImage (file, cb) {
       const data = await uploadFile(file)
       cb && cb(data)
+    },
+    async saveArticle (article) {
+
     }
   },
   components: {VueEditor}
