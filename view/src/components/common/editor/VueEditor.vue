@@ -20,8 +20,8 @@
           </div>
           <div flex="dir:left cross:center">
             <label flex-box="0">本地图片：</label>
-            <div class="btn upload-image">上传</div>
-            <input type="file">
+            <div class="btn upload-image" @click="triggerSelectImage">上传</div>
+            <input type="file" ref="uploadImageInput" @change="onFileUpload">
           </div>
         </div>
         <div class="controls" flex="dir:left main:center cross:center">
@@ -47,6 +47,9 @@ const markdown = new MarkdownIt({
 })
 
 export default {
+  props: {
+    upload: String
+  },
   data () {
     return {
       editTools: [
@@ -157,17 +160,31 @@ export default {
       this.focusSelection(start + 1, start + (selected.length || 4) + 1)
     },
     setImage (path) {
-      const {inputSelection: {start, prev, selected, next}} = this
-      const isPrevWrap = prev.endsWith('\n')
-      this.inputValue = (isPrevWrap ? prev : (prev + '\n')) + `![${selected || 'alt'}](${path} "title")\n` + next
-      this.focusSelection(start + 2 + Number(!isPrevWrap), start + (selected.length || 3) + 2 + Number(!isPrevWrap))
+      if (path) {
+        const {inputSelection: {start, prev, selected, next}} = this
+        const isPrevWrap = prev.endsWith('\n')
+        this.inputValue = (isPrevWrap ? prev : (prev + '\n')) + `![${selected || 'alt'}](${path} "title")\n` + next
+        this.focusSelection(start + 2 + Number(!isPrevWrap), start + (selected.length || 3) + 2 + Number(!isPrevWrap))
+      }
+    },
+    triggerSelectImage () {
+      this.$refs.uploadImageInput.click()
+    },
+    onFileUpload () {
+      const file = this.$refs.uploadImageInput.files[0]
+      const fileType = file.type.split('/')
+      if (fileType[0] && fileType[0] === 'image') this.$emit('imageUpload', file, this.setImage.bind(this))
+      else alert('上传文件非图片')
+      // hide
+      this.additionalToolType = -1
     },
     confirmAdditionalTool () {
-      const {inputSelection: {start, prev, selected, next}} = this
       if (this.additionalToolType === 'image') {
         const image = this.$refs.imageFromNet.value
-        if (image) this.setImage(image)
+        if (image && image.match(/http(s)*:\/\/[\s\S]+\.(jpg|png|jpeg|gif)/)) this.setImage(image)
       }
+      // hide
+      this.additionalToolType = -1
     }
   },
   watch: {
@@ -240,6 +257,7 @@ export default {
       }
       /deep/ ul, /deep/ ul li { list-style-type: disc; list-style-position: inside;}
       /deep/ ol, /deep/ ol li { list-style-type: decimal; list-style-position: inside;}
+      /deep/ img { display: block; margin: 10px auto;}
     }
     .v-input-feild {
       width: 100%;

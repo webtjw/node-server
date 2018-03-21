@@ -1,17 +1,23 @@
 <template>
   <div class="article-edit p-t-20">
-    <vue-editor></vue-editor>
+    <vue-editor @imageUpload="uploadImage"></vue-editor>
   </div>
 </template>
 
 <script>
+import {uploadFile} from '../../actions'
 import VueEditor from '../common/editor/VueEditor'
 
 export default {
   data () {
     return {}
   },
-  methods: {},
+  methods: {
+    async uploadImage (file, cb) {
+      const data = await uploadFile(file)
+      cb && cb(data)
+    }
+  },
   components: {VueEditor}
 }
 </script>

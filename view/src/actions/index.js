@@ -95,7 +95,7 @@ export async function uploadFile (file) {
   formdata.append('file', file)
 
   return connect({
-    url: '/api/common/upload_async',
+    url: '/common/upload',
     method: 'POST',
     data: formdata,
     headers: {'Content-Type': 'multipart/form-data'}
