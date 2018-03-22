@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {uploadFile, saveArticle} from '../../actions'
+import {uploadFile, saveArticle, getRemoteTags} from '../../actions'
 import VueEditor from '../common/editor/VueEditor'
 
 export default {
@@ -73,7 +73,14 @@ export default {
       setTimeout(() => {
         if (this.isShowSelect) this.isShowSelect = false
       }, 200)
+    },
+    async fillRemoteTags () {
+      const result = await getRemoteTags()
+      console.log(result)
     }
+  },
+  mounted () {
+    this.fillRemoteTags()
   },
   components: {VueEditor}
 }

@@ -6,7 +6,7 @@ const database = require('../../database/database');
 let queryAllTags = async (ctx, next) => {
   let result = await getAllTagsHandler();
 
-  httpKit.setResponseType(ctx, 'json').setAllowMethod(ctx, 'POST').setResponseCode(ctx, 200);
+  httpKit.setResponseType(ctx, 'json').setAllowMethod(ctx, 'GET').setResponseCode(ctx, 200);
   ctx.response.body = result;
 }
 
