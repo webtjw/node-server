@@ -14,7 +14,6 @@
 
 <script>
 import svgIndex from '../../../assets/images/svg/svg-index.svg'
-import svgCategory from '../../../assets/images/svg/svg-category.svg'
 import svgTag from '../../../assets/images/svg/svg-tag.svg'
 import svgArchive from '../../../assets/images/svg/svg-archive.svg'
 import svgAbout from '../../../assets/images/svg/svg-about.svg'
@@ -24,7 +23,6 @@ export default {
     return {
       navList: [
         {name: '首页', path: '/', prefix: '/', icon: svgIndex},
-        {name: '分类', path: '/category', prefix: 'category', icon: svgCategory},
         {name: '标签', path: '/tags', prefix: 'tags', icon: svgTag},
         {name: '归档', path: '/archives', prefix: 'archives', icon: svgArchive},
         {name: '关于', path: '/about', prefix: 'about', icon: svgAbout}
