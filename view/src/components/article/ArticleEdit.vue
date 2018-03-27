@@ -77,7 +77,7 @@ export default {
       if (article) {
         this.tags = article.tags
         this.$refs.editor.inputValue = article.codeText
-        this.remoteTags = tags.filter(remoteTag => article.tags.every(tag => tag !==remoteTag.name))
+        this.remoteTags = tags.filter(remoteTag => article.tags.every(tag => tag !== remoteTag.name))
       } else this.remoteTags = tags
     }
   },
