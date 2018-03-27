@@ -73,11 +73,12 @@ export default {
     },
     async fillRemoteData () {
       const {tags, article} = await getEditArticleData(this.$route.params.id)
-      this.remoteTags = tags
+      
       if (article) {
         this.tags = article.tags
         this.$refs.editor.inputValue = article.codeText
-      }
+        this.remoteTags = tags.filter(remoteTag => article.tags.every(tag => tag !==remoteTag.name))
+      } else this.remoteTags = tags
     }
   },
   mounted () {
