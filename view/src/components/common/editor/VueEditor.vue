@@ -95,8 +95,8 @@ export default {
     compileHTML () {
       const {inputValue} = this
       const articleStructure = preProcess(markdown, inputValue)
-      const {title, whole} = articleStructure
-      const renderString = title || whole ? `# 标题 - ${articleStructure.title || ''} #\n${articleStructure.whole}` : ''
+      const {title, codeText} = articleStructure
+      const renderString = title || codeText ? `# 标题 - ${articleStructure.title || ''} #\n${articleStructure.codeText}` : ''
       return markdown.render(renderString)
     }
   },
@@ -220,7 +220,9 @@ export default {
       this.focusSelection(end + 2 + Number(!isPrevWrap), end + 8 + Number(!isPrevWrap))
     },
     save () {
-      this.$emit('save', this.inputValue, this.compileHTML)
+      const {inputValue} = this
+      const articleStructure = preProcess(markdown, inputValue)
+      this.$emit('save', articleStructure)
     }
   },
   watch: {

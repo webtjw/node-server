@@ -18,7 +18,7 @@ Vue.use(Router)
 let router = new Router({
   routes: [
     {path: '/', name: 'Index', component: Index},
-    {path: '/article/edit', name: 'ArticleEdit', component: ArticleEdit}
+    {path: '/article/edit/:id?', name: 'ArticleEdit', component: ArticleEdit}
   ]
 })
 

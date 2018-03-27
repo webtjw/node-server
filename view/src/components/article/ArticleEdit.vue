@@ -3,7 +3,7 @@
     <!-- tag -->
     <div class="p-v-20" flex="dir:left cross:center">
       <span>选择标签：</span>
-      <a href="javascript:void(0)" class="tag-item m-r-10" v-for="(tag, index) of tags" :key="tag.name" @click="removeTag(tag, index)">{{tag.name}}</a>
+      <a href="javascript:void(0)" class="tag-item m-r-10" v-for="(tag, index) of tags" :key="tag" @click="removeTag(tag, index)">{{tag}}</a>
       <div class="tag-add relative">
         <input type="text" class="p-h-8" @focus="isShowSelect = true" @blur="hideSelect" @keydown.13="selectTag" v-model="searchTag">
         <ul class="select absolute" v-show="isShowSelect">
@@ -12,27 +12,22 @@
       </div>
     </div>
     <!-- editor -->
-    <vue-editor @imageUpload="uploadImage" @save="onSave"></vue-editor>
+    <vue-editor @imageUpload="uploadImage" @save="onSave" ref="editor"></vue-editor>
   </div>
 </template>
 
 <script>
-import {uploadFile, saveArticle, getRemoteTags} from '../../actions'
+import {uploadFile, saveArticle, getEditArticleData} from '../../actions'
 import VueEditor from '../common/editor/VueEditor'
 
 export default {
   data () {
     return {
       tags: [],
-      remoteTags: [
-        {name: 'javascript', id: 1},
-        {name: 'css', id: 2},
-        {name: 'WebApi', id: 3},
-        {name: '前端工程化', id: 4},
-        {name: '生活啊', id: 5}
-      ],
+      remoteTags: [],
       isShowSelect: false,
-      searchTag: ''
+      searchTag: '',
+      codeText: ''
     }
   },
   methods: {
@@ -40,27 +35,29 @@ export default {
       const data = await uploadFile(file)
       cb && cb(data)
     },
-    async onSave (code, html) {
-      const result = await saveArticle(code)
-      console.log(result)
+    async onSave (article) {
+      const id = this.$route.params.id
+
+      const result = await saveArticle(article)
+      if (id === undefined && result && result.id) this.$router.push(`/article/edit/${result.id}`)
     },
     selectTag (tag, index) {
       const {searchTag, remoteTags, tags, isShowSelect} = this
       if (tags.length === 3) alert('为保证文章的倾向准确度，文章标签不能大于3个')
       else if (tag && index !== undefined) {
         if (isShowSelect) this.isShowSelect = false
-        tags.push(tag)
+        tags.push(tag.name)
         remoteTags.splice(index, 1)
       } else {
         const value = searchTag.replace(/\s/g, '')
         if (value) {
-          if (tags.some(item => item.name === value)) {
+          if (tags.some(item => item === value)) {
             const inRemoteItem = remoteTags.filter(item => item.name === value)
             if (inRemoteItem && inRemoteItem.length === 1) {
               tags.push(inRemoteItem[0])
               remoteTags.splice(remoteTags.indexOf(inRemoteItem[0]), 1)
             }
-          } else if (confirm(`确定添加标签 ${value} ？`)) tags.push({name: value, id: -1})
+          } else if (confirm(`确定添加标签 ${value} ？`)) tags.push(value)
           this.searchTag = ''
         }
       }
@@ -74,13 +71,17 @@ export default {
         if (this.isShowSelect) this.isShowSelect = false
       }, 200)
     },
-    async fillRemoteTags () {
-      const result = await getRemoteTags()
-      console.log(result)
+    async fillRemoteData () {
+      const {tags, article} = await getEditArticleData(this.$route.params.id)
+      this.remoteTags = tags
+      if (article) {
+        this.tags = article.tags
+        this.$refs.editor.inputValue = article.codeText
+      }
     }
   },
   mounted () {
-    this.fillRemoteTags()
+    this.fillRemoteData()
   },
   components: {VueEditor}
 }

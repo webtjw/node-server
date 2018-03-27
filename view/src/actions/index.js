@@ -101,3 +101,13 @@ export async function uploadFile (file) {
     headers: {'Content-Type': 'multipart/form-data'}
   })
 }
+
+// get all data of edit page
+export async function getEditArticleData (id) {
+  // An non-undefined 'id' corresponds to an existed article
+  return connect({
+    url: '/article/edit',
+    method: 'POST',
+    data: {id}
+  })
+}

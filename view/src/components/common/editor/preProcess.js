@@ -4,7 +4,7 @@ export default function (markdown, code) {
   let article = {
     title: null,
     description: null,
-    whole: null
+    codeText: null
   }
   // translate specific grammar which was customed by myself
   // translate: text alignment
@@ -22,7 +22,7 @@ export default function (markdown, code) {
   const moreIndex = mdWithoutTitle.indexOf(moreString)
   if (moreIndex > -1) {
     article.description = mdWithoutTitle.slice(0, moreIndex)
-    article.whole = mdWithoutTitle.replace(moreString, '')
-  } else article.whole = mdWithoutTitle
+    article.codeText = mdWithoutTitle.replace(moreString, '')
+  } else article.codeText = mdWithoutTitle
   return article
 }

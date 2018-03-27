@@ -1,7 +1,7 @@
 const httpKit = require('../toolkits/httpKit');
 
 const handle404 = async (ctx, next) => {
-  httpKit.setResponseCode(ctx, 404);
+  httpKit.setResponse(ctx, {status: 404});
 
   const acceptString = ctx.request.headers.accept;
   const accept = acceptString.replace(/\s/g, '').split(',');

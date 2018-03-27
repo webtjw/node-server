@@ -52,11 +52,10 @@ let database = {
    * @param article.codeText: required String
    */
   async updateArticle (article) {
-    let tags = article.tags.toString();
+    const {title, tags, codeText, id, description, time} = article;
 
-    let queryResult = await database.queryArticle(article.id);
-
-    let updateResult = await database.query(`update article set title='${article.title}',author='${article.author || ''}',category='${article.category}',tags='${tags}',time='${article.time}',codeText='${article.codeText}' where id=${article.id}`);
+    const queryResult = await database.queryArticle(id);
+    const updateResult = await database.query(`update article set title='${title}',tags='${tags}',time='${time}',codeText='${codeText}',description='${description}' where id=${id}`);
     
     if (queryResult.success && queryResult.data) updateResult.data = queryResult.data;
 
@@ -72,7 +71,7 @@ let database = {
    * @param article.codeText: required String
    */
   async addArticle (article) {
-    let result = await database.query(`insert into article (title,category,tags,time,codeText) values ('${article.title}','${article.category}','${article.tags}','${article.time}','${article.codeText}')`);
+    const result = await database.query(`insert into article (title,tags,time,description,codeText) values ('${article.title}','${article.tags.toString()}','${article.time}','${article.description}','${article.codeText}')`);
     return result;
   },
   // 查询 token
@@ -100,10 +99,10 @@ let database = {
   },
   async updateTags (tags) {
     for (let key of Object.keys(tags)) {
-      let queryResult = await database.query(`select * from tags where name='${key}'`);
+      const queryResult = await database.query(`select * from tags where name='${key}'`);
 
       if (queryResult.success) {
-        if (queryResult.data && queryResult.data.length && Array.isArray(queryResult.data)) database.query(`update tags set number=${queryResult.data[0].number + tags[key]}`);
+        if (queryResult.data && queryResult.data.length && Array.isArray(queryResult.data)) database.query(`update tags set number=${queryResult.data[0].number + tags[key]} where name='${key}'`);
         else database.query(`insert into tags (name, number) values ('${key}', 1)`);
       }
     }
@@ -114,10 +113,6 @@ let database = {
   },
   async queryCategories (column) {
     let result = await database.query(`select ${column || '*'} from category order by number desc`);
-    return result;
-  },
-  async queryTags () {
-    let result = await database.query(`select * from tags`);
     return result;
   },
   async queryByIndex (columnName, value, number, index) {
