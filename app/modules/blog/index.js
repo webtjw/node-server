@@ -41,6 +41,16 @@ const article = {
       })
       httpKit.setResponse(ctx, {data: indexResult.data});
     }
+  },
+  async getArticleById (ctx, next) {
+    const {id} = ctx.request.body;
+
+    if (id) {
+      const articleResult = await spots.getArticleById(id);
+      const article = articleResult.data[0];
+      article.tags = article.tags.split(',');
+      if (articleResult.success) httpKit.setResponse(ctx, {data: article});
+    }
   }
 }
 

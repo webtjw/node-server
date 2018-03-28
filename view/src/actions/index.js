@@ -38,12 +38,12 @@ export async function getRemoteTagsCate () {
 }
 
 // 获取特定 id 的文章内容
-export async function getArticleById (id, useMarkdown) {
+export async function getArticleById (id) {
   if (id !== undefined && typeof id === 'number' && id >= 0) {
     let params = {
-      url: `/api/article/detail`,
+      url: `/article/detail`,
       method: 'POST',
-      data: {id, useMarkdown}
+      data: {id}
     }
     return connect(params)
   } else {
