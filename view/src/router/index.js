@@ -4,6 +4,7 @@ import Index from '@/components/Index'
 import ArticleDetail from '@/components/article/ArticleDetail'
 import TagIndex from '../components/TagIndex'
 import TagItem from '../components/TagItem'
+import Archive from '../components/Archive'
 // import ArticleDetail from '@/components/article/ArticleDetail'
 // import Archive from '@/components/Archive/Archive'
 // import Category from '@/components/category/Category'
@@ -24,7 +25,8 @@ let router = new Router({
     {path: '/article/edit/:id?', name: 'ArticleEdit', component: ArticleEdit},
     {path: '/article/detail/:id', name: 'ArticleDetail', component: ArticleDetail},
     {path: '/tag', name: 'TagIndex', component: TagIndex},
-    {path: '/tag/:type', name: 'TagItem', component: TagItem}
+    {path: '/tag/:type', name: 'TagItem', component: TagItem},
+    {path: '/archive', name: 'Archive', component: Archive}
   ]
 })
 

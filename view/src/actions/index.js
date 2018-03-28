@@ -42,16 +42,6 @@ export async function getRemoteCat () {
   return connect(params)
 }
 
-// 归档查询文档，也是要分页
-export async function getHistoryArticle (obj) {
-  let params = {
-    url: '/api/article/getHistory',
-    method: 'POST',
-    data: obj
-  }
-  return connect(params)
-}
-
 // upload single file synchronously
 export async function uploadFile (file) {
   var formdata = new FormData()
@@ -112,4 +102,13 @@ export async function getArticleByTag (tag, pageIndex = 0) {
       data: {tag, pageIndex}
     })
   }
+}
+
+// archive page: get data
+export async function getArchive (index, size) {
+  return connect({
+    url: '/article/getArchive',
+    method: 'POST',
+    data: {index, size}
+  })
 }

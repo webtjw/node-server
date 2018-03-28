@@ -59,6 +59,7 @@ const article = {
     const tagResult = await spots.getAllTags();
     if (tagResult.success) httpKit.setResponse(ctx, {data: tagResult.data});
   },
+  // tag item's page
   async getArticleByTag (ctx, next) {
     const {tag, pageIndex, size} = ctx.request.body;
     const defaultSize = 20;
@@ -67,6 +68,14 @@ const article = {
       item.tags = item.tags.split(',');
       return item;
     })});
+  },
+  // archive page: load data
+  async getArchive (ctx, next) {
+    const {index, size} = ctx.request.body;
+    if (index === +index && index >= 0) {
+      const result = await spots.getArchive(index, size || 20);
+      if (result.success) httpKit.setResponse(ctx, {data: result.data});
+    }
   }
 }
 

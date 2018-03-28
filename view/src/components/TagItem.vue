@@ -8,7 +8,7 @@
     <!-- article -->
     <div class="article-list m-v-40 p-t-20">
       <ul>
-        <li v-for="article of articles" :key="article.id" @click="() => $router.push(`/article/detail/${article.id}`)" class="article-item font-18 p-v-18 p-h-20 pointer" flex="dir:left cross:center">
+        <li v-for="article of articles" :key="article.id" @click="() => $router.push(`/article/detail/${article.id}`)" class="article-item font-16 p-v-18 p-h-20 pointer" flex="dir:left cross:center">
           <div flex-box="0" class="article-title">{{article.title}}</div>
           <div v-if="article.tags.length > 0" class="tag-list font-13 m-l-20" flex-box="1" flex="dir:left cross:center">
             <vue-svg icon="svg-tag" class="svg-14"></vue-svg>
@@ -56,7 +56,7 @@ export default {
       background-color: rgb(230, 230, 230);
       .article-title { text-decoration: underline;}
     }
-    .article-title { color: #333; letter-spacing: 2px;}
+    .article-title { color: #333; word-spacing: 2px;}
     .time { color: #999;}
     .tag-item {
       color: #888;

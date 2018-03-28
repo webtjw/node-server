@@ -19,7 +19,10 @@ const spots = {
     else return await  database.query(`insert into article (title,tags,time,description,codeText) values ('${title}','${tags.toString()}','${time}','${description}','${codeText}')`);
   },
   async getIndexArticle (size) {
-    return await database.query(`select id,title,tags,time,description from article order by time desc limit ${size}`);
+    return await database.query(`select id,title,tags,time,description,codeText from article order by time desc limit ${size}`);
+  },
+  async getArchive (index, size) {
+    return await database.query(`select id,title,tags,time from article order by time desc limit ${size * index},${size * (index + 1)}`);
   }
 }
 
