@@ -6,8 +6,8 @@
       <div class="a-c p-v-30 c-gray font-12" flex="dir:left main:center cross:center">
         <!-- 标签 -->
         <div class="m-r-30" flex="dir:left cross:center">
-          <vue-svg icon="svg-tag" class="svg-16 m-r-8"></vue-svg>
-          <span>{{article.tags | tagsText}}</span>
+          <vue-svg icon="svg-tag" class="svg-16"></vue-svg>
+          <router-link v-for="tag in article.tags" :key="tag" :to="`/tags/${tag}`" class="tag-item m-l-8">{{tag}}</router-link>
         </div>
         <!-- 时间 -->
         <div flex="dir:left cross:center">
@@ -64,4 +64,8 @@ export default {
 
 <style lang="scss" scoped>
   .article-content { text-indent: 2em;}
+  .tag-item {
+    color: #333;
+    &:hover { text-decoration: underline;}
+  }
 </style>
