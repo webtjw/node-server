@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/index/Index'
+import Index from '@/components/Index'
 // import ArticleDetail from '@/components/article/ArticleDetail'
 // import Archive from '@/components/Archive/Archive'
 // import Category from '@/components/category/Category'

@@ -1,9 +1,8 @@
 import connect from '../toolkits/connect'
 
-// 首页获取文章，number 表示获取的最大篇数
-export async function getIndexArticle (number) {
+export async function getIndexArticle () {
   let result = await connect({
-    url: `/api/article/getIndex`,
+    url: `/article/index`,
     method: 'POST'
   })
   return result

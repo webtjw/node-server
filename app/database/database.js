@@ -17,7 +17,7 @@ let database = {
         if (mysqlError) resolve({
           success: false,
           data: null,
-          message: mysqlError.sqlMessage || '数据库查询操作失败'
+          message: mysqlError.sqlMessage || '数据库操作失败'
         });
         else resolve({
           success: true,
@@ -25,7 +25,7 @@ let database = {
           message: ''
         });
       })
-    });
+    }).catch(e => console.log(e));
   },
   // 查询最新的文章
   queryLatestArticle (number) {

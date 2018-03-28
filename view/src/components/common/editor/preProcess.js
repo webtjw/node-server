@@ -20,9 +20,8 @@ export default function (markdown, code) {
   let mdWithoutTitle = code
   if (article.title) mdWithoutTitle = code.replace(/^#t[^\n]*(\n)*/, '')
   const moreIndex = mdWithoutTitle.indexOf(moreString)
-  if (moreIndex > -1) {
-    article.description = mdWithoutTitle.slice(0, moreIndex)
-    article.codeText = mdWithoutTitle.replace(moreString, '')
-  } else article.codeText = mdWithoutTitle
+  article.description = moreIndex > -1 ? mdWithoutTitle.slice(0, moreIndex) : ''
+  article.body = mdWithoutTitle
+  article.codeText = code
   return article
 }

@@ -36,10 +36,15 @@ export default {
       cb && cb(data)
     },
     async onSave (article) {
-      const id = this.$route.params.id
+      const {id} = this.$route.params
+      if (id) article.id = id
 
-      const result = await saveArticle(article)
-      if (id === undefined && result && result.id) this.$router.push(`/article/edit/${result.id}`)
+      if (this.tags.length > 0 && article.title && article.codeText) {
+        article.tags = this.tags
+        delete article.body
+        const result = await saveArticle(article)
+        if (id === undefined && result && result.id) this.$router.push(`/article/edit/${result.id}`)
+      }
     },
     selectTag (tag, index) {
       const {searchTag, remoteTags, tags, isShowSelect} = this
@@ -73,7 +78,6 @@ export default {
     },
     async fillRemoteData () {
       const {tags, article} = await getEditArticleData(this.$route.params.id)
-      
       if (article) {
         this.tags = article.tags
         this.$refs.editor.inputValue = article.codeText

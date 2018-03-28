@@ -96,7 +96,7 @@ export default {
       const {inputValue} = this
       const articleStructure = preProcess(markdown, inputValue)
       const {title, codeText} = articleStructure
-      const renderString = title || codeText ? `# 标题 - ${articleStructure.title || ''} #\n${articleStructure.codeText}` : ''
+      const renderString = title || codeText ? `# 标题 - ${articleStructure.title || ''} #\n${articleStructure.body}` : ''
       return markdown.render(renderString)
     }
   },

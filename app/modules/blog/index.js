@@ -1,5 +1,6 @@
 const httpKit = require('../../toolkits/httpKit');
 const spots = require('./spots');
+const moment = require('moment');
 
 const article = {
   // edit page: get all data in edit page
@@ -19,6 +20,27 @@ const article = {
     }
     
     httpKit.setResponse(ctx, {data: returnValue});
+  },
+  // edit page: save article(including the new and modified)
+  async saveArticle (ctx, next) {
+    const article = ctx.request.body;
+    const {id, title, tags, description, codeText} = article;
+    article.time = moment().format('YYYY-MM-D'); // formatting as 'yyyy-mm-dd'
+
+    if (title && Array.isArray(tags) && tags.length > 0 && codeText && ((id && /^[0-9]+$/.test(id)) || !id)) {
+      const saveResult = await spots.saveArticle(article);
+      if (saveResult.success) httpKit.setResponse(ctx, {data: {id: id || saveResult.data.insertId}});
+    }
+  },
+  async getIndexArticle (ctx, next) {
+    const size = 5;
+    const indexResult = await spots.getIndexArticle(size);
+    if (indexResult.success) {
+      indexResult.data.forEach(item => {
+        item.tags = item.tags.split(',');
+      })
+      httpKit.setResponse(ctx, {data: indexResult.data});
+    }
   }
 }
 
