@@ -5,6 +5,9 @@ const spots = {
   async getAllTags () {
     return await database.query(`select * from tags`);
   },
+  async getArticleByTag (tag, pageIndex, size) {
+    return await database.query(`select id,title,tags,time from article where tags like '%${tag}%' order by time desc limit ${size * pageIndex},${size * (pageIndex + 1)}`);
+  },
   /* article */
   async getArticleById (id) {
     return await database.query(`select * from article where id=${id}`);

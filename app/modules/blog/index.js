@@ -58,6 +58,15 @@ const article = {
   async getAllTags (ctx, next) {
     const tagResult = await spots.getAllTags();
     if (tagResult.success) httpKit.setResponse(ctx, {data: tagResult.data});
+  },
+  async getArticleByTag (ctx, next) {
+    const {tag, pageIndex, size} = ctx.request.body;
+    const defaultSize = 20;
+    const result = await spots.getArticleByTag(tag, pageIndex, size || defaultSize);
+    if (result.success) httpKit.setResponse(ctx, {data: result.data.map(item => {
+      item.tags = item.tags.split(',');
+      return item;
+    })});
   }
 }
 

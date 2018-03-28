@@ -1,23 +1,5 @@
 import connect from '../toolkits/connect'
 
-export async function getIndexArticle () {
-  let result = await connect({
-    url: `/article/index`,
-    method: 'POST'
-  })
-  return result
-}
-
-// 文章编辑页的保存 function，只传 markdown 即可
-export async function saveArticle (article) {
-  let params = {
-    url: `/article/save`,
-    method: 'POST',
-    data: article
-  }
-  return connect(params)
-}
-
 // 作为开发者登录
 export async function login (token) {
   let params = {
@@ -60,24 +42,6 @@ export async function getRemoteCat () {
   return connect(params)
 }
 
-// 获取 db 里面的文章标签
-export async function getAllTags () {
-  let params = {
-    url: '/article/allTags',
-    method: 'GET'
-  }
-  return connect(params)
-}
-
-export async function getArticleByIndex (obj) {
-  let params = {
-    url: '/api/article/queryByIndex',
-    method: 'POST',
-    data: obj
-  }
-  return connect(params)
-}
-
 // 归档查询文档，也是要分页
 export async function getHistoryArticle (obj) {
   let params = {
@@ -109,4 +73,43 @@ export async function getEditArticleData (id) {
     method: 'POST',
     data: {id}
   })
+}
+
+// get all tags data
+export async function getAllTags () {
+  let params = {
+    url: '/article/allTags',
+    method: 'GET'
+  }
+  return connect(params)
+}
+
+// home page's data access
+export async function getIndexArticle () {
+  let result = await connect({
+    url: `/article/index`,
+    method: 'POST'
+  })
+  return result
+}
+
+// article saving
+export async function saveArticle (article) {
+  let params = {
+    url: `/article/save`,
+    method: 'POST',
+    data: article
+  }
+  return connect(params)
+}
+
+// single tag page's data
+export async function getArticleByTag (tag, pageIndex = 0) {
+  if (tag && typeof pageIndex === 'number' && pageIndex >= 0) {
+    return connect({
+      url: '/article/getArticleByTag',
+      method: 'POST',
+      data: {tag, pageIndex}
+    })
+  }
 }
