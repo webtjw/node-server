@@ -12,8 +12,7 @@
 </template>
 
 <script>
-  import PageHeader from '../common/PageHeader'
-  import {getRemoteTags} from '@/actions'
+  import {getAllTags} from '@/actions'
 
   export default {
     data () {
@@ -23,7 +22,7 @@
     },
     methods: {
       async fillRemote () {
-        let result = await getRemoteTags()
+        let result = await getAllTags()
         if (result) {
           result = result.sort((a, b) => {
             return a.number < b.number
@@ -34,8 +33,7 @@
     },
     mounted () {
       this.fillRemote()
-    },
-    components: {PageHeader}
+    }
   }
 </script>
 

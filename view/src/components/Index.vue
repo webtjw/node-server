@@ -57,8 +57,8 @@ export default {
     .attribute-separator { width: 4px; height: 4px; border-radius: 50%; background-color: #e6e6e6;}
     .time { color: #999;}
     .more a {
-      background-color: #666; color: #fff; border-radius: 4px; border: 1px solid #666; transition: all .2s;
-      &:hover { background-color: #fff; color: #333;}
+      background-color: #fff; color: #333; border-radius: 4px; border: 1px solid #666; transition: all .2s;
+      &:hover { background-color: #666; color: #fff}
     }
     .article-body { text-indent: 2em; line-height: 1.6; color: #333;}
   }

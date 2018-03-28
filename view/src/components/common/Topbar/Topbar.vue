@@ -23,7 +23,7 @@ export default {
     return {
       navList: [
         {name: '首页', path: '/', prefix: '/', icon: svgIndex},
-        {name: '标签', path: '/tags', prefix: 'tags', icon: svgTag},
+        {name: '标签', path: '/tag', prefix: 'tag', icon: svgTag},
         {name: '归档', path: '/archives', prefix: 'archives', icon: svgArchive},
         {name: '关于', path: '/about', prefix: 'about', icon: svgAbout}
       ],

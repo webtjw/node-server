@@ -61,9 +61,9 @@ export async function getRemoteCat () {
 }
 
 // 获取 db 里面的文章标签
-export async function getRemoteTags () {
+export async function getAllTags () {
   let params = {
-    url: '/article/tags',
+    url: '/article/allTags',
     method: 'GET'
   }
   return connect(params)

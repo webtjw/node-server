@@ -32,6 +32,7 @@ const article = {
       if (saveResult.success) httpKit.setResponse(ctx, {data: {id: id || saveResult.data.insertId}});
     }
   },
+  // home page: description list
   async getIndexArticle (ctx, next) {
     const size = 5;
     const indexResult = await spots.getIndexArticle(size);
@@ -42,6 +43,7 @@ const article = {
       httpKit.setResponse(ctx, {data: indexResult.data});
     }
   },
+  // common: get an article
   async getArticleById (ctx, next) {
     const {id} = ctx.request.body;
 
@@ -51,6 +53,11 @@ const article = {
       article.tags = article.tags.split(',');
       if (articleResult.success) httpKit.setResponse(ctx, {data: article});
     }
+  },
+  // tag's index page: get all tags
+  async getAllTags (ctx, next) {
+    const tagResult = await spots.getAllTags();
+    if (tagResult.success) httpKit.setResponse(ctx, {data: tagResult.data});
   }
 }
 
