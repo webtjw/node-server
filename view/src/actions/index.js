@@ -1,47 +1,5 @@
 import connect from '../toolkits/connect'
 
-// 作为开发者登录
-export async function login (token) {
-  let params = {
-    url: `/api/article/login`,
-    method: 'POST',
-    data: {token}
-  }
-  return connect(params)
-}
-
-// 获取 db 里面的文章分类和标签
-export async function getRemoteTagsCate () {
-  let params = {
-    url: '/api/article/attributes',
-    method: 'POST'
-  }
-  return connect(params)
-}
-
-// 获取特定 id 的文章内容
-export async function getArticleById (id) {
-  if (id !== undefined && typeof id === 'number' && id >= 0) {
-    let params = {
-      url: `/article/detail`,
-      method: 'POST',
-      data: {id}
-    }
-    return connect(params)
-  } else {
-    return false
-  }
-}
-
-// 获取 db 里面的文章分类
-export async function getRemoteCat () {
-  let params = {
-    url: '/api/article/categories',
-    method: 'POST'
-  }
-  return connect(params)
-}
-
 // upload single file synchronously
 export async function uploadFile (file) {
   var formdata = new FormData()
@@ -111,4 +69,35 @@ export async function getArchive (index, size) {
     method: 'POST',
     data: {index, size}
   })
+}
+
+// login page
+export async function login (token) {
+  return connect({
+    url: `/article/login`,
+    method: 'POST',
+    data: {token}
+  })
+}
+
+// check login status
+export async function checkLogin () {
+  return connect({
+    url: `/article/checkLogin`,
+    method: 'POST'
+  })
+}
+
+// article detail
+export async function getArticleById (id) {
+  if (id !== undefined && typeof id === 'number' && id >= 0) {
+    let params = {
+      url: `/article/detail`,
+      method: 'POST',
+      data: {id}
+    }
+    return connect(params)
+  } else {
+    return false
+  }
 }

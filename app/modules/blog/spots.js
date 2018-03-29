@@ -23,6 +23,9 @@ const spots = {
   },
   async getArchive (index, size) {
     return await database.query(`select id,title,tags,time from article order by time desc limit ${size * index},${size * (index + 1)}`);
+  },
+  async checkLogin (token) {
+    return await database.query(`select * from developer where token='${token}'`);
   }
 }
 

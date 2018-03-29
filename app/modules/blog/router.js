@@ -1,12 +1,11 @@
 const queryIndex = require('./queryIndex');
 const queryAttributes = require('./queryAttributes');
-const login = require('./login');
 const queryCategories = require('./queryCategories');
 const queryAllTags = require('./queryAllTags');
 const queryByIndex = require('./queryByIndex');
 const getHistory = require('./getHistory');
 const articleHandle = require('./index');
-const {getEditArticleData, saveArticle, getIndexArticle, getArticleById, getAllTags, getArticleByTag, getArchive} = articleHandle;
+const {getEditArticleData, saveArticle, getIndexArticle, getArticleById, getAllTags, getArticleByTag, getArchive, login, checkLogin} = articleHandle;
 // prefix
 const prefixArticle = path => `/article${path}`;
 // business detail
@@ -19,8 +18,5 @@ module.exports = router => {
   router.post(prefixArticle('/getArticleByTag'), getArticleByTag);
   router.post(prefixArticle('/getArchive'), getArchive);
   router.post(prefixArticle('/login'), login);
-  router.post(prefixArticle('/attributes'), queryAttributes);
-  router.post(prefixArticle('/categories'), queryCategories);
-  router.post(prefixArticle('/queryByIndex'), queryByIndex);
-  router.post(prefixArticle('/getHistory'), getHistory);
+  router.post(prefixArticle('/checkLogin'), checkLogin);
 }

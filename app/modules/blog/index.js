@@ -1,6 +1,8 @@
 const httpKit = require('../../toolkits/httpKit');
+const utils = require('../../toolkits/utils');
 const spots = require('./spots');
 const moment = require('moment');
+const cacheTime = 1000 * 60 * 60 * 24; // one day's time to cache
 
 const article = {
   // edit page: get all data in edit page
@@ -97,6 +99,28 @@ const article = {
         httpKit.setResponse(ctx, {data: groupingData});
       }
     }
+  },
+  // login
+  async login (ctx, next) {
+    const {token} = ctx.request.body
+    if (token) {
+      const result = await spots.checkLogin(token)
+      if (result.success && result.data[0] && result.data[0].name) {
+        ctx.cookies.set('developer', true, {
+          maxAge: cacheTime,
+          httpOnly: true
+        });
+        httpKit.setResponse(ctx, {data: result.data[0].name});
+        return;
+      }
+    }
+
+    httpKit.setResponse({message: 'unmatched token'});
+  },
+  async checkLogin (ctx, next) {
+    const {cookie} = ctx.request.headers
+    const cookieList = utils.parseCookie(cookie);
+    httpKit.setResponse(ctx, {data: {isDeveloper: cookieList.developer === 'true'}});
   }
 }
 

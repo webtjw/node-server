@@ -1,6 +1,9 @@
 <template>
   <div class="p-t-60 m-t-10">
-    <article>
+    <article :class="{relative: isDeveloper}">
+      <div v-if="isDeveloper" class="panel absolute">
+        <router-link :to="`/article/edit/${$route.params.id}`">edit</router-link>
+      </div>
       <!-- 文章标题 -->
       <h2 class="a-c font-20">{{article.title}}</h2>
       <div class="a-c p-v-30 c-gray font-12" flex="dir:left main:center cross:center">
@@ -23,7 +26,7 @@
 <script>
 import '../../assets/images/svg/svg-time.svg'
 import '../../assets/images/svg/svg-tag.svg'
-import {getArticleById} from '@/actions'
+import {getArticleById, checkLogin} from '@/actions'
 
 export default {
   data () {
@@ -33,7 +36,8 @@ export default {
         date: '',
         tags: [],
         content: ''
-      }
+      },
+      isDeveloper: false
     }
   },
   methods: {
@@ -48,6 +52,10 @@ export default {
         this.article.tags = tags
         this.article.content = codeText
       }
+    },
+    async checkDevelopMode () {
+      const result = await checkLogin()
+      if (result && result.isDeveloper) this.isDeveloper = result.isDeveloper
     }
   },
   filters: {
@@ -58,6 +66,7 @@ export default {
   },
   mounted () {
     this.getDetail()
+    this.checkDevelopMode()
   }
 }
 </script>
@@ -68,4 +77,5 @@ export default {
     color: #333;
     &:hover { text-decoration: underline;}
   }
+  .panel { right: 0; top: 0;}
 </style>

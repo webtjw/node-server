@@ -14,52 +14,52 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      label: {type: String, required: true},
-      placeholder: {type: String, required: true},
-      value: String,
-      width: [String, Number],
-      type: String,
-      fullWidth: Boolean,
-      autoFocus: Boolean
+export default {
+  props: {
+    label: {type: String, required: true},
+    placeholder: {type: String, required: true},
+    value: String,
+    width: [String, Number],
+    type: String,
+    fullWidth: Boolean,
+    autoFocus: Boolean
+  },
+  data () {
+    return {
+      inputValue: ''
+    }
+  },
+  computed: {
+    inputWidth () {
+      return this.fullWidth ? '100%' : (this.width ? this.width + 'px' : '')
+    }
+  },
+  watch: {
+    inputValue () {
+      this.$emit('update:value', this.inputValue)
     },
-    data () {
-      return {
-        inputValue: ''
-      }
-    },
-    computed: {
-      inputWidth () {
-        return this.fullWidth ? '100%' : (this.width ? this.width + 'px' : '')
-      }
-    },
-    watch: {
-      inputValue () {
-        this.$emit('update:value', this.inputValue)
-      },
-      value () {
-        this.inputValue = this.value
-      }
-    },
-    methods: {
-      pressEnter (event) {
-        this.$emit('onEnter', event)
-        this.$refs.input.blur()
-        this.inputValue = ''
-        this.$emit('update:value', this.inputValue)
-      }
-    },
-    mounted () {
-      const {autoFocus} = this
+    value () {
+      this.inputValue = this.value
+    }
+  },
+  methods: {
+    pressEnter (event) {
+      this.$emit('onEnter', event)
+      this.$refs.input.blur()
+      this.inputValue = ''
+      this.$emit('update:value', this.inputValue)
+    }
+  },
+  mounted () {
+    const {autoFocus} = this
 
-      if (autoFocus) {
-        setTimeout(() => {
-          this.$refs.input.focus()
-        }, 100)
-      }
+    if (autoFocus) {
+      setTimeout(() => {
+        this.$refs.input.focus()
+      }, 100)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
