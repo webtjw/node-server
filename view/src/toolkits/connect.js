@@ -1,15 +1,11 @@
 import axios from 'axios'
 import Toast from '@/toolkits/Toast'
 
-let envConfig = {
-  baseUrl: 'http://127.0.0.1:3000'
-}
-
 // 创建 json 实例
 let axiosJSON = axios.create({
   responseType: 'json',
   timeout: 60000, // 60s 超时
-  baseURL: envConfig.baseUrl,
+  baseURL: process.env.NODE_ENV !== 'production' ? 'http://127.0.0.1:3000' : '',
   withCredentials: process.env.NODE_ENV !== 'production'
 })
 
