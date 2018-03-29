@@ -1,14 +1,14 @@
 <template>
   <div class="m-v-40">
     <!-- header -->
-    <div flex="dir:left cross:center">
+    <div class="p-h-18" flex="dir:left cross:center">
       <vue-svg icon="svg-tag"></vue-svg>
       <h1 class="font-18 a-r m-l-14">"{{$route.params.type}}"</h1>
     </div>
     <!-- article -->
     <div class="article-list m-v-40 p-t-20">
       <ul>
-        <li v-for="article of articles" :key="article.id" @click="() => $router.push(`/article/detail/${article.id}`)" class="article-item font-16 p-v-18 p-h-20 pointer" flex="dir:left cross:center">
+        <li v-for="article of articles" :key="article.id" @click="() => $router.push(`/article/detail/${article.id}`)" class="article-item font-16 p-18 pointer" flex="dir:left cross:center">
           <div flex-box="0" class="article-title">{{article.title}}</div>
           <div v-if="article.tags.length > 0" class="tag-list font-13 m-l-20" flex-box="1" flex="dir:left cross:center">
             <vue-svg icon="svg-tag" class="svg-14"></vue-svg>
@@ -51,9 +51,8 @@ export default {
 
 <style lang="scss" scoped>
   .article-item {
-    &:nth-child(2n) { background-color: rgb(245, 245, 245);}
     &:hover {
-      background-color: rgb(230, 230, 230);
+      background-color: rgb(240, 240, 240);
       .article-title { text-decoration: underline;}
     }
     .article-title { color: #333; word-spacing: 2px;}

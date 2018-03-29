@@ -7,7 +7,7 @@
         <!-- 标签 -->
         <div class="m-r-30" flex="dir:left cross:center">
           <vue-svg icon="svg-tag" class="svg-16"></vue-svg>
-          <router-link v-for="tag in article.tags" :key="tag" :to="`/tags/${tag}`" class="tag-item m-l-8">{{tag}}</router-link>
+          <router-link v-for="tag in article.tags" :key="tag" :to="`/tag/${tag}`" class="tag-item m-l-8">{{tag}}</router-link>
         </div>
         <!-- 时间 -->
         <div flex="dir:left cross:center">
