@@ -1,7 +1,7 @@
 <template>
   <div id="topbar">
     <div class="wrapper" flex="dir:left">
-      <router-link class="dev-entrance font-15" to="/login">cat's developer</router-link>
+      <router-link class="dev-entrance font-15" :to="isDeveloper ? '/article/edit' : '/login'">develop</router-link>
       <nav flex="dir:left main:right " flex-box="1">
         <router-link class="nav-item p-h-20 p-v-6 font-15" :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)">
           <!-- <vue-svg :icon="nav.icon" class="svg-14 m-r-6"></vue-svg> -->
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import {checkLogin} from '@/actions'
 import svgIndex from '../../../assets/images/svg/svg-index.svg'
 import svgTag from '../../../assets/images/svg/svg-tag.svg'
 import svgArchive from '../../../assets/images/svg/svg-archive.svg'
@@ -27,7 +28,8 @@ export default {
         {name: '归档', path: '/archive', prefix: 'archive', icon: svgArchive},
         {name: '关于', path: '/about', prefix: 'about', icon: svgAbout}
       ],
-      navIndex: 0
+      navIndex: 0,
+      isDeveloper: false
     }
   },
   methods: {
@@ -41,6 +43,10 @@ export default {
           }
         })
       } else this.navIndex = 0
+    },
+    async toShowAddArticle () {
+      const {isDeveloper} = await checkLogin()
+      if (isDeveloper) this.isDeveloper = true
     }
   },
   watch: {
@@ -50,6 +56,7 @@ export default {
   },
   mounted () {
     this.matchNavIndex(this.$route.path)
+    this.toShowAddArticle()
   }
 }
 </script>
