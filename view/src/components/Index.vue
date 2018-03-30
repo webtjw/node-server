@@ -1,5 +1,5 @@
 <template>
-  <div class="p-t-40">
+  <div class="m-v-40">
     <template v-if="articles && articles.length">
       <article v-for="item of articles" :key="item.id" class="index-item p-b-10">
         <!-- title -->
