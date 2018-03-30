@@ -68,3 +68,30 @@ $color_ed: #ededed;
 .border-fff { border: 1px solid #fff;}
 
 .pointer { cursor: pointer;}
+
+// editor global css
+.editor-preview {
+  background-color: #fff;
+  code { font-family: consolas, "Miscrosoft Yahei";}
+  .preview {
+    > p > code { padding: 1px 5px; background-color: #ededed; color: #333; border-radius: 3px; margin: 0 2px;}
+    > pre { background-color: #ededed; color: #333; padding: 4px 10px; margin: 10px 0;}
+  }
+  blockquote {
+    display: inline-block;
+    padding: 20px 40px;
+    margin: 10px 0;
+    background: no-repeat left top url(./assets/images/quote-left.png);
+    background-size: 24px auto;
+  }
+  ul, ul li { list-style-type: disc; list-style-position: inside;}
+  ol, ol li { list-style-type: decimal; list-style-position: inside;}
+  img { display: block; margin: 10px auto;}
+  .article-title { padding-bottom: 10px; margin-bottom: 20px; border-bottom: 1px solid #666; font-size: 28px;}
+  h1 { font-size: 24px;}
+  h2 { font-size: 22px;}
+  h3 { font-size: 20px;}
+  h4 { font-size: 18px;}
+  h5 { font-size: 16px;}
+  h6 { font-size: 14px;}
+}

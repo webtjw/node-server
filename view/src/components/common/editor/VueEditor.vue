@@ -1,5 +1,5 @@
 <template>
-  <div class="v-editor">
+  <div class="v-editor" :class="{fullscreen: isFullscreen}">
     <!-- tools -->
     <div class="tools">
       <!-- tools list -->
@@ -39,7 +39,7 @@
       </div>
     </div>
     <!-- edit area -->
-    <div class="edit-container" ref="edit" :style="{height: editHeight + 'px'}">
+    <div class="edit-container editor-preview" ref="edit" :style="{height: editHeight + 'px'}">
       <textarea class="v-input-feild v-area-item" v-model="inputValue" ref="input" @scroll="sameScroll($event, 'right')" @mouseover="mouseScrollType = 0" spellcheck="false" @select="updateSelection" @click="updateSelection" @keydown="updateSelection"></textarea>
       <div class="preview v-area-item" ref="preview" v-html="compileHTML" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1"></div>
     </div>
@@ -53,6 +53,8 @@ import './importSvg'
 const markdown = new MarkdownIt({
   html: true
 })
+let notFullscreenEditorHeight = 0
+let fullscreenEditorHeight = 0
 
 export default {
   props: {
@@ -65,6 +67,7 @@ export default {
         {icon: 'svg-bold', title: '粗体', method: this.setBold},
         {icon: 'svg-center', title: '居中', method: this.setAlign},
         {icon: 'svg-quote', title: '引用', method: this.setQuote},
+        {icon: 'svg-more', title: '插入预览符', method: this.setMore},
         {icon: 'svg-list', title: '列表', method: this.setList},
         {icon: 'svg-link', title: '插入链接', method: this.setLink},
         {icon: 'svg-image', title: '插入图片', method: () => { this.additionalToolType = 'image' }},
@@ -75,10 +78,11 @@ export default {
       functionalTools: [
         {icon: 'svg-undo', title: '撤销改动', method: null},
         {icon: 'svg-redo', title: '恢复改动', method: null},
-        {icon: 'svg-save', title: '保存', method: this.save},
-        {icon: 'svg-fullscreen', title: '全屏编辑', method: null}
+        {icon: 'svg-fullscreen', title: '全屏编辑', method: this.setFullscreen},
+        {icon: 'svg-save', title: '保存', method: this.save}
       ],
       editHeight: 0,
+      isFullscreen: false,
       inputValue: '',
       mouseScrollType: -1,
       inputSelection: {
@@ -96,7 +100,7 @@ export default {
       const {inputValue} = this
       const articleStructure = preProcess(markdown, inputValue)
       const {title, codeText} = articleStructure
-      const renderString = title || codeText ? `# 标题 - ${articleStructure.title || ''} #\n${articleStructure.body}` : ''
+      const renderString = title || codeText ? `<div class="article-title">${articleStructure.title}</div>\n\n${articleStructure.body}` : ''
       return markdown.render(renderString)
     }
   },
@@ -205,19 +209,36 @@ export default {
       this.inputValue = prev + '` ' + (selected || 'code') + ' `' + next
       this.focusSelection(start + 2, start + (selected.length || 4) + 2)
     },
+    setMore () {
+      const {inputSelection: {prev, selected, next}} = this
+      // this.inputValue = prev + '` ' + (selected || 'code') + ' `' + next
+      // this.focusSelection(start + 2, start + (selected.length || 4) + 2)
+      if (prev) {
+        const isPrevWrap = prev.endsWith('\n')
+        this.inputValue = prev + (isPrevWrap ? '' : '\n') + '<!-- more -->\n' + selected + next
+      }
+    },
     setCodeBlock () {
       const {inputSelection: {start, prev, selected, next}} = this
       const isPrevWrap = prev.endsWith('\n')
       this.inputValue = prev + (isPrevWrap ? '' : '\n') + '``` javascript\n' + (selected || 'code') + '\n```\n' + next
       this.focusSelection(start + 15 + Number(!isPrevWrap), start + (selected.length || 4) + 15 + Number(!isPrevWrap))
     },
+    setFullscreen () {
+      if (this.editHeight === notFullscreenEditorHeight) {
+        this.isFullscreen = true
+        this.editHeight = fullscreenEditorHeight
+      } else {
+        this.isFullscreen = false
+        this.editHeight = notFullscreenEditorHeight
+      }
+    },
     setTable (row, column) {
       row = row || 3
       column = column || 3
-      const {inputSelection: {end, prev, next}} = this
+      const {inputSelection: {end, prev, selected, next}} = this
       const isPrevWrap = prev.endsWith('\n')
-      this.inputValue = prev + (isPrevWrap ? '' : '\n') + `|${' column |'.repeat(row)}\n|${' :- |'.repeat(row)}\n` + `|${' x |'.repeat(row)}\n`.repeat(column) + next
-      this.focusSelection(end + 2 + Number(!isPrevWrap), end + 8 + Number(!isPrevWrap))
+      this.inputValue = prev + (isPrevWrap ? '' : '\n') + `|${' column |'.repeat(row)}\n|${' :- |'.repeat(row)}\n` + `|${' x |'.repeat(row)}\n`.repeat(column) + selected + next
     },
     save () {
       const {inputValue} = this
@@ -231,7 +252,9 @@ export default {
     }
   },
   mounted () {
-    this.editHeight = document.documentElement.clientHeight - this.$refs.edit.offsetTop - 20
+    notFullscreenEditorHeight = document.documentElement.clientHeight - this.$refs.edit.offsetTop - 20
+    this.editHeight = notFullscreenEditorHeight
+    fullscreenEditorHeight = document.documentElement.clientHeight - this.$refs.edit.offsetHeight
   }
 }
 </script>
@@ -240,6 +263,14 @@ export default {
   .v-editor {
     box-shadow: 0 -1px 4px 1px #ddd;
     border-radius: 3px;
+    background-color: #fff;
+    &.fullscreen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
     .tools {
       position: relative;
       padding: 10px 20px;
@@ -275,7 +306,6 @@ export default {
         width: 50%;
         padding: 10px;
         box-sizing: border-box;
-        background-color: #fff;
         overflow-y: auto;
         overflow-x: hidden;
         white-space: normal;
@@ -287,19 +317,6 @@ export default {
         &::-webkit-scrollbar-button { display: none;}
         &::-webkit-scrollbar-thumb { background-color: #aaa;}
       }
-      /deep/ code {
-        font-family: consolas, "Miscrosoft Yahei";
-      }
-      /deep/ blockquote {
-        display: inline-block;
-        padding: 20px 40px;
-        margin: 10px 0;
-        background: no-repeat left top url(../../../assets/images/quote-left.png);
-        background-size: 24px auto;
-      }
-      /deep/ ul, /deep/ ul li { list-style-type: disc; list-style-position: inside;}
-      /deep/ ol, /deep/ ol li { list-style-type: decimal; list-style-position: inside;}
-      /deep/ img { display: block; margin: 10px auto;}
     }
     .v-input-feild {
       width: 100%;
