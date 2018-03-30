@@ -236,7 +236,7 @@ export default {
     setTable (row, column) {
       row = row || 3
       column = column || 3
-      const {inputSelection: {end, prev, selected, next}} = this
+      const {inputSelection: {prev, selected, next}} = this
       const isPrevWrap = prev.endsWith('\n')
       this.inputValue = prev + (isPrevWrap ? '' : '\n') + `|${' column |'.repeat(row)}\n|${' :- |'.repeat(row)}\n` + `|${' x |'.repeat(row)}\n`.repeat(column) + selected + next
     },
