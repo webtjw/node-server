@@ -41,6 +41,7 @@ const article = {
     if (indexResult.success) {
       indexResult.data.forEach(item => {
         item.tags = item.tags.split(',');
+        item.codeText = item.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
       })
       httpKit.setResponse(ctx, {data: indexResult.data});
     }
@@ -53,6 +54,7 @@ const article = {
       const articleResult = await spots.getArticleById(id);
       const article = articleResult.data[0];
       article.tags = article.tags.split(',');
+      article.codeText = article.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
       if (articleResult.success) httpKit.setResponse(ctx, {data: article});
     }
   },
