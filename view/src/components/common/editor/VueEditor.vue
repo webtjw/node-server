@@ -39,7 +39,7 @@
       </div>
     </div>
     <!-- edit area -->
-    <div class="edit-container editor-preview" ref="edit" :style="{height: editHeight + 'px'}">
+    <div class="edit-container markdown-preview" ref="edit" :style="{height: editHeight + 'px'}">
       <textarea class="v-input-feild v-area-item" v-model="inputValue" ref="input" @scroll="sameScroll($event, 'right')" @mouseover="mouseScrollType = 0" spellcheck="false" @select="updateSelection" @click="updateSelection" @keydown="updateSelection"></textarea>
       <div class="preview v-area-item" ref="preview" v-html="compileHTML" @scroll="sameScroll($event, 'left')" @mouseover="mouseScrollType = 1"></div>
     </div>

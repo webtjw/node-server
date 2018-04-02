@@ -18,7 +18,7 @@
           <span>{{article.date}}</span>
         </div>
       </div>
-      <div class="article-content font-15 lh-18 m-t-50 m-b-40" v-html="article.content"></div>
+      <div class="markdown-preview m-t-50 m-b-40" v-html="article.content"></div>
     </article>
   </div>
 </template>
@@ -27,6 +27,7 @@
 import '../../assets/images/svg/svg-time.svg'
 import '../../assets/images/svg/svg-tag.svg'
 import {getArticleById, checkLogin} from '@/actions'
+import markdown from '../article/mdInstance'
 
 export default {
   data () {
@@ -50,7 +51,7 @@ export default {
         this.article.title = title
         this.article.date = time
         this.article.tags = tags
-        this.article.content = codeText
+        this.article.content = markdown.render(codeText)
       }
     },
     async checkDevelopMode () {

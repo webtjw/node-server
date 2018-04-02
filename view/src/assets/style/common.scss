@@ -70,8 +70,9 @@ $color_ed: #ededed;
 .pointer { cursor: pointer;}
 
 // editor global css
-.editor-preview {
+.markdown-preview {
   background-color: #fff;
+  font-size: 16px;
   code { font-family: consolas, "Miscrosoft Yahei";}
   .preview {
     > p > code { padding: 1px 5px; background-color: #ededed; color: #333; border-radius: 3px; margin: 0 2px;}
@@ -94,4 +95,5 @@ $color_ed: #ededed;
   h4 { font-size: 18px;}
   h5 { font-size: 16px;}
   h6 { font-size: 14px;}
+  p { margin-bottom: 8px; text-indent: 2em; line-height: 1.8;}
 }

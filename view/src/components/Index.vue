@@ -9,7 +9,7 @@
         <!-- time -->
         <div class="time font-13 p-t-20 p-b-50 a-c">{{item.time}}</div>
         <!-- description -->
-        <div v-html="compileHTML(item.description || item.codeText)" class="article-body font-16"></div>
+        <div v-html="compileHTML(item.description || item.codeText)" class="markdown-preview"></div>
         <!-- more -->
         <div class="more font-13 a-c pointer m-t-30">
           <router-link :to="`/article/detail/${item.id}`" class="iblock p-v-8 p-h-20">阅读全文</router-link>
@@ -22,10 +22,7 @@
 
 <script>
 import {getIndexArticle} from '@/actions'
-import MarkdownIt from 'markdown-it'
-const markdown = new MarkdownIt({
-  html: true
-})
+import markdown from './article/mdInstance'
 
 export default {
   data () {
@@ -60,6 +57,5 @@ export default {
       background-color: #fff; color: #333; border-radius: 4px; border: 1px solid #666; transition: all .2s;
       &:hover { background-color: #666; color: #fff}
     }
-    .article-body { text-indent: 2em; line-height: 1.6; color: #333;}
   }
 </style>
