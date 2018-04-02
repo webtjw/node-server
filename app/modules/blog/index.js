@@ -28,10 +28,28 @@ const article = {
     const article = ctx.request.body;
     const {id, title, tags, description, codeText} = article;
     article.time = moment().format('YYYY-MM-D'); // formatting as 'yyyy-mm-dd'
+    const tagsRecord = {};
+    let prevTags = {};
 
-    if (title && Array.isArray(tags) && tags.length > 0 && codeText && ((id && /^[0-9]+$/.test(id)) || !id)) {
+    if (title && Array.isArray(tags) && tags.length > 0 && codeText && (id && /^[0-9]+$/.test(id) || !id)) {
+      // update tags table
+      if (id) {
+        const prevArticle = await spots.getArticleById(id);
+        prevTags = prevArticle.success && prevArticle.data[0] ? prevArticle.data[0].tags.split(',') : [];
+        prevTags.forEach(tag => tagsRecord[tag] = -1);
+      }
+
       const saveResult = await spots.saveArticle(article);
-      if (saveResult.success) httpKit.setResponse(ctx, {data: {id: id || saveResult.data.insertId}});
+      if (saveResult.success) {
+        tags.forEach(tag => {
+          if (prevTags[tag]) delete tagsRecord[tag];
+          else tagsRecord[tag] = 1;
+        });
+        for (let tag in tagsRecord) {
+          spots.updateSingleTag(tag, tagsRecord[tag]);
+        }
+      }
+      httpKit.setResponse(ctx, {data: {id: id || saveResult.data.insertId}});
     }
   },
   // home page: description list

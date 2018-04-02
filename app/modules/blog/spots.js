@@ -8,6 +8,19 @@ const spots = {
   async getArticleByTag (tag, pageIndex, size) {
     return await database.query(`select id,title,tags,time from article where tags like '%${tag}%' order by time desc limit ${size * pageIndex},${size * (pageIndex + 1)}`);
   },
+  async updateSingleTag (tag, increase) {
+    const prevTagResult = await database.query(`SELECT * FROM tags WHERE name='${tag}'`);
+    if (prevTagResult.success && prevTagResult.data[0]) {
+      const prevNumber = parseInt(prevTagResult.data[0].number, 10);
+      if ((prevNumber + increase) <= 0) {
+        await database.query(`DELETE FROM tags WHERE name='${tag}'`);
+      }
+      else {
+        await database.query(`UPDATE tags SET number = ${prevNumber} WHERE name='${tag}'`);
+      }
+    }
+    else await database.query(`INSERT INTO tags (name, number) VALUES ('${tag}', ${increase})`);
+  },
   /* article */
   async getArticleById (id) {
     return await database.query(`select * from article where id=${id}`);
