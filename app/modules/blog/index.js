@@ -27,7 +27,7 @@ const article = {
   async saveArticle (ctx, next) {
     const article = ctx.request.body;
     const {id, title, tags, description, codeText} = article;
-    article.time = moment().format('YYYY-MM-D'); // formatting as 'yyyy-mm-dd'
+    article.time = moment().format('YYYY-MM-DD'); // formatting as 'yyyy-mm-dd'
     const tagsRecord = {};
     let prevTags = {};
 
