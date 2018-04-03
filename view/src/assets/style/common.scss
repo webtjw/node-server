@@ -91,7 +91,7 @@ $color_ed: #ededed;
   .article-title { padding-bottom: 10px; margin-bottom: 20px; border-bottom: 1px solid #666; font-size: 28px;}
   @for $i from 1 through 6 {
     h#{$i} {
-      font-size: (26 - $i * 2) * 1px; margin: 24px 0 14px;
+      font-size: (26 - $i * 2) * 1px; margin: 40px 0 14px;
       &:first-child { margin-top: 0;}
     }
   }
