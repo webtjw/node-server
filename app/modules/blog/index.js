@@ -26,8 +26,8 @@ const article = {
   // edit page: save article(including the new and modified)
   async saveArticle (ctx, next) {
     const article = ctx.request.body;
-    const {id, title, tags, description, codeText} = article;
-    article.time = moment().format('YYYY-MM-DD'); // formatting as 'yyyy-mm-dd'
+    const {id, title, tags, description, codeText, time} = article;
+    if (!time) article.time = moment().format('YYYY-MM-DD'); // formatting as 'yyyy-mm-dd'
     const tagsRecord = {};
     let prevTags = {};
 

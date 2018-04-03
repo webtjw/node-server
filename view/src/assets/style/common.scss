@@ -89,11 +89,11 @@ $color_ed: #ededed;
   ol, ol li { list-style-type: decimal; list-style-position: inside;}
   img { display: block; margin: 10px auto;}
   .article-title { padding-bottom: 10px; margin-bottom: 20px; border-bottom: 1px solid #666; font-size: 28px;}
-  h1 { font-size: 24px;}
-  h2 { font-size: 22px;}
-  h3 { font-size: 20px;}
-  h4 { font-size: 18px;}
-  h5 { font-size: 16px;}
-  h6 { font-size: 14px;}
-  p { margin-bottom: 8px; text-indent: 2em; line-height: 1.8;}
+  @for $i from 1 through 6 {
+    h#{$i} {
+      font-size: (26 - $i * 2) * 1px; margin: 24px 0 14px;
+      &:first-child { margin-top: 0;}
+    }
+  }
+  p, div { margin-bottom: 8px; line-height: 1.8;}
 }
