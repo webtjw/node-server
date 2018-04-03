@@ -28,6 +28,7 @@ export default {
         this.$toast.show(`欢迎登入，${result}`)
         setTimeout(() => {
           this.$router.push('/')
+          this.$root.$refs.topbar.jumpPath = '/article/edit'
         }, 1000)
       }
     }

@@ -1,7 +1,7 @@
 <template>
   <div id="topbar">
     <div class="wrapper" flex="dir:left">
-      <router-link class="dev-entrance font-15" :to="isDeveloper ? '/article/edit' : '/login'">develop</router-link>
+      <router-link class="dev-entrance font-15" :to="jumpPath">develop</router-link>
       <nav flex="dir:left main:right " flex-box="1">
         <router-link class="nav-item p-h-20 p-v-6 font-15" :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)">
           <!-- <vue-svg :icon="nav.icon" class="svg-14 m-r-6"></vue-svg> -->
@@ -29,7 +29,7 @@ export default {
         {name: '关于', path: '/about', prefix: 'about', icon: svgAbout}
       ],
       navIndex: 0,
-      isDeveloper: false
+      jumpPath: '/login'
     }
   },
   methods: {
@@ -46,7 +46,7 @@ export default {
     },
     async toShowAddArticle () {
       const {isDeveloper} = await checkLogin()
-      if (isDeveloper) this.isDeveloper = true
+      if (isDeveloper) this.jumpPath = '/article/edit'
     }
   },
   watch: {

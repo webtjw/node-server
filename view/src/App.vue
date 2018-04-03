@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <topbar></topbar>
+    <topbar ref="topbar"></topbar>
     <router-view class="wrapper" />
     <toast></toast>
   </div>
