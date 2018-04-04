@@ -7,7 +7,7 @@
           <router-link :to="`/article/detail/${item.id}`" class="iblock p-h-14 p-v-8">{{item.title}}</router-link>
         </h1>
         <!-- time -->
-        <div class="time font-13 p-t-20 p-b-50 a-c">{{item.time}}</div>
+        <div class="time font-13 p-t-20 p-b-40 a-c">{{item.time}}</div>
         <!-- description -->
         <div v-html="compileHTML(item.description || item.codeText)" class="markdown-preview"></div>
         <!-- more -->
@@ -41,7 +41,6 @@ export default {
   },
   mounted () {
     this.getLatestArticle()
-    // this.$router.getMatchedComponents('/article/add')[0]()
   }
 }
 </script>
