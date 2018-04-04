@@ -5,7 +5,7 @@
         <router-link :to="`/article/edit/${$route.params.id}`">edit</router-link>
       </div>
       <!-- 文章标题 -->
-      <h2 class="a-c font-20">{{article.title}}</h2>
+      <h2 class="a-c font-22">{{article.title}}</h2>
       <div class="a-c p-v-30 c-gray font-12" flex="dir:left main:center cross:center">
         <!-- 标签 -->
         <div class="m-r-30" flex="dir:left cross:center">

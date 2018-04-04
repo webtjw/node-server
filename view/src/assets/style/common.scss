@@ -74,10 +74,8 @@ $color_ed: #ededed;
   background-color: #fff;
   font-size: 15px;
   code { font-family: consolas, "Miscrosoft Yahei";}
-  .preview {
-    > p > code { padding: 1px 5px; background-color: #ededed; color: #333; border-radius: 3px; margin: 0 2px;}
-    > pre { background-color: #ededed; color: #333; padding: 4px 10px; margin: 10px 0;}
-  }
+  p > code { padding: 1px 5px; background-color: #ededed; color: #333; border-radius: 3px; margin: 0 2px;}
+  pre { background-color: #ededed; color: #333; padding: 4px 10px; margin: 10px 0;}
   blockquote {
     display: inline-block;
     padding: 20px 40px;
@@ -95,5 +93,5 @@ $color_ed: #ededed;
       &:first-child { margin-top: 0;}
     }
   }
-  p, div { margin-bottom: 8px; line-height: 1.8;}
+  p, div:not(.v-area-item) { margin-bottom: 8px; line-height: 1.8;}
 }

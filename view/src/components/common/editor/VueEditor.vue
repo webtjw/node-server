@@ -1,7 +1,7 @@
 <template>
   <div class="v-editor" :class="{fullscreen: isFullscreen}">
     <!-- tools -->
-    <div class="tools">
+    <div class="tools" ref="tool">
       <!-- tools list -->
       <div flex="dir:left main:justify cross:center">
         <div class="edit-tools">
@@ -53,8 +53,7 @@ import './importSvg'
 const markdown = new MarkdownIt({
   html: true
 })
-let notFullscreenEditorHeight = 0
-let fullscreenEditorHeight = 0
+let notFullHeight = 0
 
 export default {
   props: {
@@ -225,12 +224,12 @@ export default {
       this.focusSelection(start + 15 + Number(!isPrevWrap), start + (selected.length || 4) + 15 + Number(!isPrevWrap))
     },
     setFullscreen () {
-      if (this.editHeight === notFullscreenEditorHeight) {
-        this.isFullscreen = true
-        this.editHeight = fullscreenEditorHeight
-      } else {
+      if (this.isFullscreen) {
         this.isFullscreen = false
-        this.editHeight = notFullscreenEditorHeight
+        this.editHeight = notFullHeight
+      } else {
+        this.isFullscreen = true
+        this.editHeight = document.documentElement.clientHeight - this.$refs.tool.offsetHeight
       }
     },
     setTable (row, column) {
@@ -252,9 +251,7 @@ export default {
     }
   },
   mounted () {
-    notFullscreenEditorHeight = document.documentElement.clientHeight - this.$refs.edit.offsetTop - 20
-    this.editHeight = notFullscreenEditorHeight
-    fullscreenEditorHeight = document.documentElement.clientHeight - this.$refs.edit.offsetHeight
+    this.editHeight = notFullHeight = document.documentElement.clientHeight - this.$refs.edit.offsetTop - 20
   }
 }
 </script>
