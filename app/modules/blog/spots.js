@@ -27,9 +27,11 @@ const spots = {
   },
   async saveArticle (article) {
     const {id, title, tags, time, description, codeText} = article;
+    const des_decode = description.replace(/'/g, '\\\'');
+    const code_decode = codeText.replace(/'/g, '\\\'');
     // 'id' indicates that this article has existed in the db
-    if (id) return await database.query(`update article set title='${title}',tags='${tags.toString()}',time='${time}',codeText='${codeText}',description='${description}' where id=${id}`);
-    else return await  database.query(`insert into article (title,tags,time,description,codeText) values ('${title}','${tags.toString()}','${time}','${description}','${codeText}')`);
+    if (id) return await database.query(`update article set title='${title}',tags='${tags.toString()}',time='${time}',codeText='${code_decode}',description='${des_decode}' where id=${id}`);
+    else return await  database.query(`insert into article (title,tags,time,description,codeText) values ('${title}','${tags.toString()}','${time}','${des_decode}','${code_decode}')`);
   },
   async getIndexArticle (size) {
     return await database.query(`select id,title,tags,time,description,codeText from article order by time desc limit ${size}`);
