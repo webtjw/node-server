@@ -4,7 +4,7 @@ const Utils = {
   // login
   async isLogin (callback) {
     const isLogin = await checkLogin()
-    callback && callback(isLogin)
+    callback && callback(isLogin && isLogin.isDeveloper)
   }
 }
 

@@ -23,12 +23,13 @@ export default {
       else this.$toast.show('请输入你的登录口令')
     },
     async loginRemote () {
-      let result = await login(this.token)
+      const vm = this
+      let result = await login(vm.token)
       if (result) {
-        this.$toast.show(`欢迎登入，${result}`)
+        vm.$toast.show(`欢迎登入，${result}`)
         setTimeout(() => {
-          this.$router.push('/')
-          this.$root.$refs.topbar.jumpPath = '/article/edit'
+          vm.$parent.$refs.topbar.jumpPath = '/article/edit'
+          vm.$router.push('/')
         }, 1000)
       }
     }

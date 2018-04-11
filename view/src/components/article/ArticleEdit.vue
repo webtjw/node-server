@@ -45,6 +45,7 @@ export default {
         delete article.body
         if (this.time) article.time = this.time
         const result = await saveArticle(article)
+        if (result && result.id) this.$toast.show('保存成功')
         if (id === undefined && result && result.id) this.$router.push(`/article/edit/${result.id}`)
       }
     },

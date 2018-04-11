@@ -21,7 +21,7 @@ let router = new Router({
       name: 'ArticleEdit',
       component: ArticleEdit,
       beforeEnter: (to, from, next) => {
-        Utils.isLogin(isLogin => isLogin && next())
+        Utils.isLogin(isLogin => isLogin ? next() : next('/'))
       }
     },
     {path: '/article/detail/:id', name: 'ArticleDetail', component: ArticleDetail},
