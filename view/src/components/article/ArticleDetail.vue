@@ -1,11 +1,8 @@
 <template>
   <div class="p-v-40">
-    <article :class="{relative: isDeveloper}" class="m-v-40">
-      <div v-if="isDeveloper" class="panel absolute">
-        <router-link :to="`/article/edit/${$route.params.id}`">edit</router-link>
-      </div>
+    <article class="m-v-40">
       <!-- 文章标题 -->
-      <h1 class="font-24">{{article.title}}</h1>
+      <h1 class="font-24">{{article.title}} <router-link v-if="isDeveloper" :to="`/article/edit/${$route.params.id}`">edit</router-link></h1>
       <div class="article-attrs font-13 m-t-30 m-b-40" flex="cross:center">
         <!-- time -->
         <div class="m-r-40">{{article.date}}</div>
@@ -71,11 +68,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  article { border-bottom: 1px dashed #333;}
   .article-attrs { color: #888;}
   .tag-item {
     color: #333;
     &:hover { color: #22af6f; text-decoration: underline;}
   }
-  .panel { right: 0; top: 0;}
 </style>
