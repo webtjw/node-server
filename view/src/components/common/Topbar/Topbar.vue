@@ -1,11 +1,11 @@
 <template>
   <div id="topbar">
-    <div class="wrapper" flex="dir:left">
-      <router-link class="dev-entrance font-15" :to="jumpPath">develop</router-link>
-      <nav flex="dir:left main:right " flex-box="1">
-        <router-link class="nav-item p-h-20 p-v-6 font-15" :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)">
-          <!-- <vue-svg :icon="nav.icon" class="svg-14 m-r-6"></vue-svg> -->
-          {{nav.name}}
+    <div class="wrapper font-15" flex="dir:left">
+      <router-link class="dev-entrance" :to="jumpPath">develop</router-link>
+      <nav flex-box="1" flex="dir:left main:right">
+        <router-link class="nav-item iblock p-h-24 m-h-2 relative" flex="dir:left cross:center"
+         :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)">
+          <span>{{nav.name}}</span>
         </router-link>
       </nav>
     </div>
@@ -67,17 +67,29 @@ export default {
     border-bottom: 1px solid #e6e6e6;
 
     .wrapper {
-      height: 90px;
+      height: 70px;
+
+      nav { height: 100%;}
+
       .nav-item {
         height: 100%;
-        line-height: 82px;
         color: #666;
         cursor: pointer;
         transition: all .3s ease-out;
-        border-top: 4px solid transparent;
-        border-bottom: 4px solid transparent;
-        &:hover, &.selected {
-          color: #000;
+        text-decoration: none;
+        &::before {
+          content: "";
+          display: block;
+          width: 100%;
+          height: 3px;
+          background-color: #22af6f;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          opacity: 0;
+        }
+        &:hover::before, &.selected::before {
+          opacity: 1;
         }
         &.selected {
           border-bottom-color: #666;

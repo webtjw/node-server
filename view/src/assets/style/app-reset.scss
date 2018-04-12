@@ -1,7 +1,10 @@
 // reset
 * { margin: 0; padding: 0; box-sizing: border-box;}
-body, input { font: 300 14px/1.2 'sourcesanspro', 'Helvetica Neue', Arial, sans-serif; color: #333;}
+body, input { font: 300 15px/1.2 "Segoe UI", "Microsoft Jhenghei", "Microsoft Yahei", arial, sans-serif; color: #333;}
 body { background-color: #fff; -webkit-text-size-adjust: none;}
-a { color: #4a74ef; text-decoration: none;}
-h1, h2, h3, h4, h5, h6 { font-weight: 400;}
+a {
+  color: #22af6f; text-decoration: none;
+  &:hover { text-decoration: underline;}
+}
+h1, h2, h3, h4, h5, h6 { font-weight: 300; font-family: "Segoe UI Light", "Segoe UI", "Microsoft Jhenghei", "Microsoft Yahei", arial, sans-serif;}
 ul, li { list-style-type: none;}
