@@ -3,7 +3,7 @@
     <template v-if="articles && articles.length">
       <article v-for="item of articles" :key="item.id" class="index-item p-t-40">
         <!-- title -->
-        <h1><router-link class="font-22" :to="`/article/detail/${item.id}`">{{item.title}}</router-link></h1>
+        <h1><router-link class="font-24" :to="`/article/detail/${item.id}`">{{item.title}}</router-link></h1>
         <!-- time -->
         <div class="attribute font-14 m-t-30 m-b-40"><div>{{item.time}}</div></div>
         <!-- description -->
