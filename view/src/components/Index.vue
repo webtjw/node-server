@@ -5,16 +5,16 @@
         <!-- title -->
         <h1><router-link class="font-24" :to="`/article/detail/${item.id}`">{{item.title}}</router-link></h1>
         <!-- time -->
-        <div class="attribute font-14 m-t-30 m-b-40"><div>{{item.time}}</div></div>
+        <div class="time font-14 m-t-30 m-b-40"><div>{{item.time}}</div></div>
         <!-- description -->
         <div v-html="compileHTML(item.description || item.codeText)" class="markdown-preview"></div>
         <!-- tags -->
-        <div v-if="item.tags && item.tags.length" class="attribute font-14 m-t-30 m-b-40" flex="dir:left cross:center">
+        <div v-if="item.tags && item.tags.length" class="attribute font-14 m-t-40 m-b-20" flex="dir:left cross:center">
           <vue-svg icon="svg-tag" class="svg-14"></vue-svg>
           <router-link v-for="tag of item.tags" :key="tag" :to="`/tag/${tag}`" class="tag-item m-l-10">{{tag}}</router-link>
         </div>
         <!-- more -->
-        <div class="more font-14 a-c pointer m-t-30">
+        <div class="more font-14 a-c">
           <router-link :to="`/article/detail/${item.id}`" class="iblock p-v-8 p-h-20">阅读全文</router-link>
         </div>
       </article>
@@ -55,12 +55,14 @@ export default {
       color: #333;
       &:hover { color: #22af6f;}
     }
-    .attribute-separator { width: 4px; height: 4px; border-radius: 50%; background-color: #e6e6e6;}
-    .attribute, .tag-item { color: #888;}
+    .time { color: #888;}
     .more a {
       background-color: #fff; color: #333; border-radius: 4px; border: 1px solid #666; transition: all .2s;
       &:hover { background-color: #22af6f; color: #fff; text-decoration: none;}
     }
-    .tag-item:hover { color: #22af6f; text-decoration: underline;}
+    .tag-item {
+      color: #444; text-decoration: underline;
+      &:hover { color: #22af6f;}
+    }
   }
 </style>

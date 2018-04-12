@@ -1,7 +1,9 @@
 <template>
   <div id="topbar">
     <div class="wrapper font-15" flex="dir:left">
-      <router-link class="dev-entrance" :to="jumpPath">develop</router-link>
+      <router-link class="develop" :to="jumpPath" flex="cross:center">
+        <img src="../../../assets/images/avatar.jpg" alt="">
+      </router-link>
       <nav flex-box="1" flex="dir:left main:right">
         <router-link class="nav-item iblock p-h-24 m-h-2 relative" flex="dir:left cross:center"
          :class="{selected: index === navIndex}" v-for="(nav, index) in navList" :to="nav.path" :key="nav.name" @click="jump(nav.path, index)">
@@ -98,8 +100,11 @@ export default {
             border: 0;
         }
       }
-      .dev-entrance {
-        color: transparent;
+      .develop {
+        img {
+          width: 54px; height: 54px; border-radius: 50%; transition: all .5s ease-out;
+          &:hover { transform: rotate(360deg);}
+        }
       }
     }
   }
