@@ -307,7 +307,6 @@ export default {
         overflow-x: hidden;
         white-space: normal;
         word-break: break-all;
-        font: 300 14px/1.6 consolas, "Miscrosoft Yahei";
         &.preview { border-left: 1px solid #ededed;}
         &::-webkit-scrollbar { width: 8px;}
         &::-webkit-scrollbar-track { display: none;}
