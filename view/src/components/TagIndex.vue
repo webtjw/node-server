@@ -5,7 +5,7 @@
         <router-link class="m-r-30 iblock"
           v-for="item of tags"
           :key="item.name"
-          :to="`/tag/${item.name}`">{{item.name}}<span class="font-12">{{'(' + item.number + ')'}}</span></router-link>
+          :to="`/tag/${item.name}`">{{item.name}}<span class="font-14">{{'（' + item.number + '）'}}</span></router-link>
       </template>
       <hinter v-else></hinter>
     </div>
