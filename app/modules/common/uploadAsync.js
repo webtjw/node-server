@@ -17,10 +17,13 @@ const uploadAsync = async (ctx, next) => {
   let result = null;
 
   if (files && files.file && files.file.path) result = await handleUpload(files.file.path, files.file.name);
-  else result = utils.getReturn(false, null, 'upload file not found.');
+  else result = 'upload file not found.';
   
-  httpKit.setAllowMethod(ctx, 'POST').setResponseType(ctx, 'json');
-  ctx.response.body = result;
+  httpKit.setResponse(ctx, {
+    allowMethods: 'POST',
+    data: result.success ? result.data : result,
+    message: '上传成功'
+  });
 }
 
 // handler
