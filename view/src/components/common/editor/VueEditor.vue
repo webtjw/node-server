@@ -281,6 +281,7 @@ export default {
       padding: 10px 20px;
       background-color: #fff;
       box-shadow: 0 1px 8px #ddd;
+      z-index: 2;
       .additional-image {
         > div { padding: 10px 0;}
         .image-net { outline: 0; border: 0; border-bottom: 1px solid #bbb; height: 30px;}
