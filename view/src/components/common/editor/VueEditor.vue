@@ -99,7 +99,7 @@ export default {
       const {inputValue} = this
       const articleStructure = preProcess(markdown, inputValue)
       const {title, codeText} = articleStructure
-      const renderString = title || codeText ? `<div class="article-title">${articleStructure.title}</div>\n\n${articleStructure.body}` : ''
+      const renderString = title || codeText ? `<h1 class="article-title">${articleStructure.title}</h1>\n\n${articleStructure.body}` : ''
       return markdown.render(renderString)
     }
   },
