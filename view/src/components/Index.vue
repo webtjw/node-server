@@ -1,5 +1,8 @@
 <template>
   <div class="m-v-40">
+    <hinter :asyncTask="dododo" @asyncReturn="fillData">
+      <div>caonimade goudongxi</div>
+    </hinter>
     <template v-if="articles && articles.length">
       <article v-for="item of articles" :key="item.id" class="index-item p-t-40">
         <!-- title -->
@@ -19,7 +22,6 @@
         </div>
       </article>
     </template>
-    <hinter v-else></hinter>
   </div>
 </template>
 
@@ -40,6 +42,14 @@ export default {
     },
     compileHTML (code) {
       return markdown.render(code)
+    },
+    fillData (data) {
+      console.log(data)
+      console.log(this)
+    },
+    async dododo () {
+      const result = await new Promise(resolve => setTimeout(() => resolve(false), 2000))
+      return result
     }
   },
   mounted () {
