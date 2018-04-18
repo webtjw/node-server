@@ -25,7 +25,7 @@ export default {
       const {$el} = this
       const top = $el.offsetTop
       const clientHeight = document.documentElement.clientHeight
-      $el.style.marginTop = (clientHeight - top) * 0.2 + 'px'
+      $el.style.minHeight = (clientHeight - top) * 0.7 + 'px'
       $el.style.opacity = 1
     },
     async runAsync () {
