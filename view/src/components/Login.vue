@@ -24,9 +24,9 @@ export default {
     },
     async loginRemote () {
       const vm = this
-      let result = await login(vm.token)
-      if (result) {
-        vm.$toast.show(`欢迎登入，${result}`)
+      let {success, data} = await login(vm.token)
+      if (success) {
+        vm.$toast.show(`欢迎登入，${data}`)
         setTimeout(() => {
           vm.$parent.$refs.topbar.jumpPath = '/article/edit'
           vm.$router.push('/')

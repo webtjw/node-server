@@ -34,8 +34,8 @@ export default {
   methods: {
     async loadData (pageIndex = 0) {
       const {type} = this.$route.params
-      const result = await getArticleByTag(type, pageIndex)
-      if (result) this.articles = result
+      const {success, data} = await getArticleByTag(type, pageIndex)
+      if (success && data) this.articles = data
     }
   },
   watch: {

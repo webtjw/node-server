@@ -39,10 +39,10 @@ export default {
   methods: {
     async getDetail () {
       const {id} = this.$route.params
-      const article = await getArticleById(+id)
+      const {success, data} = await getArticleById(+id)
 
-      if (article && article.id) {
-        const {title, time, tags, codeText} = article
+      if (success && data && data.id) {
+        const {title, time, tags, codeText} = data
         this.article.title = title
         this.article.date = time
         this.article.tags = tags
@@ -50,8 +50,8 @@ export default {
       }
     },
     async checkDevelopMode () {
-      const result = await checkLogin()
-      if (result && result.isDeveloper) this.isDeveloper = result.isDeveloper
+      const {success, data: {isDeveloper}} = await checkLogin()
+      if (success && isDeveloper) this.isDeveloper = true
     }
   },
   filters: {
