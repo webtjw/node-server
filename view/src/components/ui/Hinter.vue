@@ -1,10 +1,10 @@
 <template>
   <div class="hinter-container relative" :class="status">
     <div v-if="status === 'loading'" class="loading-animation absolute font-0 a-c">
-      <i class="iblock m-h-4" style="animation-delay: .8s;"></i>
-      <i class="iblock m-h-4" style="animation-delay: .7s;"></i>
-      <i class="iblock m-h-4" style="animation-delay: .6s;"></i>
-      <i class="iblock m-h-4" style="animation-delay: .5s;"></i>
+      <i class="iblock m-h-4" style="animation-delay: .3s;"></i>
+      <i class="iblock m-h-4" style="animation-delay: .2s;"></i>
+      <i class="iblock m-h-4" style="animation-delay: .1s;"></i>
+      <i class="iblock m-h-4" style="animation-delay: 0s;"></i>
     </div>
     <slot></slot>
   </div>
@@ -30,8 +30,12 @@ export default {
     },
     async runAsync () {
       const result = await this.asyncTask()
-      // 根据结果显示当前的状态
-      console.log(result)
+      if (!result.success) {
+        if (result.errorType === 'net') this.status = 'NoNet'
+        else this.status = 'NoData'
+      } else if (Array.isArray(result) && result.length === 0) this.status = 'NoData'
+      else this.status = ''
+      this.$emit('asyncReturn', result)
     }
   },
   mounted () {
@@ -48,7 +52,7 @@ export default {
     min-height: 180px;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: auto 160px;
+    background-size: auto 180px;
     &.loading {
       .loading-animation {
         left: 50%; top: 50%; transform: translate(-50%);
@@ -57,8 +61,6 @@ export default {
     }
     &.NoData { background-image: url(../../assets/images/hint_no_data.jpg)};
     &.NoNet { background-image: url(../../assets/images/hint_no_network.jpg)};
-    &.NoSearch { background-image: url(../../assets/images/hint_no_search.jpg)};
-    &.Wrong { background-image: url(../../assets/images/hint_page_wrong.jpg)};
   }
   @keyframes hinterLoading {
     0% { opacity: 0; transform: translateX(-500%) scale(.4);}
