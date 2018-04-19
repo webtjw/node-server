@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import {checkLogin} from '@/actions'
 import Utils from '../../../toolkits/Utils'
 import svgIndex from '../../../assets/images/svg/svg-index.svg'
 import svgTag from '../../../assets/images/svg/svg-tag.svg'
