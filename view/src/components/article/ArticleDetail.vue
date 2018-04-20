@@ -14,6 +14,8 @@
       </div>
       <!-- article -->
       <div class="markdown-preview" v-html="article.content"></div>
+      <!-- tips -->
+      <div class="m-v-40 p-v-40 a-c font-20">（完）</div>
     </article>
     <!-- comment -->
     <comment></comment>
