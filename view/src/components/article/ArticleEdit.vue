@@ -80,8 +80,9 @@ export default {
       }, 200)
     },
     async fillRemoteData () {
-      const {tags, article} = await getEditArticleData(this.$route.params.id)
-      if (article) {
+      const {success, data} = await getEditArticleData(this.$route.params.id)
+      const {tags, article} = data
+      if (success && article) {
         this.tags = article.tags
         this.time = article.time
         this.$refs.editor.inputValue = article.codeText
