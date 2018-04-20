@@ -6,7 +6,7 @@
       <div class="comment-value p-h-10 p-v-6" contenteditable="true"></div>
       <div class="p-l-30 m-t-20" flex-box="0" flex="dir:left main:right">
         <div class="p-t-4"><input type="text" class="nick-name p-h-10 p-v-2" placeholder="昵称"></div>
-        <div class="p-b-4"><div class="submti iblock p-v-4 p-h-20 pointer font-15 m-l-20">发表</div></div>
+        <div class="p-b-4"><div class="submit iblock p-v-4 p-h-20 pointer font-15 m-l-20">发表</div></div>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@ export default {
     border: none; border-bottom: 1px solid #999; outline: none; width: 140px;
     &:focus { border-bottom-color: #22af6f;}
   }
-  .submti {
+  .submit {
     border: 1px solid #666; border-radius: 3px; background-color: #22af6f; color: #fff;
   }
 }
