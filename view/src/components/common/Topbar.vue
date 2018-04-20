@@ -2,7 +2,7 @@
   <div id="topbar">
     <div class="wrapper font-15" flex="dir:left">
       <router-link class="develop" :to="jumpPath" flex="cross:center">
-        <img src="../../../assets/images/avatar.jpg" alt="">
+        <img src="../../assets/images/avatar.jpg" alt="">
       </router-link>
       <nav flex-box="1" flex="dir:left main:right">
         <router-link class="nav-item iblock p-h-24 m-h-2 relative" flex="dir:left cross:center"
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import Utils from '../../../toolkits/Utils'
-import svgIndex from '../../../assets/images/svg/svg-index.svg'
-import svgTag from '../../../assets/images/svg/svg-tag.svg'
-import svgArchive from '../../../assets/images/svg/svg-archive.svg'
-import svgAbout from '../../../assets/images/svg/svg-about.svg'
+import Utils from '../../toolkits/Utils'
+import svgIndex from '../../assets/images/svg/svg-index.svg'
+import svgTag from '../../assets/images/svg/svg-tag.svg'
+import svgArchive from '../../assets/images/svg/svg-archive.svg'
+import svgAbout from '../../assets/images/svg/svg-about.svg'
 
 export default {
   data () {
