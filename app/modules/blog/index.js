@@ -57,10 +57,15 @@ const article = {
     const size = 5;
     const indexResult = await spots.getIndexArticle(size);
     if (indexResult.success) {
-      indexResult.data.forEach(item => {
+      for (let i = 0, len = indexResult.data.length; i < len; i++) {
+        let item = indexResult.data[i];
         item.tags = item.tags.split(',');
-        item.codeText = item.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
-      })
+        if (item.description && item.description.trim()) delete item.codeText;
+        else item.codeText = item.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
+
+        let timeResult = await spots.getViewNumber(item.id);
+        if (timeResult.success) item.viewNumber = timeResult.data[0].time;
+      }
       httpKit.setResponse(ctx, {data: indexResult.data});
     }
   },
@@ -73,7 +78,16 @@ const article = {
       const article = articleResult.data[0];
       article.tags = article.tags.split(',');
       article.codeText = article.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
-      if (articleResult.success) httpKit.setResponse(ctx, {data: article});
+      if (articleResult.success) {
+        let timeResult = await spots.getViewNumber(id);
+        if (timeResult.success) article.viewNumber = timeResult.data[0].time;
+
+        httpKit.setResponse(ctx, {data: article});
+      }
+      // execute asynchronous task
+      utils.executeAsync(() => {
+        spots.setViewNumber(id, 1);
+      });
     }
   },
   // tag's index page: get all tags

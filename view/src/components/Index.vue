@@ -6,7 +6,13 @@
           <!-- title -->
           <h1><router-link class="font-24" :to="`/article/detail/${item.id}`">{{item.title}}</router-link></h1>
           <!-- time -->
-          <div class="time font-14 m-t-30 m-b-40"><div>{{item.time}}</div></div>
+          <div class="time font-14 m-t-30 m-b-40" flex="cross:center">
+            <div>{{item.time}}</div>
+            <div flex="cross:center" class="m-l-40">
+              <vue-svg icon="svg-eye" class="svg-16"></vue-svg>
+              <span class="m-l-4 font-13">{{item.viewNumber}}</span>
+            </div>
+          </div>
           <!-- description -->
           <div v-html="compileHTML(item.description || item.codeText)" class="markdown-preview"></div>
           <!-- tags -->
@@ -27,6 +33,7 @@
 <script>
 import {getIndexArticle} from '@/actions'
 import markdown from './article/mdInstance'
+import '../assets/images/svg/svg-eye.svg'
 
 export default {
   data () {

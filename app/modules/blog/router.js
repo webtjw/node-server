@@ -1,9 +1,3 @@
-const queryIndex = require('./queryIndex');
-const queryAttributes = require('./queryAttributes');
-const queryCategories = require('./queryCategories');
-const queryAllTags = require('./queryAllTags');
-const queryByIndex = require('./queryByIndex');
-const getHistory = require('./getHistory');
 const articleHandle = require('./index');
 const {getEditArticleData, saveArticle, getIndexArticle, getArticleById, getAllTags, getArticleByTag, getArchive, login, checkLogin} = articleHandle;
 // prefix

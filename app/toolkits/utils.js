@@ -1,11 +1,4 @@
 const utils = {
-  getReturn (ok, data, message) {
-    return {
-      success: !!ok,
-      data: data || null,
-      message: message || ''
-    }
-  },
   parseCookie (string) {
     const returnValue = {};
     
@@ -19,7 +12,10 @@ const utils = {
     }
 
     return returnValue;
+  },
+  executeAsync (func) {
+    setTimeout(func, 0);
   }
-};
+}
 
 module.exports = utils;
