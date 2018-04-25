@@ -34,7 +34,6 @@ export default {
   methods: {
     checkSubmit () {
       const {commentValue, nameValue, checkSql, submit, isSubmitting} = this
-      
       if (isSubmitting) this.$toast.show('正在提交中...')
       else if (!commentValue || !commentValue.trim()) this.$toast.show('请输入评论')
       else if (checkSql(commentValue)) this.$toast.show('评论内容含有程序敏感字符，请检查替换后再评论')

@@ -18,7 +18,6 @@
       <div class="m-v-40 p-v-40 a-c font-20">（完）</div>
     </article>
     <!-- comment -->
-    <comment></comment>
   </div>
 </template>
 
@@ -27,7 +26,7 @@ import '../../assets/images/svg/svg-time.svg'
 import '../../assets/images/svg/svg-tag.svg'
 import {getArticleById, checkLogin} from '@/actions'
 import markdown from '../article/mdInstance'
-import Comment from '../common/comment/Comment'
+// import Comment from '../common/comment/Comment'
 
 export default {
   data () {
@@ -68,8 +67,7 @@ export default {
   mounted () {
     this.getDetail()
     this.checkDevelopMode()
-  },
-  components: {Comment}
+  }
 }
 </script>
 
