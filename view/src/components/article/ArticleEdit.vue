@@ -44,9 +44,11 @@ export default {
         article.tags = this.tags
         delete article.body
         if (this.time) article.time = this.time
-        const result = await saveArticle(article)
-        if (result && result.id) this.$toast.show('保存成功')
-        if (id === undefined && result && result.id) this.$router.push(`/article/edit/${result.id}`)
+        const {success, data} = await saveArticle(article)
+        if (success && data && data.id) {
+          this.$toast.show('保存成功')
+          this.$router.push(`/article/edit/${data.id}`)
+        }
       }
     },
     selectTag (tag, index) {

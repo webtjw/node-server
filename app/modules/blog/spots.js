@@ -47,8 +47,8 @@ const spots = {
   },
   async setViewNumber (id, size = 1) {
     const checkResult = await spots.getViewNumber(id);
-    if (checkResult.data.length) return await database.query(`UPDATE view_number SET time=${checkResult.data[0].time + size} WHERE id=${id}`);
-    else return await database.query(`INSERT INTO view_number (id, time) VALUES (${id, size})`);
+    if (!!checkResult.data.length) return await database.query(`UPDATE view_number SET time=${checkResult.data[0].time + size} WHERE id=${id}`);
+    else return await database.query(`INSERT INTO view_number (id, time) VALUES (${id}, ${size})`);
   }
 }
 

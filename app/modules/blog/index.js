@@ -50,6 +50,8 @@ const article = {
         for (let tag in tagsRecord) {
           spots.updateSingleTag(tag, tagsRecord[tag]);
         }
+        // add row in view_number table
+        !id && await spots.setViewNumber(saveResult.data.insertId, 1);
       }
       httpKit.setResponse(ctx, {data: {id: id || saveResult.data.insertId}});
     }
@@ -66,7 +68,7 @@ const article = {
         else item.codeText = item.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
 
         let timeResult = await spots.getViewNumber(item.id);
-        if (timeResult.success) item.viewNumber = timeResult.data[0].time;
+        if (timeResult.success && timeResult.data && timeResult.data[0]) item.viewNumber = timeResult.data[0].time;
       }
       httpKit.setResponse(ctx, {data: indexResult.data});
     }
