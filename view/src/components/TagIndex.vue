@@ -3,7 +3,7 @@
     <div class="m-v-30 p-h-20 font-16">
       <hinter :asyncTask="fetchData" @asyncReturn="fillData">
         <template v-if="tags && tags.length">
-          <router-link class="m-r-30 iblock"
+          <router-link class="m-r-30 m-b-20 iblock"
             v-for="item of tags"
             :key="item.name"
             :to="`/tag/${item.name}`">{{item.name}}<span class="font-14">{{'（' + item.number + '）'}}</span></router-link>
