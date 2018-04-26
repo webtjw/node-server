@@ -3,6 +3,8 @@ const utils = require('../../toolkits/utils');
 const spots = require('./spots');
 const moment = require('moment');
 const cacheTime = 1000 * 60 * 60 * 24; // one day's time to cache
+const md5 = require('blueimp-md5');
+const encodeKey = '3efd5f16327ea4b31a47';
 
 const article = {
   // edit page: get all data in edit page
@@ -140,10 +142,9 @@ const article = {
     if (token) {
       const result = await spots.checkLogin(token)
       if (result.success && result.data[0] && result.data[0].name) {
-        ctx.cookies.set('developer', true, {
-          maxAge: cacheTime,
-          httpOnly: true
-        });
+        const name = result.data[0].name;
+
+        ctx.cookies.set('loginToken', md5(name, encodeKey), {maxAge: cacheTime, httpOnly: true});
         httpKit.setResponse(ctx, {data: result.data[0].name});
         return;
       }
@@ -152,9 +153,10 @@ const article = {
     httpKit.setResponse({message: 'unmatched token'});
   },
   async checkLogin (ctx, next) {
+    const {name} = ctx.request.body
     const {cookie} = ctx.request.headers
-    const cookieList = utils.parseCookie(cookie);
-    httpKit.setResponse(ctx, {data: {isDeveloper: cookieList.developer === 'true'}});
+    const {loginToken} = utils.parseCookie(cookie);
+    httpKit.setResponse(ctx, {data: name && loginToken && md5(name, encodeKey) === loginToken});
   }
 }
 

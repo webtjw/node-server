@@ -22,9 +22,10 @@
 </template>
 
 <script>
+import Utils from '@/toolkits/Utils'
 import '../../assets/images/svg/svg-time.svg'
 import '../../assets/images/svg/svg-tag.svg'
-import {getArticleById, checkLogin} from '@/actions'
+import {getArticleById} from '@/actions'
 import markdown from '../article/mdInstance'
 // import Comment from '../common/comment/Comment'
 
@@ -54,8 +55,8 @@ export default {
       }
     },
     async checkDevelopMode () {
-      const {success, data: {isDeveloper}} = await checkLogin()
-      if (success && isDeveloper) this.isDeveloper = true
+      const data = await Utils.isLogin()
+      this.isDeveloper = !!data
     }
   },
   filters: {

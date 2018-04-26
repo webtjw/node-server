@@ -81,10 +81,11 @@ export async function login (token) {
 }
 
 // check login status
-export async function checkLogin () {
+export async function checkLogin (name) {
   return connect({
     url: `/article/checkLogin`,
-    method: 'POST'
+    method: 'POST',
+    data: {name}
   })
 }
 
