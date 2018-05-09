@@ -9,9 +9,9 @@ let axiosJSON = axios.create({
   withCredentials: process.env.NODE_ENV !== 'production'
 })
 
-// 处理返回错误
+// 在接收到响应时，对响应做预处理
 axiosJSON.interceptors.response.use(response => {
-  if (response && response.data && response.data.success) return response.data.data || response.data.success
+  if (response && response.data && response.data.success) return response.data
   else {
     Toast.show('请求失败' + (response.data.message ? `，原因：${response.data.message}` : ''))
     return false
@@ -19,8 +19,14 @@ axiosJSON.interceptors.response.use(response => {
 })
 
 let connect = async function (params) {
-  let result = await axiosJSON(params).catch(() => false)
-  // if (!result) Toast.show('请求失败')
+  let result = await axiosJSON(params).catch(() => {
+    Toast.show('网络异常，请检查后重试')
+    return {
+      success: false,
+      errorType: 'net',
+      message: '请求发出失败，请重试'
+    }
+  })
   return result
 }
 

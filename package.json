@@ -9,6 +9,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "blueimp-md5": "^2.10.0",
     "crypto": "^1.0.1",
     "koa": "^2.3.0",
     "koa-body": "^2.5.0",

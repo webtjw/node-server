@@ -14,15 +14,20 @@
       </div>
       <!-- article -->
       <div class="markdown-preview" v-html="article.content"></div>
+      <!-- tips -->
+      <div class="m-v-40 p-v-40 a-c font-20">（完）</div>
     </article>
+    <!-- comment -->
   </div>
 </template>
 
 <script>
+import Utils from '@/toolkits/Utils'
 import '../../assets/images/svg/svg-time.svg'
 import '../../assets/images/svg/svg-tag.svg'
-import {getArticleById, checkLogin} from '@/actions'
+import {getArticleById} from '@/actions'
 import markdown from '../article/mdInstance'
+// import Comment from '../common/comment/Comment'
 
 export default {
   data () {
@@ -39,10 +44,10 @@ export default {
   methods: {
     async getDetail () {
       const {id} = this.$route.params
-      const article = await getArticleById(+id)
+      const {success, data} = await getArticleById(+id)
 
-      if (article && article.id) {
-        const {title, time, tags, codeText} = article
+      if (success && data && data.id) {
+        const {title, time, tags, codeText} = data
         this.article.title = title
         this.article.date = time
         this.article.tags = tags
@@ -50,8 +55,8 @@ export default {
       }
     },
     async checkDevelopMode () {
-      const result = await checkLogin()
-      if (result && result.isDeveloper) this.isDeveloper = result.isDeveloper
+      const data = await Utils.isLogin()
+      this.isDeveloper = !!data
     }
   },
   filters: {

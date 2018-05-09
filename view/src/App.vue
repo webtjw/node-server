@@ -7,11 +7,16 @@
 </template>
 
 <script>
-import Topbar from '@/components/common/topbar/Topbar'
+import Topbar from '@/components/common/Topbar'
 import Toast from '@/components/common/Toast'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      user: null
+    }
+  },
   components: {Topbar, Toast}
 }
 </script>

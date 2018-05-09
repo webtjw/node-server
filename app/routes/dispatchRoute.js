@@ -9,7 +9,7 @@ const dispatchRoute = app => {
   app.use(handle404); // 404 处理
 
   // TODO：错误处理，写在这里可能不合适
-  app.on('error', e => e);
+  app.on('error', e => console.error(e));
 }
 
 module.exports = dispatchRoute;

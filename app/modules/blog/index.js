@@ -3,6 +3,8 @@ const utils = require('../../toolkits/utils');
 const spots = require('./spots');
 const moment = require('moment');
 const cacheTime = 1000 * 60 * 60 * 24; // one day's time to cache
+const md5 = require('blueimp-md5');
+const encodeKey = '3efd5f16327ea4b31a47';
 
 const article = {
   // edit page: get all data in edit page
@@ -48,6 +50,8 @@ const article = {
         for (let tag in tagsRecord) {
           spots.updateSingleTag(tag, tagsRecord[tag]);
         }
+        // add row in view_number table
+        !id && await spots.setViewNumber(saveResult.data.insertId, 1);
       }
       httpKit.setResponse(ctx, {data: {id: id || saveResult.data.insertId}});
     }
@@ -57,10 +61,15 @@ const article = {
     const size = 5;
     const indexResult = await spots.getIndexArticle(size);
     if (indexResult.success) {
-      indexResult.data.forEach(item => {
+      for (let i = 0, len = indexResult.data.length; i < len; i++) {
+        let item = indexResult.data[i];
         item.tags = item.tags.split(',');
-        item.codeText = item.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
-      })
+        if (item.description && item.description.trim()) delete item.codeText;
+        else item.codeText = item.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
+
+        let timeResult = await spots.getViewNumber(item.id);
+        if (timeResult.success && timeResult.data && timeResult.data[0]) item.viewNumber = timeResult.data[0].time;
+      }
       httpKit.setResponse(ctx, {data: indexResult.data});
     }
   },
@@ -73,7 +82,16 @@ const article = {
       const article = articleResult.data[0];
       article.tags = article.tags.split(',');
       article.codeText = article.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
-      if (articleResult.success) httpKit.setResponse(ctx, {data: article});
+      if (articleResult.success) {
+        let timeResult = await spots.getViewNumber(id);
+        if (timeResult.success) article.viewNumber = timeResult.data[0].time;
+
+        httpKit.setResponse(ctx, {data: article});
+      }
+      // execute asynchronous task
+      utils.executeAsync(() => {
+        spots.setViewNumber(id, 1);
+      });
     }
   },
   // tag's index page: get all tags
@@ -126,10 +144,9 @@ const article = {
     if (token) {
       const result = await spots.checkLogin(token)
       if (result.success && result.data[0] && result.data[0].name) {
-        ctx.cookies.set('developer', true, {
-          maxAge: cacheTime,
-          httpOnly: true
-        });
+        const name = result.data[0].name;
+
+        ctx.cookies.set('loginToken', md5(name, encodeKey), {maxAge: cacheTime, httpOnly: true});
         httpKit.setResponse(ctx, {data: result.data[0].name});
         return;
       }
@@ -138,9 +155,10 @@ const article = {
     httpKit.setResponse({message: 'unmatched token'});
   },
   async checkLogin (ctx, next) {
+    const {name} = ctx.request.body
     const {cookie} = ctx.request.headers
-    const cookieList = utils.parseCookie(cookie);
-    httpKit.setResponse(ctx, {data: {isDeveloper: cookieList.developer === 'true'}});
+    const {loginToken} = utils.parseCookie(cookie);
+    httpKit.setResponse(ctx, {data: name && loginToken && md5(name, encodeKey) === loginToken});
   }
 }
 

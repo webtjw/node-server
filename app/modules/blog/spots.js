@@ -41,6 +41,14 @@ const spots = {
   },
   async checkLogin (token) {
     return await database.query(`select * from developer where token='${token}'`);
+  },
+  async getViewNumber (id) {
+    return await database.query(`select * from view_number where id=${id}`);
+  },
+  async setViewNumber (id, size = 1) {
+    const checkResult = await spots.getViewNumber(id);
+    if (!!checkResult.data.length) return await database.query(`UPDATE view_number SET time=${checkResult.data[0].time + size} WHERE id=${id}`);
+    else return await database.query(`INSERT INTO view_number (id, time) VALUES (${id}, ${size})`);
   }
 }
 
