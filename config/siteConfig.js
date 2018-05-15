@@ -5,6 +5,6 @@ const nodeArgs = process.argv.splice(2); // 获取 node app 时是否带有参�
 if (nodeArgs.length === 1 && nodeArgs[0] === '-dev') env_production = false;
 
 module.exports = {
-  port: env_production ? 80 : 3000, // app 监听端口
-  origin: env_production ? 'http://www.webtjw.com' : 'http://127.0.0.1:3000' // 后端源
+  port: env_production ? 80 : 3001, // app 监听端口
+  origin: env_production ? 'http://www.webtjw.com' : `http://127.0.0.1:${3001}` // 后端源
 }

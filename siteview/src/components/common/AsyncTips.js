@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 class AsyncTips extends Component {
   
   async doAsyncAction () {
-    const { action, callback } = this.props;
+    const {action, callback} = this.props;
     if (!action || !callback) throw new ReferenceError('property action or callback is not defined in component AsyncTips');
     else {
       const result = await action();
+      console.log('AsyncTips', result);
       callback(result);
     }
   }
