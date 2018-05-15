@@ -60,6 +60,7 @@ const article = {
   async getIndexArticle (ctx, next) {
     const size = 5;
     const indexResult = await spots.getIndexArticle(size);
+    
     if (indexResult.success) {
       for (let i = 0, len = indexResult.data.length; i < len; i++) {
         let item = indexResult.data[i];

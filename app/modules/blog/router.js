@@ -6,7 +6,7 @@ const prefixArticle = path => `/article${path}`;
 module.exports = router => {
   router.post(prefixArticle('/save'), saveArticle);
   router.post(prefixArticle('/edit'), getEditArticleData);
-  router.post(prefixArticle('/index'), getIndexArticle);
+  router.get(prefixArticle('/index'), getIndexArticle);
   router.post(prefixArticle('/detail'), getArticleById);
   router.get(prefixArticle('/allTags'), getAllTags);
   router.post(prefixArticle('/getArticleByTag'), getArticleByTag);
