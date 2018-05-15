@@ -1,0 +1,22 @@
+body { font: 300 15px/1.2 "Microsoft Yahei", arial, sans-serif;}
+
+/* box */
+.wrapper { width: 900px; margin: 0 auto;}
+
+/* cursor */
+.pointer { cursor: pointer;}
+
+/* text-align */
+.a-r { text-align: right;}.a-c { text-align: center;}.a-l { text-align: left;}
+
+/* font-size */
+.font-0 { font-size: 0;}.font-15 { font-size: 15px;}
+
+/* display */
+.iblock { display: inline-block;}
+
+/* position */
+.relative { position: relative;}.absolute { position: absolute;}
+
+/* color */
+.c-666 { color: #666;}
