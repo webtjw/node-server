@@ -26,3 +26,11 @@ export async function getArticleByTag (tag, pageIndex = 0) {
     })
   }
 }
+
+export async function getArchive (index = 0, size = 20) {
+  return axiosRequest({
+    url: '/article/getArchive',
+    method: 'POST',
+    data: {index, size}
+  })
+}

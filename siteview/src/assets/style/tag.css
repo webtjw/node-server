@@ -3,8 +3,5 @@
 .tag-item .title h1 { margin-left: 18px;}
 .tag-item .tag-list { margin-left: 20px;}
 .tag-item .tag-item { margin-left: 8px;}
-.tag-item .article-item { padding: 18px 0; transition: padding .2s ease;}
-.tag-item .article-item:hover { background-color: #eee; padding: 18px 20px;}
-.tag-item .article-item:hover .article-title { text-decoration: underline; color: #22af6f;}
 .tag-item .tag-another { margin-left: 8px;}
 .tag-item .tag-another:hover { text-decoration: underline; color: #22af6f;}
