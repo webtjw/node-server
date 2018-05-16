@@ -12,3 +12,7 @@ export async function getArticleDetail (id) {
     data: {id}
   }) : null;
 }
+
+export async function getAllTags () {
+  return axiosRequest.get('/article/allTags')
+}

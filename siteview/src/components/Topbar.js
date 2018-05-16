@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import './Topbar.css';
+import '../assets/style/Topbar.css';
 import Avatar from '../assets/images/avatar.jpg';
 
 class Topbar extends Component {

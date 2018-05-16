@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import AsyncTips from './common/AsyncTips';
 import {getHomeArticle} from '../request';
 import {compileMarkdown} from '../utils/article';
-import './Homepage.css';
+import '../assets/style/Homepage.css';
 import svgTag from '../assets/images/svg/svg-tag.svg';
 
 class Homepage extends Component {
