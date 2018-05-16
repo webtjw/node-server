@@ -1,7 +1,8 @@
 .async-loader { opacity: 0; width: 100%; min-height: 180px; background-repeat: no-repeat; background-position: center center; background-size: auto 180px;}
 .async-loader .loading-animation { left: 50%; top: 50%; transform: translate(-50%);}
 .async-loader .loading-animation i { width: 14px; height: 14px; margin: 0 4px; border-radius: 50%/50%; background: #666; opacity: 0; animation: asyncTipsLoading 3s cubic-bezier(0.68, 0.57, 0.55, 0.83) infinite;}
-.async-loader.error { background-image: url(../../assets/images/hint_no_network.jpg);}
+.async-loader.error { background-image: url(../../assets/images/hint_page_wrong.jpg);}
+.async-loader.network { background-image: url(../../assets/images/hint_no_network.jpg);}
 .async-loader.empty { background-image: url(../../assets/images/hint_no_data.jpg);}
 @keyframes asyncTipsLoading {
   0% { opacity: 0; transform: translateX(-500%) scale(.4);}

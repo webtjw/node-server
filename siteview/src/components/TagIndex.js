@@ -22,7 +22,7 @@ class TagIndex extends Component {
 
     return <AsyncTips action={async () => getAllTags()} callback={data => this.loadData(data)}>
       {
-        tags.map(tag => <Link className="tag-index-item iblock font-16" to={`/tag/${tag.name}`} key={tag.id}>{tag.name}<span class="font-14">{`（${tag.number}）`}</span></Link>)
+        tags.map(tag => <Link className="tag-index-item iblock font-16" to={`/tag/${tag.name}`} key={tag.id}>{tag.name}<span className="font-14">{`（${tag.number}）`}</span></Link>)
       }
     </AsyncTips>
   }

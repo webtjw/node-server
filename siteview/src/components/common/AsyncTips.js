@@ -18,17 +18,20 @@ class AsyncTips extends Component {
     rootElement.style.opacity = 1
   }
   async doAsyncAction () {
+    this.state.status !== 'loading' && this.setState({status: 'loading'});
     const {action, callback} = this.props;
     if (!action || !callback) throw new ReferenceError('property action or callback is not defined in component AsyncTips');
     else {
       const result = await action();
-      console.log(result);
-      const {data} = result;
-      if (!data) this.setState({status: 'error'});
-      else if (!data.success || !data.data || (Array.isArray(data.data) && data.data.length === 0)) this.setState({status: 'empty'});
+      if (!result || !result.data) this.setState({status: 'error'});
+      else if (!result.data) this.setState({status: 'network'});
       else {
-        this.setState({status: ''});
-        callback(data.data);
+        const {data} = result;
+        if (!data.success || !data.data || (Array.isArray(data.data) && data.data.length === 0)) this.setState({status: 'empty'});
+        else {
+          this.setState({status: ''});
+          callback(data.data);
+        }
       }
     }
   }
