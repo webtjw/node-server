@@ -1,7 +1,3 @@
 .tag-index-item { margin: 0 30px 20px 0; color: #22af6f;}
 .tag-item .title { padding-bottom: 50px;}
 .tag-item .title h1 { margin-left: 18px;}
-.tag-item .tag-list { margin-left: 20px;}
-.tag-item .tag-item { margin-left: 8px;}
-.tag-item .tag-another { margin-left: 8px;}
-.tag-item .tag-another:hover { text-decoration: underline; color: #22af6f;}

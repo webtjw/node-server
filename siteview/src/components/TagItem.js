@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import AsyncTips from './common/AsyncTips';
 import ArticleSchemaItem from './ArticleSchemaItem';
 import {getArticleByTag} from '../request';
@@ -50,7 +49,7 @@ class TagItem extends Component {
         </div>
         <ul className="article-list">
         {
-          articles.map(article => <ArticleSchemaItem key={article.id} article={article} />)
+          articles.map(article => <ArticleSchemaItem key={article.id} article={article} history={this.props.history} />)
         }
         </ul>
       </div>

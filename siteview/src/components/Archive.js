@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import AsyncTips from './common/AsyncTips';
+import ArticleSchemaItem from './ArticleSchemaItem';
 import {getArchive} from '../request';
 import '../assets/style/archive.css';
-import svgTag from '../assets/images/svg/svg-tag.svg';
 
 export default class Archive extends Component {
   constructor () {
@@ -40,16 +39,7 @@ export default class Archive extends Component {
           <h1 className="title font-20">"{monthItem.title}"</h1>
           <ul>
           {
-            monthItem.data.map(article => <li key={article.id} onClick={() => this.props.history.push(`/article/detail/${article.id}`)} className="article-item font-16 pointer" data-flex="dir:left cross:center">
-              <div data-flex-box="0" className="article-title">{article.title}</div>
-              {
-                article.tags && article.tags.length ? <div className="tag-list font-13" data-flex-box="1" data-flex="dir:left cross:center">
-                  <img src={svgTag} alt="tag" className="svg-14" />
-                  {article.tags.map(tag => <div key={tag} onClick={e => this.goToTag(e, tag)} data-flex-box="0" className="tag-item m-l-8">{tag}</div>)}
-                </div> : null
-              }
-              <span className="time font-13" flex-box="0">{article.time}</span>
-            </li>)
+            monthItem.data.map(article => <ArticleSchemaItem history={this.props.history} article={article} key={article.id} />)
           }
           </ul>
         </div>)
