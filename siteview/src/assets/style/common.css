@@ -1,4 +1,11 @@
+* { box-sizing: border-box;}
 body { font: 300 15px/1.2 "Microsoft Yahei", arial, sans-serif;}
+a { text-decoration: none; color: #666;}
+a:hover { color: #22af6f; text-decoration: underline;}
+#root .main { padding: 40px 0;}
+
+/* header */
+h1, h2, h3, h4, h5, h6 { font-weight: 300; font-family: "Segoe UI", "Microsoft Jhenghei", "Microsoft Yahei", arial, sans-serif;}
 
 /* box */
 .wrapper { width: 900px; margin: 0 auto;}
@@ -10,7 +17,7 @@ body { font: 300 15px/1.2 "Microsoft Yahei", arial, sans-serif;}
 .a-r { text-align: right;}.a-c { text-align: center;}.a-l { text-align: left;}
 
 /* font-size */
-.font-0 { font-size: 0;}.font-15 { font-size: 15px;}
+.font-0 { font-size: 0;}.font-13 { font-size: 13px;}.font-14 { font-size: 14px;}.font-15 { font-size: 15px;}.font-24 { font-size: 24px;}
 
 /* display */
 .iblock { display: inline-block;}
@@ -19,4 +26,7 @@ body { font: 300 15px/1.2 "Microsoft Yahei", arial, sans-serif;}
 .relative { position: relative;}.absolute { position: absolute;}
 
 /* color */
-.c-666 { color: #666;}
+.c-333 { color: #333;}.c-666 { color: #666;}
+
+/* svg size */
+.svg-14 { width: 14px; height: 14px;}.svg-16 { width: 16px; height: 16px;}

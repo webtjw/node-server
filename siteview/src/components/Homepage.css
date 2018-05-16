@@ -1,0 +1,6 @@
+.index-article-item { margin: 40px 0; padding-bottom: 100px;}
+.index-article-item .time { margin: 30px 0 40px;}
+.index-article-item .more a { padding: 8px 20px; background-color: #fff; color: #333; border-radius: 4px; border: 1px solid #666; transition: background-color .2s ease;}
+.index-article-item .more a:hover { background-color: #22af6f; color: #fff; text-decoration: none;}
+.index-article-item .tag-item { margin-left: 10px; text-decoration: underline;}
+.index-article-item .attribute { margin: 40px 0 20px;}

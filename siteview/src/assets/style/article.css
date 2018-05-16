@@ -1,0 +1,14 @@
+.article-compile { background-color: #fff; font-size: 16px; word-break: break-word;}
+.article-compile code, .article-compile pre { font: 14px/1 courier, "Microsoft Yahei"; background-color: #f8f8f8; overflow-x: auto; word-break: break-word;}
+.article-compile p > code, .article-compile li > code { padding: 2px 5px; border-radius: 3px; margin: 0 2px; color: #e96900; white-space: nowrap;}
+.article-compile pre { padding: 4px 10px; margin: 10px 0; line-height: 1.6;}
+.article-compile blockquote { display: inline-block; padding: 20px 40px 0; margin: 10px 0; background: no-repeat left top url(../images/quote-left.png); background-size: 24px auto;}
+.article-compile ul, ul li { list-style-type: disc; list-style-position: inside;}
+.article-compile ol, ol li { list-style-type: decimal; list-style-position: inside;}
+.article-compileimg { display: block; margin: 10px auto;}
+.article-compile .article-title { padding-bottom: 10px; margin-bottom: 20px; border-bottom: 1px solid #666; font-size: 28px;}
+.article-compile h2 { font-size: 22px; margin: 50px 0 20px; padding-left: 10px; border-left: 2px solid #666; position: relative;}
+.article-compile h2:not(:first-of-type)::before { content: ""; position: absolute; left: 0; top: -35px; width: 100%; height: 0; border-top: 1px dotted #888;}
+.article-compile p, .article-compile div:not(.v-area-item), .article-compile ul, .article-compile ol { margin: 15px 0; line-height: 1.6; font-size: 15px; word-break: break-word; word-wrap: break-word;}
+.article-compile ul, .article-compile ol { padding-left: 20px;}
+.article-compile a { text-decoration: underline; color: #22af6f;}
