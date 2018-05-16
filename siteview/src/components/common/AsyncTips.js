@@ -23,7 +23,7 @@ class AsyncTips extends Component {
     if (!action || !callback) throw new ReferenceError('property action or callback is not defined in component AsyncTips');
     else {
       const result = await action();
-      if (!result || !result.data) this.setState({status: 'error'});
+      if (!result) this.setState({status: 'error'});
       else if (!result.data) this.setState({status: 'network'});
       else {
         const {data} = result;
