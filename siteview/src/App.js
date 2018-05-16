@@ -10,6 +10,7 @@ import ArticleDetail from './components/ArticleDetail';
 import TagIndex from './components/TagIndex';
 import TagItem from './components/TagItem';
 import Archive from './components/Archive';
+import About from './components/About';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route exact path="/tag" component={TagIndex} />
           <Route path="/tag/:tag" component={TagItem} />
           <Route path="/archive" component={Archive} />
+          <Route path="/about" component={About} />
         </div>
       </div>
     );
