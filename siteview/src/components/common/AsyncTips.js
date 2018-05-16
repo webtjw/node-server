@@ -21,7 +21,9 @@ class AsyncTips extends Component {
     const {action, callback} = this.props;
     if (!action || !callback) throw new ReferenceError('property action or callback is not defined in component AsyncTips');
     else {
-      const {data} = await action();
+      const result = await action();
+      console.log(result);
+      const {data} = result;
       if (!data) this.setState({status: 'error'});
       else if (!data.success || !data.data || (Array.isArray(data.data) && data.data.length === 0)) this.setState({status: 'empty'});
       else {
@@ -48,7 +50,7 @@ class AsyncTips extends Component {
           <i className="iblock" style={{animationDelay: '0s'}}></i>
         </div> : null
       }
-      {this.props.children}
+      {status === '' ? this.props.children : null}
     </div>
   }
 }

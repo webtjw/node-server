@@ -7,7 +7,7 @@ module.exports = router => {
   router.post(prefixArticle('/save'), saveArticle);
   router.post(prefixArticle('/edit'), getEditArticleData);
   router.get(prefixArticle('/index'), getIndexArticle);
-  router.post(prefixArticle('/detail'), getArticleById);
+  router.post(prefixArticle('/data'), getArticleById);
   router.get(prefixArticle('/allTags'), getAllTags);
   router.post(prefixArticle('/getArticleByTag'), getArticleByTag);
   router.post(prefixArticle('/getArchive'), getArchive);

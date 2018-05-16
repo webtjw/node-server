@@ -6,6 +6,7 @@ import './assets/style/common.css';
 import './assets/style/article.css';
 import Topbar from './components/Topbar';
 import Homepage from './components/Homepage';
+import ArticleDetail from './components/ArticleDetail';
 
 class App extends Component {
   render() {
@@ -13,7 +14,8 @@ class App extends Component {
       <div className="App">
         <Route component={Topbar}></Route>
         <div className="main wrapper">
-          <Route path="/" component={Homepage} />
+          <Route exact path="/" component={Homepage} />
+          <Route path="/article/detail/:id" component={ArticleDetail} />
         </div>
       </div>
     );

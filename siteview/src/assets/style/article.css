@@ -12,3 +12,4 @@
 .article-compile p, .article-compile div:not(.v-area-item), .article-compile ul, .article-compile ol { margin: 15px 0; line-height: 1.6; font-size: 15px; word-break: break-word; word-wrap: break-word;}
 .article-compile ul, .article-compile ol { padding-left: 20px;}
 .article-compile a { text-decoration: underline; color: #22af6f;}
+.article-compile strong { font-weight: 700;}
