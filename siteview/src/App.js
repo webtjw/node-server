@@ -11,6 +11,7 @@ import TagIndex from './components/TagIndex';
 import TagItem from './components/TagItem';
 import Archive from './components/Archive';
 import About from './components/About';
+import Login from './components/Login';
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route path="/tag/:tag" component={TagItem} />
           <Route path="/archive" component={Archive} />
           <Route path="/about" component={About} />
+          <Route path="/login" component={Login} />
         </div>
       </div>
     );
