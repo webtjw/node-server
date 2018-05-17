@@ -1,0 +1,8 @@
+.robin-input { margin: 20px 0 0;}
+.robin-input input, .robin-input .hint-text { padding: 0 10px;}
+.robin-input, .robin-input input{ height: 32px;}
+.robin-input input { width: 100%; height: 100%; border: 0; outline: 0; border-bottom: 1px solid #ddd; background-color: transparent;}
+.robin-input input:focus + .hint-text, .robin-input input.not-empty + .hint-text { font-size: 12px; bottom: 90%;}
+.robin-input input:focus { border-bottom-color: #409eff;}
+.robin-input input:focus + .hint-text { color: #409eff;}
+.robin-input .hint-text { line-height: 32px; left: 0; bottom: 0; z-index: -1; color: #aaa; transition: all .2s linear;}

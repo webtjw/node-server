@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import '../../assets/style/robinInput.css';
 
 class RobinInput extends Component {
   static defaultProps = {
@@ -13,11 +14,17 @@ class RobinInput extends Component {
   }
 
   setWidth (width) {
-    if (typeof width === 'number' && width === width) return `${width}px`;
+    if (parseInt(width, 10) === width) return `${width}px`;
     else if (typeof width === 'string') return width;
   }
   updateValue (e) {
-    console.log(e.target.value)
+    const {value} = e.target;
+    const {valueHandle} = this.props;
+    valueHandle && valueHandle(value);
+  }
+  handleKeypress (e) {
+    const {onEnter} = this.props;
+    e.key === 'Enter' && onEnter && onEnter();
   }
 
   componentDidMount () {
@@ -26,9 +33,9 @@ class RobinInput extends Component {
   render () {
     const {value, label, placeholder, width, type} = this.props;
 
-    return <label className="robin-input iblock m-t-20 font-14 relative" style={{width: this.setWidth(width)}}>
-      <input type={type} value={value} onChange={this.updateValue} className="p-h-10" ref="input" />
-      <div className="hint-text absolute p-h-10">{value ? label : placeholder}</div>
+    return <label className="robin-input iblock font-14 relative" style={{width: this.setWidth(width)}}>
+      <input type={type} value={value} onChange={e => this.updateValue(e)} className={value ? 'not-empty' : ''} ref="input" onKeyPress={e => this.handleKeypress(e)} />
+      <div className="hint-text absolute">{value ? label : placeholder}</div>
     </label>;
   }
 }
@@ -41,7 +48,8 @@ RobinInput.propTypes = {
   type: PropTypes.string,
   fullWidth: PropTypes.bool,
   autoFocus: PropTypes.bool,
-  valueHandle: PropTypes.func.isRequired
+  valueHandle: PropTypes.func.isRequired,
+  onEnter: PropTypes.func
 }
 
 export default RobinInput;
