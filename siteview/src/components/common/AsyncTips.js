@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import './AsyncTips.css';
+import '../../assets/style/AsyncTips.css';
 
 class AsyncTips extends Component {
   constructor () {
