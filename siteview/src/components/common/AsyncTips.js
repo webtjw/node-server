@@ -23,15 +23,13 @@ class AsyncTips extends Component {
     if (!action || !callback) throw new ReferenceError('property action or callback is not defined in component AsyncTips');
     else {
       const result = await action();
-      if (!result) this.setState({status: 'error'});
-      else if (!result.data) this.setState({status: 'network'});
+      if (!result || (result && result.response && result.response.data)) this.setState({status: 'error'});
+      else if (result.request && !result.response) this.setState({status: 'network'});
       else {
-        const {data} = result;
-        if (!data.success || !data.data || (Array.isArray(data.data) && data.data.length === 0)) this.setState({status: 'empty'});
-        else {
-          this.setState({status: ''});
-          callback(data.data);
-        }
+        if (!result.success || !result.data || (Array.isArray(result.data) && result.data.length === 0)) this.setState({status: 'empty'});
+        else this.setState({status: ''});
+        
+        callback(result.data);
       }
     }
   }
