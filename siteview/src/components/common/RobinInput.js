@@ -34,7 +34,7 @@ class RobinInput extends Component {
     const {value, label, placeholder, width, type} = this.props;
 
     return <label className="robin-input iblock font-14 relative" style={{width: this.setWidth(width)}}>
-      <input type={type} value={value} onChange={e => this.updateValue(e)} className={value ? 'not-empty' : ''} ref="input" onKeyPress={e => this.handleKeypress(e)} />
+      <input type={type} value={value} onChange={e => this.updateValue(e)} className={(value ? 'not-empty ' : '') + 'font-14'} ref="input" onKeyPress={e => this.handleKeypress(e)} />
       <div className="hint-text absolute">{value ? label : placeholder}</div>
     </label>;
   }

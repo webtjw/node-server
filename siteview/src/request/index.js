@@ -34,3 +34,11 @@ export async function getArchive (index = 0, size = 20) {
     data: {index, size}
   })
 }
+
+export async function login (token) {
+  return axiosRequest({
+    url: `/article/login`,
+    method: 'POST',
+    data: {token}
+  })
+}

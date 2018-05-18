@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import RobinInput from './common/RobinInput';
+import '../utils/utils';
 import '../assets/style/login.css';
+import utils from '../utils/utils';
 
 class Login extends Component {
   constructor () {
@@ -10,11 +12,12 @@ class Login extends Component {
     }
   }
 
-  checkSubmit () {
+  async checkSubmit () {
     const {token} = this.state;
-    console.log(token);
-    if (token) {
-      
+    if (typeof token === 'string' && token.trim()) {
+      const result = await utils.login(token);
+      if (result && result.success && result.data) alert(`欢迎登入，${result.data}`);
+      else alert(`登入失败`);
     }
   }
 
