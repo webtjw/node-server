@@ -1,0 +1,11 @@
+.side-tip { left: 50%; top: 0; transform: translateX(-50%); z-index: 9;}
+.side-tip .side-tip-item { padding: 12px 24px; margin: 3px 0; background-color: rgba(0, 0, 0, .7); border-radius: 5px; animation: sideTipTopIn .8s ease;}
+
+@keyframes sideTipIn {
+  0% { transform: scale(0); opacity: 0;}
+  100% { transform: scale(1); opacity: 1;}
+}
+@keyframes sideTipOut {
+  0% { transform: scale(1); opacity: 1;}
+  100% { transform: scale(0); opacity: 0;}
+}
