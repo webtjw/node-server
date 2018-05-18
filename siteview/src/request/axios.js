@@ -8,7 +8,6 @@ axiosRequest.interceptors.response.use(response => {
   if (response && response.data) return response.data;
   else return null;
 }, error => {
-  debugger
   return Promise.resolve(error); // component AsyncTips has to receive result even if the request fails.
 });
 
