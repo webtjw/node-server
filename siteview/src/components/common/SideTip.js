@@ -19,7 +19,7 @@ class SideTip extends Component {
   addTip (tip) {
     const {tips} = this.state;
     if (tips.length >= maxTipSize) {
-      this.refs[`tip${tips[maxTipSize - 1].id}`].remove();
+      this.refs[`tip${tips.pop().id}`].remove();
     }
     tip.id = new Date().getTime();
     tips.unshift(tip);
