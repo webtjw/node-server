@@ -5,7 +5,7 @@ import '../../assets/style/sideTip.css';
 
 // settings
 const maxTipSize = 3,
-  delay = 3000,
+  delay = 4000,
   dismissDuration = .4;
 
 class SideTip extends Component {
@@ -57,9 +57,12 @@ class SideTipItem extends Component {
     }
   }
   static propTypes = {
-    type: PropTypes.string,
+    type: PropTypes.oneOf(['success', 'warning', 'error', 'info']),
     text: PropTypes.string.isRequired,
     onRemove: PropTypes.func.isRequired
+  }
+  static defaultProps = {
+    type: 'info'
   }
 
   remove () {
@@ -80,10 +83,11 @@ class SideTipItem extends Component {
     this.cancelTimer();
   }
   render () {
-    const {props: {text}, state: { triggerDismiss}} = this;
+    const {props: {text, type}, state: { triggerDismiss}} = this;
 
-    return <div className={`side-tip-item ${triggerDismiss ? 'dismiss' : ''}`} style={{animationDuration: `${dismissDuration}s`}} data-flex="dir:left cross:center">
-      {text}
+    return <div className={`side-tip-item${triggerDismiss ? ' dismiss' : ''} ${type}`} style={{animationDuration: `${dismissDuration}s`}} data-flex="dir:left cross:center">
+      <div className="icon-type" data-flex-box="0"></div>
+      <div className="content">{text}</div>
     </div>;
   }
 }
