@@ -18,14 +18,12 @@ class Topbar extends Component {
   }
 
   render () {
-    const { navList } = this.state;
+    const {navList} = this.state;
 
     return <div id="topbar">
       <div className="wrapper">
         <div data-flex="dir:left cross:center">
-          <Link to="/login" data-flex-box="0">
-            <img className="avatar pointer" src={Avatar} alt="Robin's avatar" onClick={() => this.props.history.push('/login')}/>
-          </Link>
+          <Link to="/login" data-flex-box="0"><img className="avatar pointer" src={Avatar} alt="Robin's avatar"/></Link>
           <nav className="a-r font-0" data-flex-box="1">
             {
               navList.map(item => <NavLink to={item.path} key={item.path} exact activeClassName="selected" className="nav-item relative c-666 iblock font-15">{item.name}</NavLink>)
