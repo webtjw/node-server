@@ -16,7 +16,10 @@ class Login extends Component {
     const {token} = this.state;
     if (typeof token === 'string' && token.trim()) {
       const result = await utils.login(token);
-      if (result && result.success && result.data) utils.addSideTip({text: `欢迎登入，${result.data}`});
+      if (result && result.success && result.data) {
+        utils.addSideTip({text: `欢迎登入，${result.data}`, type: 'success'});
+        this.props.history.go(-1);
+      }
       else utils.addSideTip({text: '登入失败', type: 'error'});
     } else utils.addSideTip({text: '请输入口令', type: 'error'});
   }
