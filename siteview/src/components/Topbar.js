@@ -14,9 +14,6 @@ class Topbar extends Component {
     ]
   }
   
-  componentDidMount () {
-    console.log(this.props);
-  }
   render () {
     const {props: {developer}, state: {navList}} = this;
 

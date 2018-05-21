@@ -13,6 +13,7 @@ import TagItem from './components/TagItem';
 import Archive from './components/Archive';
 import About from './components/About';
 import Login from './components/Login';
+import ArticleEdit from './components/ArticleEdit';
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
         <Route path="/archive" component={Archive} />
         <Route path="/about" component={About} />
         <Route path="/login" component={Login} />
+        <Route path="/article/edit" component={ArticleEdit} />
       </div>
     </div>;
   }
