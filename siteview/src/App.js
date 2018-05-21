@@ -16,21 +16,19 @@ import Login from './components/Login';
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <SideTip></SideTip>
-        <Topbar></Topbar>
-        <div className="main wrapper">
-          <Route exact path="/" component={Homepage} />
-          <Route path="/article/detail/:id" component={ArticleDetail} />
-          <Route exact path="/tag" component={TagIndex} />
-          <Route path="/tag/:tag" component={TagItem} />
-          <Route path="/archive" component={Archive} />
-          <Route path="/about" component={About} />
-          <Route path="/login" component={Login} />
-        </div>
+    return <div className="App">
+      <SideTip></SideTip>
+      <Topbar></Topbar>
+      <div className="main wrapper">
+        <Route path="/" component={Homepage} exact />
+        <Route path="/article/detail/:id" component={ArticleDetail} />
+        <Route path="/tag" component={TagIndex} exact />
+        <Route path="/tag/:tag" component={TagItem} />
+        <Route path="/archive" component={Archive} />
+        <Route path="/about" component={About} />
+        <Route path="/login" component={Login} />
       </div>
-    );
+    </div>;
   }
 }
 

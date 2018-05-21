@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import RobinInput from './common/RobinInput';
 import utils from '../utils/utils';
 import '../assets/style/login.css';
 
 class Login extends Component {
-  constructor () {
-    super();
-    this.state = {
-      token: ''
-    }
+  state = {
+    token: ''
   }
 
   async checkSubmit () {
@@ -16,13 +14,14 @@ class Login extends Component {
     if (typeof token === 'string' && token.trim()) {
       const result = await utils.login(token);
       if (result && result.success && result.data) {
+        this.props.updateDeveloper(result.data);
         utils.addSideTip({text: `欢迎登入，${result.data}`, type: 'success'});
         this.props.history.go(-1);
       }
       else utils.addSideTip({text: '登入失败', type: 'error'});
     } else utils.addSideTip({text: '请输入口令', type: 'error'});
   }
-
+  
   render () {
     const {token} = this.state;
 
@@ -33,4 +32,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {}
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    updateDeveloper (developer) {
+      dispatch({type: 'UPDATE_USER_INFO', data: developer});
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
