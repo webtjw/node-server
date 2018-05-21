@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import RobinInput from './common/RobinInput';
-import '../utils/utils';
-import '../assets/style/login.css';
 import utils from '../utils/utils';
+import '../assets/style/login.css';
 
 class Login extends Component {
   constructor () {
