@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import AsyncTips from './common/AsyncTips';
 import {getHomeArticle} from '../request';
@@ -47,4 +46,4 @@ class Homepage extends Component {
   }
 }
 
-export default connect()(Homepage);
+export default Homepage;

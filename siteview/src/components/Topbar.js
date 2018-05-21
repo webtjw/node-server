@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {NavLink, Link} from 'react-router-dom';
 import '../assets/style/Topbar.css';
 import Avatar from '../assets/images/avatar.jpg';
 
@@ -35,10 +34,4 @@ class Topbar extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {}
-}
-const mapDispatchToProps = dispatch => {
-  return {}
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Topbar);
+export default Topbar;
