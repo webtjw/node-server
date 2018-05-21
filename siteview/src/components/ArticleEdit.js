@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import utils from '../utils/utils';
 import '../assets/style/articleEdit.css';
 
 class ArticleEdit extends Component {
@@ -10,30 +11,24 @@ class ArticleEdit extends Component {
       {name: 'css'}
     ],
     tags: ['javascript', 'css'],
-    showRemoteTags: false
+    showRemoteTags: false,
+    newTag: ''
   }
 
-  removeTag () {}
-  selectTag () {
-    // const {searchTag, remoteTags, tags, isShowSelect} = this
-    // if (tags.length === 3) alert('为保证文章的倾向准确度，文章标签不能大于3个')
-    // else if (tag && index !== undefined) {
-    //   if (isShowSelect) this.isShowSelect = false
-    //   tags.push(tag.name)
-    //   remoteTags.splice(index, 1)
-    // } else {
-    //   const value = searchTag.replace(/\s/g, '')
-    //   if (value) {
-    //     if (tags.some(item => item === value)) {
-    //       const inRemoteItem = remoteTags.filter(item => item.name === value)
-    //       if (inRemoteItem && inRemoteItem.length === 1) {
-    //         tags.push(inRemoteItem[0])
-    //         remoteTags.splice(remoteTags.indexOf(inRemoteItem[0]), 1)
-    //       }
-    //     } else if (confirm(`确定添加标签 ${value} ？`)) tags.push(value)
-    //     this.searchTag = ''
-    //   }
-    // }
+  removeTag (index) {
+    const {state: {tags}} = this;
+    tags.splice(index, 1);
+    this.setState({tags});
+  }
+  selectTag (tag) {
+    const {state: {tags}} = this;
+    
+    if (tags.length >= 3) utils.addSideTip({text: '为保证文章的倾向准确度，文章标签不能大于3个', type: 'warning'});
+    else {
+      this.hideRemote();
+      tags.push(tag);
+      this.setState({tags});
+    }
   }
   showRemote () {
     this.setState({showRemoteTags: true});
@@ -41,21 +36,39 @@ class ArticleEdit extends Component {
   hideRemote () {
     setTimeout(() => this.setState({showRemoteTags: false}), 200);
   }
+  addNewTag (e) {
+    const {state: {newTag, remoteTags, tags}} = this;
+    console.log(newTag, e.keyCode)
+    if (newTag && e.keyCode === 13) {
+      const confirmAdd = window.confirm(`确定要新增标签${newTag}吗`);
+      if (confirmAdd) {
+        tags.push(newTag);
+        remoteTags.push({name: newTag});
+        this.setState({
+          tags,
+          remoteTags,
+          newTag: ''
+        });
+      }
+    }
+  }
 
   render () {
-    const {state: {remoteTags, tags, showRemoteTags}, removeTag} = this;
+    const {state: {remoteTags, tags, showRemoteTags, newTag}} = this;
 
     return <div className="main-article-edit">
       <div className="tag-box" data-flex="dir:left cross:center">
         <div>选择标签：</div>
         {
-          tags.map((tag, index) => <a href="javascript:void(0)" className="tag-item" key={tag} onClick={() => removeTag(tag, index)}>{tag}</a>)
+          tags.map((tag, index) => <span className="tag-item pointer" key={tag} onClick={() => this.removeTag(index)}>{tag}</span>)
         }
         <div className="tag-add relative">
-          <input type="text" onFocus={() => this.showRemote()} onBlur={() => this.hideRemote()} onKeyDown={selectTag} v-model="searchTag" />
+          <input type="text" onFocus={() => this.showRemote()} onBlur={() => this.hideRemote()} onKeyDown={e => this.addNewTag(e)} value={newTag} onChange={e => this.setState({newTag: e.target.value})} />
           <ul className="select absolute" style={{display: showRemoteTags ? 'block' : 'none'}}>
           {
-            remoteTags.map((tag, index) => <li key={tag.name} className="pointer" onClick={() => this.selectTag(tag, index)}>{tag.name}</li>)
+            remoteTags.map((tag, index) => {
+              return tags.indexOf(tag.name) === -1 ? <li key={tag.name} className="pointer" onClick={() => this.selectTag(tag.name)}>{tag.name}</li> : null;
+            })
           }
           </ul>
         </div>
