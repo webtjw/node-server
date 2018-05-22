@@ -60,6 +60,7 @@ class RobinEditor extends Component {
     selected: '',
     next: ''
   }
+  refUploadInput = React.createRef();
 
   setHeight () {
     const docHeight = document.documentElement.clientHeight;
@@ -133,24 +134,50 @@ class RobinEditor extends Component {
       next: inputValue.slice(end)
     }
   }
-  onFileUpload () {
+  onFileUpload (e) {
     const {props: {onUpload}} = this;
-    const file = this.refs.uploadImageInput.files[0];
+    const file = e.target.files[0];
     const fileType = file.type.split('/');
     if (fileType[0] && fileType[0] === 'image') onUpload && onUpload(file, url => this.addImage(url));
     else utils.addSideTip({text: '上传文件非图片', type: 'error'});
     // hide
     this.setState({additionalToolType: -1});
   }
-  addImage (url) {
-    console.log(url);
+  addImage (path) {
+    if (path) {
+      const {selectState: {start, prev, selected, next}} = this;
+      const isPrevWrap = prev.endsWith('\n');
+      this.updateInputValue((isPrevWrap ? prev : (prev + '\n')) + `![${selected || 'alt'}](${path} "title")\n` + next, start + 2 + Number(!isPrevWrap), start + (selected.length || 3) + 2 + Number(!isPrevWrap));
+    }
+  }
+  confirmAdditionalTool() {
+    const {state: {additionalToolType}} = this;
+
+    if (additionalToolType === 'image') {
+      const image = this.refs.imageFromNet.value;
+      if (image && image.match(/http(s)*:\/\/[\s\S]+\.(jpg|png|jpeg|gif)/)) this.addImage(image);
+    } else if (additionalToolType === 'table') {
+      const {refs: {tableColumnNumber, tableRowNumber}} = this;
+      const row = parseInt(Number(tableRowNumber.value), 10);
+      const column = parseInt(Number(tableColumnNumber.value), 10);
+      this.setTable(row, column);
+    }
+    // hide
+    this.setState({additionalToolType: -1});
+  }
+  setTable (row, column) {
+    row = row || 3;
+    column = column || 3;
+    const {selectState: {prev, selected, next}} = this;
+    const isPrevWrap = prev.endsWith('\n');
+    this.updateInputValue(prev + (isPrevWrap ? '' : '\n') + `|${' column |'.repeat(row)}\n|${' :- |'.repeat(row)}\n` + `|${' x |'.repeat(row)}\n`.repeat(column) + selected + next);
   }
 
   componentDidMount () {
     this.setHeight(true);
   }
   render () {
-    const {state: {editTools, functionalTools, editHeight, isFullscreen, inputValue, additionalToolType}} = this;
+    const {state: {editTools, functionalTools, editHeight, isFullscreen, inputValue, additionalToolType}, refUploadInput} = this;
 
     return <div className={`robin-editor${isFullscreen ? ' fullscreen' : ''}`}>
       {/* toolbar on the top */}
@@ -176,8 +203,8 @@ class RobinEditor extends Component {
             </div>
             <div data-flex="dir:left cross:center">
               <label data-flex-box="0">本地图片：</label>
-              <div className="btn upload-image" onClick={() => this.refs.uploadImageInput.click()}>上传</div>
-              <input type="file" ref="uploadImageInput" onChange={() => this.onFileUpload()} />
+              <div className="btn upload-image" onClick={() => this.refUploadInput.current.click()}>上传</div>
+              <input type="file" ref={refUploadInput} onChange={e => this.onFileUpload(e)} />
             </div>
           </div>
           <div className="additional-table" style={{display: additionalToolType === 'table' ? '' : 'none'}}>
@@ -188,7 +215,7 @@ class RobinEditor extends Component {
           </div>
           <div className="controls" data-flex="dir:left main:center cross:center">
             <div className="btn cancel" onClick={() => this.setState({additionalToolType: -1})}>取消</div>
-            <div className="btn" onClick="confirmAdditionalTool">确认</div>
+            <div className="btn" onClick={() => this.confirmAdditionalTool()}>确认</div>
           </div>
         </div>
       </div>

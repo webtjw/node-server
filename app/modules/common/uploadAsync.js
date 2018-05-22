@@ -40,7 +40,11 @@ const handleUpload = async (pathName, name) => {
     writeStream.end();
   }
 
-  return utils.getReturn(true, `${global.globalConfig.origin}/uploads/${fileName}`, 'upload succeed!');
+  return {
+    success: true,
+    data: `${global.globalConfig.origin}/uploads/${fileName}`,
+    message: '上传成功'
+  }
 }
 
 module.exports = uploadAsync;

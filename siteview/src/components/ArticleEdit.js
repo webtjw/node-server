@@ -58,8 +58,8 @@ class ArticleEdit extends Component {
     }
   }
   async uploadImage (img, callback) {
-    const data = await uploadFile(img);
-    callback && callback(data);
+    const result = await uploadFile(img);
+    callback && callback(result.success ? result.data : false);
   }
 
   render () {
