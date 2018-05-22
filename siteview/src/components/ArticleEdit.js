@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import utils from '../utils/utils';
+import {uploadFile} from '../request';
 import RobinEditor from './common/editor/RobinEditor';
 import '../assets/style/articleEdit.css';
 
@@ -56,6 +57,10 @@ class ArticleEdit extends Component {
       }
     }
   }
+  async uploadImage (img, callback) {
+    const data = await uploadFile(img);
+    callback && callback(data);
+  }
 
   render () {
     const {state: {remoteTags, tags, showRemoteTags, newTag}} = this;
@@ -77,7 +82,7 @@ class ArticleEdit extends Component {
           </ul>
         </div>
       </div>
-      <RobinEditor></RobinEditor>
+      <RobinEditor onUpload={(file, cb) => this.uploadImage(file, cb)}></RobinEditor>
     </div>;
   }
 }

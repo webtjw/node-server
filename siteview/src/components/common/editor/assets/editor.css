@@ -1,3 +1,5 @@
+.robin-editor { background-color: #fff;}
+.robin-editor.fullscreen { position: fixed; left: 0; top: 0; height: 100%; width: 100%;}
 .robin-editor .toolbar { padding: 10px 20px; box-shadow: 0 1px 8px #ddd;}
 .robin-editor .tools-item { width: 18px; height: 18px; vertical-align: middle; margin: 0 4px; padding: 4px; box-sizing: content-box;}
 .robin-editor .edit-and-preview { box-shadow: 0 4px 4px 1px #ddd;}
@@ -7,3 +9,13 @@
 .robin-editor .half::-webkit-scrollbar-track { display: none;}
 .robin-editor .half::-webkit-scrollbar-button { display: none;}
 .robin-editor .half::-webkit-scrollbar-thumb { background-color: #aaa;}
+
+.additional-tool { left: 50%; top: 100%; transform: translate(-50%, 1px); padding: 10px 20px; background-color: #fff; box-shadow: 0 1px 8px #ddd; z-index: 10;}
+.additional-tool .additional-image > div { padding: 10px 0;}
+.additional-tool .additional-image .image-net { outline: 0; border: 0; border-bottom: 1px solid #bbb; height: 30px;}
+.additional-tool .additional-image .upload-image + input { display: none;}
+.additional-tool .additional-table { padding: 10px 20px;}
+.additional-tool .additional-table input { outline: 0; border: 0; border-bottom: 1px solid #bbb; width: 60px; height: 30px; padding: 0 4px;}
+.additional-tool .controls { padding: 14px 0 8px;}
+.additional-tool .btn { padding: 5px 18px; background-color: #666; color: #fff; border-radius: 3px; cursor: pointer; border: 1px solid #666;}
+.additional-tool .btn.cancel { background-color: #fff; color: #666; border-color: #999; margin-right: 10px;}

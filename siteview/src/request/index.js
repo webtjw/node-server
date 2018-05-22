@@ -42,3 +42,15 @@ export async function login (token) {
     data: {token}
   })
 }
+
+export async function uploadFile (file) {
+  const formdata = new FormData()
+  formdata.append('file', file)
+
+  return axiosRequest({
+    url: '/common/upload',
+    method: 'POST',
+    data: formdata,
+    headers: {'Content-Type': 'multipart/form-data'}
+  })
+}
