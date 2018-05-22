@@ -1,0 +1,9 @@
+.robin-editor .toolbar { padding: 10px 20px; box-shadow: 0 1px 8px #ddd;}
+.robin-editor .tools-item { width: 18px; height: 18px; vertical-align: middle; margin: 0 4px; padding: 4px; box-sizing: content-box;}
+.robin-editor .edit-and-preview { box-shadow: 0 4px 4px 1px #ddd;}
+.robin-editor .half { display: inline-block; width: 50%; padding: 10px; height: 100%; overflow-y: auto; overflow-x: hidden; white-space: normal; word-break: break-all; resize: none; border-left: 1px solid #ededed;}
+.robin-editor textarea.half { border: 0; outline: 0; font: 300 15px/1.4 "Microsoft Yahei", arial, sans-serif;}
+.robin-editor .half::-webkit-scrollbar { width: 8px;}
+.robin-editor .half::-webkit-scrollbar-track { display: none;}
+.robin-editor .half::-webkit-scrollbar-button { display: none;}
+.robin-editor .half::-webkit-scrollbar-thumb { background-color: #aaa;}

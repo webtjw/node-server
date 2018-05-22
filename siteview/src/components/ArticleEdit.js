@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import utils from '../utils/utils';
+import RobinEditor from './common/editor/RobinEditor';
 import '../assets/style/articleEdit.css';
 
 class ArticleEdit extends Component {
@@ -38,17 +39,20 @@ class ArticleEdit extends Component {
   }
   addNewTag (e) {
     const {state: {newTag, remoteTags, tags}} = this;
-    console.log(newTag, e.keyCode)
+    
     if (newTag && e.keyCode === 13) {
-      const confirmAdd = window.confirm(`确定要新增标签${newTag}吗`);
-      if (confirmAdd) {
-        tags.push(newTag);
-        remoteTags.push({name: newTag});
-        this.setState({
-          tags,
-          remoteTags,
-          newTag: ''
-        });
+      if (tags.length >= 3) utils.addSideTip({text: '为保证文章的倾向准确度，文章标签不能大于3个', type: 'warning'});
+      else {
+        const confirmAdd = window.confirm(`确定要新增标签 ${newTag} 吗`);
+        if (confirmAdd) {
+          tags.push(newTag);
+          remoteTags.push({name: newTag});
+          this.setState({
+            tags,
+            remoteTags,
+            newTag: ''
+          });
+        }
       }
     }
   }
@@ -73,6 +77,7 @@ class ArticleEdit extends Component {
           </ul>
         </div>
       </div>
+      <RobinEditor></RobinEditor>
     </div>;
   }
 }

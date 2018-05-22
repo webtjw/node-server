@@ -2,7 +2,7 @@
 body { font: 300 15px/1.2 "Microsoft Yahei", arial, sans-serif;}
 a { text-decoration: none; color: #666;}
 a:hover { color: #22af6f; text-decoration: underline;}
-#root .main { padding: 40px 0;}
+#root .main { padding-top: 40px;}
 
 /* header */
 h1, h2, h3, h4, h5, h6 { font-weight: 300; font-family: "Segoe UI", "Microsoft Jhenghei", "Microsoft Yahei", arial, sans-serif;}
