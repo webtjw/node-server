@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
+import {compileMarkdown} from '../../../utils/article';
 import './assets/editor.css';
 import svgTitle from './assets/images/title.svg';
 import svgBold from './assets/images/bold.svg';
@@ -22,6 +22,7 @@ import utils from '../../../utils/utils';
 // settings
 let notFullEditHeight = 0;
 let fullEditHeight = 0;
+const compileDelay = 400;
 
 class RobinEditor extends Component {
   static propTypes = {
@@ -51,7 +52,8 @@ class RobinEditor extends Component {
     isFullscreen: false,
     inputValue: '',
     mouseScrollType: -1,
-    additionalToolType: -1
+    additionalToolType: -1,
+    compileText: ''
   }
   selectState = {
     start: 0,
@@ -61,6 +63,7 @@ class RobinEditor extends Component {
     next: ''
   }
   refUploadInput = React.createRef();
+  compileTimer = null;
 
   setHeight () {
     const docHeight = document.documentElement.clientHeight;
@@ -119,7 +122,22 @@ class RobinEditor extends Component {
         textarea.selectionEnd = focusEnd;
         textarea.focus();
       }
+      this.compileMarkdown(value);
     });
+  }
+  compileMarkdown (md) {
+    const {compileTimer} = this;
+
+    if (!compileTimer) {
+      const compileResult = compileMarkdown(md);
+      console.log(compileResult);
+      this.compileTimer = setTimeout(() => this.setState({compileText: compileResult.__html}), compileDelay);
+    }
+    else {
+      clearTimeout(this.compileTimer);
+      this.compileTimer = null;
+      this.compileMarkdown(md);
+    }
   }
   updateSelection () {
     const {refs: {textarea}, state: {inputValue}} = this;
@@ -177,7 +195,7 @@ class RobinEditor extends Component {
     this.setHeight(true);
   }
   render () {
-    const {state: {editTools, functionalTools, editHeight, isFullscreen, inputValue, additionalToolType}, refUploadInput} = this;
+    const {state: {editTools, functionalTools, editHeight, isFullscreen, inputValue, additionalToolType, compileText}, refUploadInput} = this;
 
     return <div className={`robin-editor${isFullscreen ? ' fullscreen' : ''}`}>
       {/* toolbar on the top */}
@@ -228,7 +246,7 @@ class RobinEditor extends Component {
           onChange={e => this.updateInputValue(e.target.value)}
           onSelect={() => this.updateSelection()}
           onKeyDown={() => this.updateSelection()} />
-        <div className="article-compile half font-15"></div>
+        <div className="article-compile half font-15" dangerouslySetInnerHTML={{__html: compileText}}></div>
       </div>
     </div>;
   }
