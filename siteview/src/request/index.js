@@ -54,3 +54,12 @@ export async function uploadFile (file) {
     headers: {'Content-Type': 'multipart/form-data'}
   })
 }
+
+export async function getEditArticleData (id) {
+  // An non-undefined 'id' corresponds to an existed article
+  return axiosRequest({
+    url: '/article/edit',
+    method: 'POST',
+    data: {id}
+  })
+}

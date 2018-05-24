@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import utils from '../utils/utils';
-import {uploadFile} from '../request';
+import {uploadFile, getEditArticleData} from '../request';
 import RobinEditor from './common/editor/RobinEditor';
 import '../assets/style/articleEdit.css';
 
@@ -61,7 +61,19 @@ class ArticleEdit extends Component {
     const result = await uploadFile(img);
     callback && callback(result.success ? result.data : false);
   }
+  async fillEditArticle () {
+    const {id} = this.props.match.params;
 
+    if (id) {
+      const result = await getEditArticleData(id)
+      if (result && result.success && result.data) this.setState({article: result.data});
+    }
+
+  }
+
+  componentDidMount () {
+    this.fillEditArticle();
+  }
   render () {
     const {state: {remoteTags, tags, showRemoteTags, newTag}} = this;
 

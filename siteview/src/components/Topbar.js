@@ -15,12 +15,12 @@ class Topbar extends Component {
   }
   
   render () {
-    const {props: {developer}, state: {navList}} = this;
+    const {props: {user}, state: {navList}} = this;
 
     return <div id="topbar">
       <div className="wrapper">
         <div data-flex="dir:left cross:center">
-          <Link to={developer ? '/article/edit' : '/login'} data-flex-box="0"><img className="avatar pointer" src={Avatar} alt="Robin's avatar"/></Link>
+          <Link to={user ? '/article/edit' : '/login'} data-flex-box="0"><img className="avatar pointer" src={Avatar} alt="Robin's avatar"/></Link>
           <nav className="a-r font-0" data-flex-box="1">
             {
               navList.map(item => <NavLink to={item.path} key={item.path} exact activeClassName="selected" className="nav-item relative c-666 iblock font-15">{item.name}</NavLink>)
@@ -34,7 +34,7 @@ class Topbar extends Component {
 
 const mapStateToProps = state => {
   return {
-    developer: state.developer
+    user: state.user
   }
 }
 export default connect(mapStateToProps)(Topbar);

@@ -3,17 +3,13 @@ import {Link} from 'react-router-dom';
 import AsyncTips from './common/AsyncTips';
 import {getArticleDetail} from '../request';
 import {compileMarkdown} from '../utils/article';
+import {connect} from 'react-redux';
 import svgTag from '../assets/images/svg/svg-tag.svg';
 import '../assets/style/ArticleDetail.css';
 
 class ArticleDetail extends Component {
-  constructor () {
-    super();
-
-    this.state = {
-      article: {},
-      isDeveloper: false
-    }
+  state = {
+    article: {}
   }
 
   loadData (data) {
@@ -21,12 +17,12 @@ class ArticleDetail extends Component {
   }
 
   render () {
-    const {article, isDeveloper} = this.state;
+    const {state: {article}, props: {user}} = this;
     const {id} = this.props.match.params;
 
     return <AsyncTips action={async () => getArticleDetail(id)} callback={data => this.loadData(data)}>
       <article className="article-detail">
-        <h1 className="font-24">{article.title} {isDeveloper ? <Link to={`/article/edit/${id}`}>edit</Link> : null}</h1>
+        <h1 className="font-24">{article.title} {user ? <Link to={`/article/edit/${id}`}>edit</Link> : null}</h1>
         <div className="article-attrs font-13" data-flex="cross:center">
           <div className="time">{article.time}</div>
           {
@@ -45,4 +41,8 @@ class ArticleDetail extends Component {
   }
 }
 
-export default ArticleDetail;
+const mapStateToProps = state => {
+  const {user} = state;
+  return {user}
+}
+export default connect(mapStateToProps)(ArticleDetail);

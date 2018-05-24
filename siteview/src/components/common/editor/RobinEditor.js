@@ -122,7 +122,7 @@ class RobinEditor extends Component {
         textarea.selectionEnd = focusEnd;
         textarea.focus();
       }
-      this.compileMarkdown(value);
+      this.compileMarkdown(value, 1);
     });
   }
   compileMarkdown (md) {
@@ -130,7 +130,6 @@ class RobinEditor extends Component {
 
     if (!compileTimer) {
       const compileResult = compileMarkdown(md);
-      console.log(compileResult);
       this.compileTimer = setTimeout(() => this.setState({compileText: compileResult.__html}), compileDelay);
     }
     else {

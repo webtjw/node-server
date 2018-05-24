@@ -28,7 +28,7 @@ class App extends Component {
         <Route path="/archive" component={Archive} />
         <Route path="/about" component={About} />
         <Route path="/login" component={Login} />
-        <Route path="/article/edit" component={ArticleEdit} />
+        <Route path="/article/edit/:id?" component={ArticleEdit} />
       </div>
     </div>;
   }
