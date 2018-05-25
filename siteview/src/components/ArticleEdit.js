@@ -6,15 +6,11 @@ import '../assets/style/articleEdit.css';
 
 class ArticleEdit extends Component {
   state = {
-    remoteTags: [
-      {name: 'javascript'},
-      {name: 'vs code'},
-      {name: 'html'},
-      {name: 'css'}
-    ],
-    tags: ['javascript', 'css'],
+    remoteTags: [],
+    tags: [],
     showRemoteTags: false,
-    newTag: ''
+    newTag: '',
+    codeText: ''
   }
 
   removeTag (index) {
@@ -65,8 +61,12 @@ class ArticleEdit extends Component {
     const {id} = this.props.match.params;
 
     if (id) {
-      const result = await getEditArticleData(id)
-      if (result && result.success && result.data) this.setState({article: result.data});
+      const result = await getEditArticleData(id);
+      if (result && result.success && result.data) this.setState({
+        codeText: result.data.article.codeText,
+        tags: result.data.article.tags,
+        remoteTags: result.data.tags
+      });
     }
 
   }
@@ -75,7 +75,7 @@ class ArticleEdit extends Component {
     this.fillEditArticle();
   }
   render () {
-    const {state: {remoteTags, tags, showRemoteTags, newTag}} = this;
+    const {state: {remoteTags, tags, showRemoteTags, newTag, codeText}} = this;
 
     return <div className="main-article-edit">
       <div className="tag-box" data-flex="dir:left cross:center">
@@ -94,7 +94,7 @@ class ArticleEdit extends Component {
           </ul>
         </div>
       </div>
-      <RobinEditor onUpload={(file, cb) => this.uploadImage(file, cb)}></RobinEditor>
+      <RobinEditor onUpload={(file, cb) => this.uploadImage(file, cb)} value={codeText} updateValue={(val, cb)=> this.setState({codeText: val}, () => cb && cb())}></RobinEditor>
     </div>;
   }
 }
