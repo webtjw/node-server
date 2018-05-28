@@ -28,7 +28,8 @@ class RobinEditor extends Component {
   static propTypes = {
     onUpload: PropTypes.func,
     value: PropTypes.string.isRequired,
-    updateValue: PropTypes.func.isRequired
+    updateValue: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired
 
   }
   constructor () {
@@ -52,7 +53,7 @@ class RobinEditor extends Component {
         {icon: svgUndo, title: '撤销改动', method: null},
         {icon: svgRedo, title: '恢复改动', method: null},
         {icon: svgFullscreen, title: '全屏编辑', method: () => this.setHeight()},
-        {icon: svgSave, title: '保存', method: this.save}
+        {icon: svgSave, title: '保存', method: () => this.checkSave()}
       ],
       editHeight: 0,
       isFullscreen: false,
@@ -60,6 +61,7 @@ class RobinEditor extends Component {
       additionalToolType: -1,
       compileText: ''
     }
+
     this.selectState = {
       start: 0,
       end: 0,
@@ -206,7 +208,7 @@ class RobinEditor extends Component {
   synchronizeScroll (e, origin) {
     const {scrollType} = this
     if (scrollType === origin) return null
-    const {target, target: {scrollTop, scrollHeight, clientHeight}} = e
+    const {target: {scrollTop, scrollHeight, clientHeight}} = e
     const synchronizeElement = scrollType ? this.refPreview.current : this.refTextarea.current
     const percentage = (scrollTop / (scrollHeight - clientHeight)).toFixed(2)
     const distance = +(((synchronizeElement.scrollHeight - synchronizeElement.clientHeight) * +percentage).toFixed(0))
@@ -214,6 +216,12 @@ class RobinEditor extends Component {
   }
   synchronizeScrollFrame (e, val) {
     e.scrollTop = val
+  }
+  checkSave () {
+    const {value} = this.props
+    const compile = compileMarkdown(value, 1)
+    delete compile.__html
+    this.props.onSave(compile)
   }
 
   componentDidMount () {

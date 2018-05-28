@@ -63,3 +63,11 @@ export async function getEditArticleData (id) {
     data: {id}
   })
 }
+
+export async function saveArticle (article) {
+  return axiosRequest({
+    url: `/article/save`,
+    method: 'POST',
+    data: article
+  })
+}

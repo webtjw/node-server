@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import utils from '../utils/utils';
-import {uploadFile, getEditArticleData} from '../request';
+import {uploadFile, getEditArticleData, saveArticle} from '../request';
 import RobinEditor from './common/editor/RobinEditor';
 import '../assets/style/articleEdit.css';
 
@@ -10,7 +10,8 @@ class ArticleEdit extends Component {
     tags: [],
     showRemoteTags: false,
     newTag: '',
-    codeText: ''
+    codeText: '',
+    time: ''
   }
 
   removeTag (index) {
@@ -65,10 +66,26 @@ class ArticleEdit extends Component {
       if (result && result.success && result.data) this.setState({
         codeText: result.data.article.codeText,
         tags: result.data.article.tags,
-        remoteTags: result.data.tags
+        remoteTags: result.data.tags,
+        time: result.data.article.time || ''
       });
     }
 
+  }
+  async saveArticle (article) {
+    const {id} = this.props.match.params
+    const {tags, time} = this.state
+
+    if (id) article.id = id
+    if (tags.length > 0 && article.title && article.codeText) {
+      article.tags = tags
+      if (time) article.time = time
+      const {success, data} = await saveArticle(article)
+      if (success && data && data.id) {
+        utils.addSideTip({text: '保存成功', type: 'success'})
+        this.props.history.push(`/article/detail/${data.id}`)
+      }
+    }
   }
 
   componentDidMount () {
@@ -94,7 +111,11 @@ class ArticleEdit extends Component {
           </ul>
         </div>
       </div>
-      <RobinEditor onUpload={(file, cb) => this.uploadImage(file, cb)} value={codeText} updateValue={(val, cb)=> this.setState({codeText: val}, () => cb && cb())}></RobinEditor>
+      <RobinEditor
+        onUpload={(file, cb) => this.uploadImage(file, cb)}
+        value={codeText}
+        updateValue={(val, cb)=> this.setState({codeText: val}, () => cb && cb())}
+        onSave={(d) => this.saveArticle(d)} />
     </div>;
   }
 }
