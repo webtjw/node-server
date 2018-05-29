@@ -148,7 +148,7 @@ const article = {
         const name = result.data[0].name;
 
         ctx.cookies.set('loginToken', md5(name, encodeKey), {maxAge: cacheTime, httpOnly: true});
-        httpKit.setResponse(ctx, {data: result.data[0].name});
+        httpKit.setResponse(ctx, {data: result.data[0].name, credentials: true});
         return;
       }
     }

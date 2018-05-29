@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosRequest = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3001' : ''
+  baseURL: '',
+  withCredentials: true
 });
 
 axiosRequest.interceptors.response.use(response => {
