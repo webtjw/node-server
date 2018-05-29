@@ -4,6 +4,7 @@ const appRouter = require('./appRouter');
 const handle404 = require('./handle404');
 
 const dispatchRoute = app => {
+  app.use(koaStatic(path.resolve(__dirname, '../../siteview/build'))); // 页面
   app.use(koaStatic(path.resolve(__dirname, '../../statics'))); // 静态文件夹
   app.use(appRouter.routes()); // 路由
   app.use(handle404); // 404 处理
