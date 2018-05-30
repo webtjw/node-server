@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {NavLink, Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import '../assets/style/Topbar.css';
-import Avatar from '../assets/images/avatar.jpg';
+import React, {Component} from 'react'
+import {NavLink, Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import '../assets/style/Topbar.css'
+import Avatar from '../assets/images/avatar.jpg'
 
 class Topbar extends Component {
   constructor () {
@@ -19,7 +19,8 @@ class Topbar extends Component {
   }
   
   render () {
-    const {props: {user}, state: {navList}} = this;
+    console.log(this.props.history)
+    const {props: {user}, state: {navList}} = this
 
     return <div id="topbar">
       <div className="wrapper">
@@ -41,4 +42,4 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
-export default connect(mapStateToProps)(Topbar);
+export default connect(mapStateToProps)(Topbar)
