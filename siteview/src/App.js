@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     return <div className="App">
       <SideTip></SideTip>
-      <Topbar></Topbar>
+      <Route path="/" component={Topbar} />
       <div className="main wrapper">
         <Route path="/" component={Homepage} exact />
         <Route path="/article/detail/:id" component={ArticleDetail} />
