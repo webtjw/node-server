@@ -8,11 +8,11 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "development",
       "program": "${workspaceFolder}\\app.js",
-      "args": [
-        "-dev"
-      ]
+      "env": {
+        "NODE_ENV": "development"
+      }
     }
   ]
 }
