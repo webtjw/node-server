@@ -16,5 +16,6 @@ app.use(require('koa-bodyparser')()) // 解析请求体
 dispatchRoute(app)
 
 /* 启动监听 */
-app.listen(config.port)
-console.log(`Server running at port ${config.port}.`)
+const port = 3001
+app.listen(port)
+console.log(`Server running at port ${port}.`)

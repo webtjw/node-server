@@ -1,7 +1,7 @@
 const articleHandle = require('./index');
 const {getEditArticleData, saveArticle, getIndexArticle, getArticleById, getAllTags, getArticleByTag, getArchive, login, checkLogin} = articleHandle;
 // prefix
-const prefixArticle = path => `/sapi/article${path}`;
+const prefixArticle = path => `/blogApi/article${path}`;
 // business detail
 module.exports = router => {
   router.post(prefixArticle('/save'), saveArticle);
