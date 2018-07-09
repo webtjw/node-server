@@ -147,7 +147,7 @@ const article = {
       if (result.success && result.data[0] && result.data[0].name) {
         const name = result.data[0].name;
 
-        ctx.cookies.set('loginToken', md5(name, encodeKey), {maxAge: cacheTime, httpOnly: true});
+        ctx.cookies.set('authentication', md5(name, encodeKey), {maxAge: cacheTime, httpOnly: true});
         httpKit.setResponse(ctx, {data: result.data[0].name, credentials: true});
         return;
       }
@@ -158,8 +158,8 @@ const article = {
   async checkLogin (ctx, next) {
     const {name} = ctx.request.body
     const {cookie} = ctx.request.headers
-    const {loginToken} = utils.parseCookie(cookie);
-    httpKit.setResponse(ctx, {data: name && loginToken && md5(name, encodeKey) === loginToken});
+    const {authentication} = utils.parseCookie(cookie);
+    httpKit.setResponse(ctx, {data: name && authentication && md5(name, encodeKey) === authentication});
   }
 }
 
