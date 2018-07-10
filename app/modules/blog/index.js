@@ -82,7 +82,7 @@ const article = {
       const articleResult = await spots.getArticleById(id);
       const article = articleResult.data[0];
       article.tags = article.tags.split(',');
-      article.codeText = article.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
+      // article.codeText = article.codeText.replace(/^#t\s+([^\n]+)\n*/, '');
       if (articleResult.success) {
         let timeResult = await spots.getViewNumber(id);
         if (timeResult.success) article.viewNumber = timeResult.data[0].time;

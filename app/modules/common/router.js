@@ -3,5 +3,5 @@ const upload = require('./uploadAsync');
 
 module.exports = router => {
   router.options('*', allowCORS);
-  router.post('/common/upload', upload);
+  router.post('/commonApi/upload', upload);
 }

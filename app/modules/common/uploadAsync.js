@@ -31,8 +31,8 @@ const handleUpload = async (pathName, name) => {
   const extension = name.match(/\.[A-z0-9]+$/)[0]; // get the filename extension
   const fileName = name.replace(extension, `_${moment().format('YYYYMMDHHmmss') + extension}`);
   try {
-    let readStream = fs.createReadStream(pathName);
-    var writeStream = fs.createWriteStream(path.join(__dirname, `../../../statics/uploads/${fileName}`));
+    const readStream = fs.createReadStream(pathName);
+    const writeStream = fs.createWriteStream(path.join(__dirname, `../../../statics/uploads/${fileName}`));
     readStream.pipe(writeStream);
     readStream.on('end', () => writeStream.end());
   } catch (e) {
@@ -42,7 +42,7 @@ const handleUpload = async (pathName, name) => {
 
   return {
     success: true,
-    data: `${global.globalConfig.origin}/uploads/${fileName}`,
+    data: `/uploads/${fileName}`,
     message: '上传成功'
   }
 }
