@@ -153,7 +153,7 @@ const article = {
       }
     }
 
-    httpKit.setResponse({message: 'unmatched token'});
+    httpKit.setResponse(ctx, {message: 'unmatched token'});
   },
   async checkLogin (ctx, next) {
     const {name} = ctx.request.body
