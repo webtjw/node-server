@@ -117,25 +117,23 @@ const article = {
       const result = await spots.getArchive(index, size || 20);
 
       if (result.success) {
-        const data = result.data;
-        // recent month / last month / recent year
-        const groupingData = {recentMonth: [], lastMonth: [], recentYear: [], overAYear:[]};
-        const date = new Date();
-        const thisYear = date.getFullYear();
-        const thisMonth = date.getMonth() + 1;
-        const thisDate = date.getDate();
+        const {data} = result;
+        // per month
+        const monthList = []
+        let currentMonth = {month: '', list: []}
         
         data.forEach(item => {
-          item.tags = item.tags.split(',');
-          const [year, month, date] = item.time.split('-');
-          const alomostDistance = thisDate - date + (thisMonth - month) * 30 + (thisYear - year) * 365; // days between today
-          if (alomostDistance <= 30) groupingData.recentMonth.push(item);
-          else if (alomostDistance <= 60) groupingData.lastMonth.push(item);
-          else if (alomostDistance <= 365) groupingData.recentYear.push(item);
-          else groupingData.overAYear.push(item);
-        });
+          item.tags = item.tags.split(',')
 
-        httpKit.setResponse(ctx, {data: groupingData});
+          const itemMonth = item.time.slice(0, item.time.lastIndexOf('-'))
+          if (currentMonth.month === itemMonth) currentMonth.list.push(item)
+          else {
+            currentMonth = {month: itemMonth, list: [item]}
+            monthList.push(currentMonth)
+          }
+        })
+
+        httpKit.setResponse(ctx, {data: monthList})
       }
     }
   },
