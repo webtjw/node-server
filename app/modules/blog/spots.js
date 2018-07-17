@@ -30,7 +30,7 @@ const spots = {
     const des_decode = antecedent.replace(/'/g, '\\\'');
     const code_decode = code.replace(/'/g, '\\\'');
     // 'id' indicates that this article has existed in the db
-    if (id) return await database.query(`update article set title='${title}',tags='${tags.toString()}',time='${time}',codeText='${code_decode}',description='${des_decode}' where id=${id}`);
+    if (id) return await database.query(`update article set title='${title}',tags='${tags.toString()}',codeText='${code_decode}',description='${des_decode}' where id=${id}`);
     else return await  database.query(`insert into article (title,tags,time,description,codeText) values ('${title}','${tags.toString()}','${time}','${des_decode}','${code_decode}')`);
   },
   async getIndexArticle (size) {
