@@ -26,9 +26,9 @@ const spots = {
     return await database.query(`select * from article where id=${id}`);
   },
   async saveArticle (article) {
-    const {id, title, tags, time, description, codeText} = article;
-    const des_decode = description.replace(/'/g, '\\\'');
-    const code_decode = codeText.replace(/'/g, '\\\'');
+    const {id, title, tags, time, antecedent, code} = article;
+    const des_decode = antecedent.replace(/'/g, '\\\'');
+    const code_decode = code.replace(/'/g, '\\\'');
     // 'id' indicates that this article has existed in the db
     if (id) return await database.query(`update article set title='${title}',tags='${tags.toString()}',time='${time}',codeText='${code_decode}',description='${des_decode}' where id=${id}`);
     else return await  database.query(`insert into article (title,tags,time,description,codeText) values ('${title}','${tags.toString()}','${time}','${des_decode}','${code_decode}')`);

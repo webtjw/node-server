@@ -28,12 +28,12 @@ const article = {
   // edit page: save article(including the new and modified)
   async saveArticle (ctx, next) {
     const article = ctx.request.body;
-    const {id, title, tags, description, codeText, time} = article;
-    if (!time) article.time = moment().format('YYYY-MM-DD'); // formatting as 'yyyy-mm-dd'
+    const {id, title, tags, code} = article;
+    if (!id) article.time = moment().format('YYYY-MM-DD'); // formatting as 'yyyy-mm-dd'
     const tagsRecord = {};
     let prevTags = {};
 
-    if (title && Array.isArray(tags) && tags.length > 0 && codeText && (id && /^[0-9]+$/.test(id) || !id)) {
+    if (title && Array.isArray(tags) && tags.length > 0 && code && ((id && /^[0-9]+$/.test(id)) || !id)) {
       // update tags table
       if (id) {
         const prevArticle = await spots.getArticleById(id);
