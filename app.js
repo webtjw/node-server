@@ -6,7 +6,6 @@ const config = require('./app/config')
 
 const app = new Koa() // app 实例
 
-// TODO：埋点+日志处理
 
 /* 封闭的请求解析中间件 */
 app.use(koaBody({multipart: true})) // formdata 文件上传
